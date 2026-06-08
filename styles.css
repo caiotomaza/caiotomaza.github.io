@@ -24,6 +24,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 96px;
+  background: var(--black-ink);
 }
 
 body {
@@ -74,6 +75,7 @@ a {
   border-bottom: 1px solid rgba(40, 51, 48, 0.8);
   background: rgba(14, 20, 17, 0.82);
   backdrop-filter: blur(18px);
+  transition: background-color 240ms ease, box-shadow 240ms ease;
 }
 
 .header-inner {
@@ -1025,6 +1027,88 @@ body.motion-ready [data-animate].is-visible {
   transform: translateY(0);
 }
 
+/* ------------------------------------------------------------------
+   Motion & microinteractions (progressive enhancement)
+   Reveals animate the GPU-composited `translate` + `opacity` (no
+   reflow), leaving `transform` free for hover lifts so the two never
+   fight. Everything is gated behind `.js` / `body.motion-ready`: with
+   JS off or reduced motion, all content renders in its final state.
+------------------------------------------------------------------- */
+
+/* Soft page fade-in on load (revealed by JS, with a no-JS fallback). */
+html.js body {
+  opacity: 0;
+  transition: opacity 480ms ease;
+}
+
+html.js.is-ready body,
+html.reveal-fallback body {
+  opacity: 1;
+}
+
+/* Staggered reveal for hero blocks, cards, list and timeline items. */
+body.motion-ready [data-stagger] > * {
+  opacity: 0;
+  translate: 0 18px;
+  transition:
+    opacity 560ms cubic-bezier(0.16, 0.84, 0.44, 1) var(--reveal-delay, 0ms),
+    translate 560ms cubic-bezier(0.16, 0.84, 0.44, 1) var(--reveal-delay, 0ms),
+    transform 240ms ease,
+    box-shadow 240ms ease,
+    border-color 240ms ease;
+}
+
+body.motion-ready [data-stagger].is-visible > * {
+  opacity: 1;
+  translate: 0 0;
+}
+
+body.motion-ready [data-stagger] > *:nth-child(1) { --reveal-delay: 40ms; }
+body.motion-ready [data-stagger] > *:nth-child(2) { --reveal-delay: 110ms; }
+body.motion-ready [data-stagger] > *:nth-child(3) { --reveal-delay: 180ms; }
+body.motion-ready [data-stagger] > *:nth-child(4) { --reveal-delay: 250ms; }
+body.motion-ready [data-stagger] > *:nth-child(5) { --reveal-delay: 320ms; }
+body.motion-ready [data-stagger] > *:nth-child(6) { --reveal-delay: 390ms; }
+body.motion-ready [data-stagger] > *:nth-child(7) { --reveal-delay: 460ms; }
+body.motion-ready [data-stagger] > *:nth-child(n + 8) { --reveal-delay: 520ms; }
+
+/* Sticky header gains depth once the page is scrolled. */
+.site-header.is-scrolled {
+  background: rgba(14, 20, 17, 0.92);
+  box-shadow: 0 16px 36px -22px rgba(0, 0, 0, 0.75);
+}
+
+/* Project cards lift on hover (transform — independent of the reveal). */
+.project-card {
+  transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 195, 137, 0.4);
+  box-shadow: 0 22px 46px -24px rgba(0, 0, 0, 0.7);
+}
+
+/* Info cards get a subtle hover glow (no transform → no reveal clash). */
+.about-card,
+.skill-card,
+.cert-card,
+.education-card {
+  transition: border-color 240ms ease, box-shadow 240ms ease;
+}
+
+.about-card:hover,
+.skill-card:hover,
+.cert-card:hover,
+.education-card:hover {
+  border-color: rgba(0, 195, 137, 0.26);
+  box-shadow: 0 16px 32px -26px rgba(0, 0, 0, 0.6);
+}
+
+.button-primary:hover {
+  box-shadow: 0 14px 28px -14px rgba(0, 195, 137, 0.65);
+}
+
 @media (max-width: 1040px) {
   .header-inner {
     padding-inline: 32px;
@@ -1255,5 +1339,14 @@ body.motion-ready [data-animate].is-visible {
   [data-animate] {
     opacity: 1;
     transform: none;
+  }
+
+  html.js body {
+    opacity: 1;
+  }
+
+  body.motion-ready [data-stagger] > * {
+    opacity: 1;
+    translate: 0 0;
   }
 }
