@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://caiotomaza.github.io/sitemap.xml

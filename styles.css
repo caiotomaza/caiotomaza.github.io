@@ -375,7 +375,8 @@ h2 .accent {
 .photo-frame::before {
   inset: 12px;
   border: 1px solid rgba(0, 195, 137, 0.22);
-  border-radius: 4px;
+  border-bottom: 0; /* Evita linha horizontal atravessando o cartão da foto. */
+  border-radius: 4px 4px 0 0;
   pointer-events: none;
 }
 
@@ -447,7 +448,8 @@ h2 .accent {
   gap: 2px;
   border: 1px solid var(--line);
   border-radius: 4px;
-  background: rgba(22, 29, 26, 0.94);
+  background: var(--char-coal); /* Opaco: impede que a borda apareça sob o texto. */
+  z-index: 3;
   padding: 13px 14px;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.24);
 }
@@ -1350,3 +1352,42 @@ body.motion-ready [data-stagger] > *:nth-child(n + 8) { --reveal-delay: 520ms; }
     translate: 0 0;
   }
 }
+
+/* Refinamentos incrementais sobre a identidade do portfólio original. */
+.brand-monogram {display:inline-grid;place-items:center;flex:none;width:31px;height:31px;border:1px solid rgba(0,195,137,.38);background:rgba(0,195,137,.085);color:var(--green-400);font:700 12px "Space Grotesk",sans-serif;letter-spacing:-.4px;border-radius:7px}
+.brand .mark-dot,.footer-brand .mark-dot {position:relative;animation:portfolio-pulse 2.8s ease-in-out infinite}
+@keyframes portfolio-pulse {0%,100%{box-shadow:0 0 0 4px rgba(0,195,137,.11),0 0 0 0 rgba(0,195,137,.21)}50%{box-shadow:0 0 0 4px rgba(0,195,137,.18),0 0 0 9px rgba(0,195,137,0)}}
+.brand {gap:9px}.brand-text {white-space:nowrap}
+.alece-mini-label{display:flex;align-items:center;gap:12px;color:var(--green-400);font:600 .73rem "IBM Plex Mono",monospace;letter-spacing:.07em;margin:20px 0 14px}
+.alece-symbol {display:grid;place-items:center;border:1px solid rgba(0,195,137,.34);border-radius:9px;background:rgba(0,195,137,.08);width:39px;height:39px;font:700 21px "Space Grotesk",sans-serif}
+.project-note{color:var(--mute-300);font:.72rem "IBM Plex Mono",monospace}
+.alece-feature{background:radial-gradient(ellipse at 100% 0%,rgba(0,195,137,.14),transparent 60%),linear-gradient(160deg,#182923,#151e1a)}
+.projects-more a + a{margin-left:10px}
+.site-footer{margin-top:40px;border-top:1px solid rgba(0,195,137,.18);background:radial-gradient(ellipse at 6% 0%,rgba(0,195,137,.07),transparent 43%),#0b120f}
+.footer-inner.footer-layout{display:grid;grid-template-columns:1.35fr .8fr 1fr 1.12fr;align-items:start;gap:46px;padding:66px 64px 48px}
+.footer-brand{display:inline-flex;align-items:center;gap:10px;color:var(--paper);font:700 1.11rem "Space Grotesk",sans-serif}
+.footer-brand .mark-dot{margin-left:9px;vertical-align:middle}
+.footer-about p{max-width:270px;color:var(--mute-200);font-size:.91rem;line-height:1.7;margin:19px 0 0}
+.footer-about .footer-location{font:.75rem "IBM Plex Mono",monospace;color:var(--green-400);margin-top:19px}
+.footer-col{display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-width:0}
+.footer-col h3{font:600 .8rem "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--paper);margin:0 0 8px;line-height:1.5}
+.footer-col a{font-size:.9rem;line-height:1.48;color:var(--mute-200);overflow-wrap:anywhere;transition:color .2s ease}
+.footer-col a:hover,.footer-bottom a:hover{color:var(--green-400)}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:18px;border-top:1px solid var(--line);max-width:1052px;margin:auto;padding:21px 0 29px;color:var(--mute-300);font:.72rem "IBM Plex Mono",monospace}
+.footer-bottom a{color:var(--mute-200)}
+@media(max-width:1040px){.footer-inner.footer-layout{grid-template-columns:repeat(2,minmax(0,1fr));gap:38px;padding:54px 32px 40px}.footer-bottom{margin:0 32px}}
+@media(max-width:640px){.brand-text{font-size:.95rem}.header-inner{gap:10px}.footer-inner.footer-layout{grid-template-columns:1fr 1fr;padding:42px 24px;gap:36px 18px}.footer-about{grid-column:1/-1}.footer-contact{grid-column:1/-1}.footer-bottom{margin:0 24px;display:grid;gap:8px;padding-bottom:28px}.projects-more a + a{display:block;margin:8px 0 0}}
+@media(prefers-reduced-motion:reduce){.brand .mark-dot,.footer-brand .mark-dot{animation:none}}
+
+/* ALECE: espaço reservado para dois destinos independentes. */
+.project-link.is-disabled,
+.project-link.is-disabled:hover {
+  color: var(--mute-300);
+  background: rgba(255,255,255,.025);
+  border-color: var(--line);
+  opacity: .72;
+  cursor: not-allowed;
+  transform: none;
+}
+.alece-actions { margin-top: 20px; }
+.alece-feature .project-note { margin: 12px 0 0; line-height: 1.6; }

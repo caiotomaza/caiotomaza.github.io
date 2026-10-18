@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script>
       /* Marca que o JS está ativo (evita flash) e arma um fallback: se o
          script.js não rodar, o conteúdo é revelado mesmo assim. */
       (function () {
@@ -14,625 +15,460 @@
         }, 1500);
       })();
     </script>
-    <title>Caio Tomaz | Service Desk, Suporte Técnico &amp; Infraestrutura de TI</title>
-    <meta
-      name="description"
-      content="Portfólio de Caio Tomaz Araújo Silva — Service Desk e suporte técnico N1/N2, infraestrutura de TI, ITIL, ITAM, MDM e UEM, com automação e análise de dados em Python como diferencial."
-    />
-    <meta property="og:title" content="Caio Tomaz | Service Desk, Suporte Técnico &amp; Infraestrutura de TI" />
-    <meta
-      property="og:description"
-      content="Portfólio de Caio Tomaz Araújo Silva — Service Desk e suporte técnico N1/N2, infraestrutura de TI, ITIL, ITAM, MDM e UEM, com automação e análise de dados em Python como diferencial."
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="./assets/perfil.jpg" />
-    <meta name="author" content="Caio Tomaz Araújo Silva" />
-    <link rel="me" href="https://github.com/caiotomaza" />
-    <link rel="me" href="https://linkedin.com/in/caiotomaza" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=IBM+Plex+Sans:wght@300;400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./styles.css" />
-  </head>
-  <body>
-    <header class="site-header">
-      <div class="header-inner">
-        <a class="brand" href="#inicio" aria-label="Ir para o início">
-          <span>Caio Tomaz</span>
-          <span class="mark-dot" aria-hidden="true"></span>
-        </a>
-
-        <button
-          class="menu-toggle"
-          type="button"
-          aria-label="Abrir menu de navegação"
-          aria-controls="site-nav"
-          aria-expanded="false"
-          data-menu-toggle
-        >
-          <span class="menu-lines" aria-hidden="true"></span>
-        </button>
-
-        <nav class="nav" id="site-nav" aria-label="Navegação principal" data-nav>
-          <a class="nav-link is-active" href="#sobre">Sobre</a>
-          <a class="nav-link" href="#experiencia">Experiência</a>
-          <a class="nav-link" href="#projetos">Projetos</a>
-          <a class="nav-link" href="#competencias">Competências</a>
-          <a class="nav-link" href="#formacao">Formação</a>
-          <a class="nav-link" href="#certificacoes">Certificações</a>
-          <a class="nav-link" href="#contato">Contato</a>
-        </nav>
-      </div>
-    </header>
-
-    <main id="inicio">
-      <section class="container hero" aria-label="Apresentação">
-        <div class="hero-content" data-stagger>
-          <p class="eyebrow">Barbalha, CE — Brasil</p>
-          <h1>Service Desk, suporte técnico e <span class="accent">infraestrutura</span> para operações que não podem parar.</h1>
-          <p class="hero-subtitle">Service Desk | Suporte Técnico N1/N2 | Infraestrutura de TI</p>
-          <p class="hero-description">
-            Quase 4 anos em suporte técnico e infraestrutura nos setores de saúde e saneamento, sendo 2 anos dedicados a
-            Service Desk e atendimento N1 e N2 nos formatos presencial, remoto e híbrido. Automação e tratamento de dados
-            com Python como diferencial.
-          </p>
-
-          <div class="hero-actions" aria-label="Ações principais">
-            <a class="button button-primary" href="#experiencia">Ver experiências</a>
-            <a class="button button-secondary" href="./assets/curriculo-caio-tomaz.pdf" download>Baixar currículo</a>
-          </div>
-
-          <ul class="tag-list" aria-label="Competências em destaque">
-            <li class="tag">Service Desk</li>
-            <li class="tag">Suporte N1/N2</li>
-            <li class="tag">ITIL</li>
-            <li class="tag">SLA</li>
-            <li class="tag">ITAM</li>
-            <li class="tag">MDM/UEM</li>
-            <li class="tag">Windows</li>
-            <li class="tag">Linux</li>
-            <li class="tag">Python</li>
-          </ul>
-        </div>
-
-        <div class="hero-media" data-animate>
-          <div class="photo-frame">
-            <img
-              class="profile-image"
-              src="./assets/perfil.jpg"
-              alt="Foto de perfil de Caio Tomaz Araújo Silva"
-              width="820"
-              height="1025"
-              onerror="this.classList.add('is-missing'); this.setAttribute('aria-hidden', 'true')"
-              data-profile-image
-            />
-            <div class="photo-fallback" aria-hidden="true">
-              <div>
-                <span class="photo-initials">CT</span>
-                <p>Caio Tomaz Araújo Silva</p>
-              </div>
-            </div>
-          </div>
-          <div class="media-badge" aria-label="Área de atuação">
-            <span class="stat-label">Foco atual</span>
-            <span class="stat-value">Service Desk e suporte técnico</span>
-          </div>
-        </div>
-      </section>
-
-      <section class="container stats-band" aria-label="Indicadores de desempenho em Service Desk">
-        <p class="stats-kicker" data-animate>Indicadores de desempenho · Service Desk Aegea</p>
-        <ul class="stats-grid" data-stagger>
-          <li class="stat-block">
-            <span class="stat-figure">2º<span class="stat-unit">lugar</span></span>
-            <span class="stat-caption">em volume de atendimento de toda a equipe de Service Desk do Ceará</span>
-          </li>
-          <li class="stat-block">
-            <span class="stat-figure" data-count="1346">1.346</span>
-            <span class="stat-caption">chamados atendidos em 2 anos</span>
-          </li>
-          <li class="stat-block">
-            <span class="stat-figure" data-count="94.43" data-count-decimals="2" data-count-suffix="%">94,43%</span>
-            <span class="stat-caption">dos chamados dentro do SLA — acima da meta de 90% da companhia</span>
-          </li>
-          <li class="stat-block">
-            <span class="stat-figure">Zero</span>
-            <span class="stat-caption">backlog no período</span>
-          </li>
-        </ul>
-      </section>
-
-      <section class="container section" id="sobre">
-        <div class="section-header" data-animate>
-          <span class="section-kicker">01 / Sobre</span>
-          <div>
-            <h2 class="section-title">Perfil profissional</h2>
-            <p class="section-lead">
-              Profissional de TI com quase 4 anos de experiência em suporte técnico e infraestrutura nos setores de saúde
-              e saneamento básico, incluindo 2 anos dedicados a Service Desk e suporte técnico presencial, remoto e
-              híbrido (atendimento N1 e N2). Atuação na gestão completa de chamados com base em práticas ITIL e
-              cumprimento de SLA, no gerenciamento de dispositivos corporativos via MDM/UEM e na gestão de ativos de TI
-              (ITAM). Conhecimentos sólidos em Windows, Linux, redes, segurança da informação e LGPD. Diferencial em
-              automação e tratamento de dados com Python (Pandas) para reduzir trabalho manual e garantir a integridade do
-              inventário e das informações de suporte.
-            </p>
-          </div>
-        </div>
-
-        <div class="about-grid" data-stagger>
-          <article class="card about-card">
-            <span class="card-number">01</span>
-            <h3>Service Desk &amp; Suporte</h3>
-            <p>Atendimento N1 e N2 presencial, remoto e híbrido, com gestão completa de chamados em ITIL e cumprimento de SLA.</p>
-          </article>
-
-          <article class="card about-card">
-            <span class="card-number">02</span>
-            <h3>Infraestrutura &amp; Governança</h3>
-            <p>Windows, Linux, redes, gestão de ativos (ITAM), MDM/UEM, segurança da informação e conformidade com a LGPD.</p>
-          </article>
-
-          <article class="card about-card">
-            <span class="card-number">03</span>
-            <h3>Automação &amp; Dados</h3>
-            <p>Diferencial em Python e Pandas para reduzir trabalho manual e garantir a integridade do inventário e dos dados de suporte.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="container section" id="experiencia">
-        <div class="section-header" data-animate>
-          <span class="section-kicker">02 / Experiência</span>
-          <div>
-            <h2 class="section-title">Experiência profissional</h2>
-            <p class="section-lead">
-              Quase 4 anos em suporte técnico e infraestrutura, sendo 2 anos dedicados a Service Desk em ambientes críticos
-              de saúde e saneamento.
-            </p>
-          </div>
-        </div>
-
-        <div class="timeline" data-stagger>
-          <article class="timeline-item">
-            <span class="timeline-dot" aria-hidden="true"></span>
-            <div class="timeline-card">
-              <div class="timeline-top">
-                <div>
-                  <span class="meta">Crato, CE</span>
-                  <h3>Estagiário de TI — Service Desk</h3>
-                  <p class="company">Aegea Saneamento</p>
-                  <span class="meta">Ambiental Ceará, Ambiental Crato e Regenera Cariri</span>
-                </div>
-                <span class="meta period">Jul 2024 — Jul 2026</span>
-              </div>
-
-              <ul class="bullet-list">
-                <li>Atendimento de suporte técnico N1 e N2 nos formatos presencial, remoto e híbrido (com deslocamento às unidades da operação), com abertura, classificação, tratamento e encerramento de chamados na plataforma ManageEngine, seguindo práticas ITIL e metas de SLA.</li>
-                <li class="is-highlight">2º lugar em volume de atendimento de toda a equipe de Service Desk do Ceará (1.346 chamados em 2 anos), com 94,43% dos chamados dentro do SLA — acima da meta de 90% da companhia — e backlog zerado no período.</li>
-                <li>Uso diário das ferramentas ManageEngine para suporte e ajustes em computadores, gestão de usuários e extração de relatórios operacionais.</li>
-                <li>Gestão de ativos de TI (ITAM), mantendo a integridade do inventário de equipamentos e licenças e dando suporte às auditorias internas.</li>
-                <li>Manutenção preventiva e corretiva de desktops, notebooks, servidores e nobreaks, garantindo a disponibilidade dos equipamentos.</li>
-                <li>Configuração e suporte de ambientes Windows e Linux, redes locais e cabeamento estruturado.</li>
-                <li>Execução de rotinas de backup, segurança da informação e conformidade com a LGPD.</li>
-                <li>Automação e tratamento de dados de inventário e chamados com Python (Pandas) e planilhas, reduzindo tarefas manuais e aumentando a confiabilidade das informações.</li>
-              </ul>
-
-              <ul class="tag-list" aria-label="Tecnologias e práticas da experiência na Aegea">
-                <li class="tag">Service Desk</li>
-                <li class="tag">Suporte N1/N2</li>
-                <li class="tag">ManageEngine</li>
-                <li class="tag">ITIL</li>
-                <li class="tag">SLA</li>
-                <li class="tag">ITAM</li>
-                <li class="tag">Python</li>
-                <li class="tag">Pandas</li>
-                <li class="tag">LGPD</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="timeline-item">
-            <span class="timeline-dot" aria-hidden="true"></span>
-            <div class="timeline-card">
-              <div class="timeline-top">
-                <div>
-                  <span class="meta">Barbalha, CE</span>
-                  <h3>Jovem Aprendiz de TI / Estagiário de Redes</h3>
-                  <p class="company">Fundação Otília Correia Saraiva</p>
-                  <span class="meta">Hospital Santo Antônio, Hospital do Coração do Cariri e Hospital Gran Cariri</span>
-                </div>
-                <span class="meta period">Ago 2022 — Mai 2024</span>
-              </div>
-
-              <ul class="bullet-list">
-                <li>Suporte técnico (Help Desk) ao corpo clínico e administrativo em ambiente hospitalar crítico, incluindo atendimento remoto via AnyDesk, com foco em rapidez de atendimento e satisfação do usuário.</li>
-                <li>Administração de rede local e manutenção preventiva e corretiva do parque tecnológico, reduzindo a indisponibilidade de equipamentos vitais ao atendimento.</li>
-                <li>Apoio à infraestrutura de TI, contribuindo para a alta disponibilidade dos sistemas de atendimento ao paciente.</li>
-              </ul>
-
-              <ul class="tag-list" aria-label="Tecnologias e práticas da experiência na Fundação Otília Correia Saraiva">
-                <li class="tag">Help Desk</li>
-                <li class="tag">AnyDesk</li>
-                <li class="tag">Redes</li>
-                <li class="tag">Infraestrutura</li>
-                <li class="tag">Manutenção</li>
-                <li class="tag">Ambiente Hospitalar</li>
-              </ul>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="container section" id="projetos">
-        <div class="section-header" data-animate>
-          <span class="section-kicker">03 / Projetos</span>
-          <div>
-            <h2 class="section-title">Projetos públicos</h2>
-            <p class="section-lead">
-              Projetos reais publicados no GitHub, em desenvolvimento web, governança de TI e análise de dados.
-            </p>
-          </div>
-        </div>
-
-        <div class="project-grid" data-stagger>
-          <article class="card project-card is-featured">
-            <div>
-              <span class="project-flag" aria-label="Projeto em destaque">★ Projeto em destaque</span>
-              <h3>Clean Flow</h3>
-              <p>
+<title>Caio Tomaz | Service Desk, Suporte Técnico &amp; Infraestrutura de TI</title>
+<meta content="Caio Tomaz Araújo Silva: analista de suporte PL, Service Desk N1/N2 e infraestrutura. Experiência em operações de campo, saúde e saneamento. Projetos e formação em TI." name="description"/>
+<meta content="Caio Tomaz | Service Desk, Suporte Técnico &amp; Infraestrutura de TI" property="og:title"/>
+<meta content="Caio Tomaz Araújo Silva: analista de suporte PL, Service Desk N1/N2 e infraestrutura. Experiência em operações de campo, saúde e saneamento. Projetos e formação em TI." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="./assets/perfil.jpg" property="og:image"/>
+<meta content="Caio Tomaz Araújo Silva" name="author"/>
+<link href="https://github.com/caiotomaza" rel="me"/>
+<link href="https://linkedin.com/in/caiotomaza" rel="me"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=IBM+Plex+Sans:wght@300;400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="./styles.css" rel="stylesheet"/>
+<meta content="https://caiotomaza.github.io/" property="og:url"/><meta content="#0E1411" name="theme-color"/><meta content="pt_BR" property="og:locale"/><link href="https://caiotomaza.github.io/" rel="canonical"/><link href="./favicon.svg" rel="icon" type="image/svg+xml"/></head>
+<body>
+<header class="site-header">
+<div class="header-inner">
+<a aria-label="Caio Tomaz — início" class="brand" href="#inicio"><span aria-hidden="true" class="brand-monogram">CT</span><span class="brand-text">Caio Tomaz</span><span aria-hidden="true" class="mark-dot"></span></a>
+<button aria-controls="site-nav" aria-expanded="false" aria-label="Abrir menu de navegação" class="menu-toggle" data-menu-toggle="" type="button">
+<span aria-hidden="true" class="menu-lines"></span>
+</button>
+<nav aria-label="Navegação principal" class="nav" data-nav="" id="site-nav">
+<a class="nav-link is-active" href="#sobre">Sobre</a>
+<a class="nav-link" href="#experiencia">Experiência</a>
+<a class="nav-link" href="#projetos">Projetos</a>
+<a class="nav-link" href="#competencias">Competências</a>
+<a class="nav-link" href="#formacao">Formação</a>
+<a class="nav-link" href="#certificacoes">Certificações</a>
+<a class="nav-link" href="#contato">Contato</a>
+</nav>
+</div>
+</header>
+<main id="inicio">
+<section aria-label="Apresentação" class="container hero">
+<div class="hero-content" data-stagger="">
+<p class="eyebrow">Barbalha, Ceará · Suporte técnico e infraestrutura</p>
+<h1>Suporte técnico e <span class="accent">infraestrutura</span> para operações que não podem parar.</h1>
+<p class="hero-subtitle">Analista de Suporte PL · Stefanini Brasil</p>
+<p class="hero-description">Profissional de TI com mais de 3 anos de experiência prática em suporte presencial e remoto, Service Desk e infraestrutura. Atualmente na Stefanini, em atendimento técnico de campo na região do Cariri e interior da Paraíba. Experiência anterior nos setores de saneamento e saúde, com automação e dados aplicados à operação.</p>
+<div aria-label="Ações principais" class="hero-actions">
+<a class="button button-primary" href="#experiencia">Ver experiências</a>
+<a class="button button-secondary" download="" href="./assets/curriculo-caio-tomaz.pdf">Baixar currículo</a>
+</div>
+<ul aria-label="Competências em destaque" class="tag-list">
+<li class="tag">Service Desk</li>
+<li class="tag">Suporte N1/N2</li>
+<li class="tag">ITIL</li>
+<li class="tag">SLA</li>
+<li class="tag">ITAM</li>
+<li class="tag">MDM/UEM</li>
+<li class="tag">Windows</li>
+<li class="tag">Linux</li>
+<li class="tag">Python</li>
+</ul>
+</div>
+<div class="hero-media" data-animate="">
+<div class="photo-frame">
+<img alt="Foto de perfil de Caio Tomaz Araújo Silva" class="profile-image" data-profile-image="" height="1025" onerror="this.classList.add('is-missing'); this.setAttribute('aria-hidden', 'true')" src="./assets/perfil.jpg" width="820"/>
+<div aria-hidden="true" class="photo-fallback">
+<div>
+<span class="photo-initials">CT</span>
+<p>Caio Tomaz Araújo Silva</p>
+</div>
+</div>
+</div>
+<div aria-label="Área de atuação" class="media-badge">
+<span class="stat-label">Foco atual</span>
+<span class="stat-value">Suporte de campo · Infraestrutura</span>
+</div>
+</div>
+</section>
+<section aria-label="Indicadores de desempenho em Service Desk" class="container stats-band">
+<p class="stats-kicker" data-animate="">Resultados na Aegea Saneamento · jul/2024 a jul/2026</p>
+<ul class="stats-grid" data-stagger="">
+<li class="stat-block">
+<span class="stat-figure">2º<span class="stat-unit">lugar</span></span>
+<span class="stat-caption">em volume de atendimento de toda a equipe de Service Desk do Ceará</span>
+</li>
+<li class="stat-block">
+<span class="stat-figure" data-count="1346">1.346</span>
+<span class="stat-caption">chamados atendidos em 2 anos</span>
+</li>
+<li class="stat-block">
+<span class="stat-figure" data-count="94.43" data-count-decimals="2" data-count-suffix="%">94,43%</span>
+<span class="stat-caption">dos chamados dentro do SLA — acima da meta de 90% da companhia</span>
+</li>
+<li class="stat-block">
+<span class="stat-figure">Zero</span>
+<span class="stat-caption">backlog no período</span>
+</li>
+</ul>
+</section>
+<section class="container section" id="sobre">
+<div class="section-header" data-animate="">
+<span class="section-kicker">01 / Sobre</span>
+<div>
+<h2 class="section-title">Perfil profissional</h2>
+<p class="section-lead">Atuo entre a resolução de incidentes e a continuidade operacional: diagnóstico de hardware e software, atendimento N1/N2, ativos e dispositivos corporativos, redes e ambientes Windows/Linux. A experiência em unidades de saúde, saneamento e atendimento de campo consolidou uma atuação prática, com foco em documentação, SLA e análise de causas. Também utilizo Python, Pandas e ferramentas de relatório para organizar e automatizar rotinas de TI.</p>
+</div>
+</div>
+<div class="about-grid" data-stagger="">
+<article class="card about-card">
+<span class="card-number">01</span>
+<h3>Service Desk &amp; Suporte</h3>
+<p>Atendimento N1 e N2 presencial, remoto e híbrido, com gestão completa de chamados em ITIL e cumprimento de SLA.</p>
+</article>
+<article class="card about-card">
+<span class="card-number">02</span>
+<h3>Infraestrutura &amp; Governança</h3>
+<p>Windows, Linux, redes, gestão de ativos (ITAM), MDM/UEM, segurança da informação e conformidade com a LGPD.</p>
+</article>
+<article class="card about-card">
+<span class="card-number">03</span>
+<h3>Automação &amp; Dados</h3>
+<p>Diferencial em Python e Pandas para reduzir trabalho manual e garantir a integridade do inventário e dos dados de suporte.</p>
+</article>
+</div>
+</section>
+<section class="container section" id="experiencia">
+<div class="section-header" data-animate="">
+<span class="section-kicker">02 / Experiência</span>
+<div>
+<h2 class="section-title">Experiência profissional</h2>
+<p class="section-lead">Trajetória em suporte técnico e operações corporativas, da infraestrutura hospitalar ao atendimento de campo e à gestão de Service Desk.</p>
+</div>
+</div>
+<div class="timeline" data-stagger="">
+<article class="timeline-item"><span aria-hidden="true" class="timeline-dot"></span><div class="timeline-card"><div class="timeline-top"><div><span class="meta">Juazeiro do Norte/CE · Cariri e interior da Paraíba</span><h3>Analista de Suporte PL</h3><p class="company">Stefanini Brasil</p><span class="meta">Atendimento aos clientes Bradesco, Vibra e PagBank</span></div><span class="meta period">Out 2026 — atual</span></div>
+<ul class="bullet-list"><li>Atendimento técnico presencial de campo em instalações dos clientes, incluindo deslocamentos na região do Cariri cearense e no interior da Paraíba.</li><li>Manutenção preventiva e corretiva de computadores, impressoras e scanners, com diagnóstico de falhas e restabelecimento operacional.</li></ul>
+<ul aria-label="Competências na Stefanini" class="tag-list"><li class="tag">Suporte de campo</li><li class="tag">Hardware</li><li class="tag">Manutenção</li><li class="tag">Impressoras e scanners</li></ul></div></article>
+<article class="timeline-item"><span aria-hidden="true" class="timeline-dot"></span><div class="timeline-card"><div class="timeline-top"><div><span class="meta">Crato, Ceará · Hemoce</span><h3>Suporte Operacional de Hardware e Software</h3><p class="company">Ello Serviços</p><span class="meta">Hemocentro Regional de Crato</span></div><span class="meta period">Jul 2026 — Set 2026</span></div>
+<ul class="bullet-list"><li>Suporte aos usuários, hardware, software e infraestrutura operacional do hemocentro, incluindo manutenção de equipamentos legados e servidores.</li><li>Configuração e administração de servidor Linux, compartilhamento de arquivos via Samba (SMB) e rotinas automatizadas de backup.</li><li>Preparação de infraestrutura temporária de TI para coletas externas.</li></ul>
+<ul aria-label="Competências na Ello Serviços" class="tag-list"><li class="tag">Linux</li><li class="tag">Samba/SMB</li><li class="tag">Backup</li><li class="tag">Servidores</li><li class="tag">Suporte operacional</li></ul></div></article>
+<article class="timeline-item"><span aria-hidden="true" class="timeline-dot"></span><div class="timeline-card"><div class="timeline-top"><div><span class="meta">Crato, Ceará</span><h3>Estagiário de TI — Service Desk</h3><p class="company">Aegea Saneamento</p><span class="meta">Ambiental Ceará, Ambiental Crato e Regenera Cariri</span></div><span class="meta period">Jul 2024 — Jul 2026</span></div>
+<ul class="bullet-list"><li>Atendimento N1/N2 presencial, remoto e híbrido; abertura, classificação, acompanhamento e encerramento de chamados no ServiceNow, seguindo práticas ITIL e indicadores de SLA.</li><li class="is-highlight">1.346 chamados tratados em dois anos, 94,43% dentro do SLA (meta corporativa de 90%), backlog zerado e 2º maior volume de atendimentos da equipe de Service Desk do Ceará.</li><li>Suporte remoto com ManageEngine e apoio à gestão de usuários, permissões e acessos no Microsoft 365 e Azure AD.</li><li>Administração de aproximadamente 1.456 dispositivos corporativos com Urmobo UEM e Cloud4Mobile; gestão de ativos no nxt4insight e apoio a auditorias.</li><li>Tratamento de relatórios de inventário e chamados com Python/Pandas, Looker Studio e planilhas, reduzindo tarefas manuais.</li></ul>
+<ul aria-label="Competências na Aegea" class="tag-list"><li class="tag">ServiceNow</li><li class="tag">ManageEngine</li><li class="tag">ITIL / SLA</li><li class="tag">Azure AD</li><li class="tag">UEM / ITAM</li><li class="tag">Python / Pandas</li></ul></div></article>
+<article class="timeline-item"><span aria-hidden="true" class="timeline-dot"></span><div class="timeline-card"><div class="timeline-top"><div><span class="meta">Barbalha, Ceará</span><h3>Jovem Aprendiz de TI / Estagiário de Redes</h3><p class="company">Fundação Otília Correia Saraiva</p><span class="meta">Hospital Santo Antônio, Hospital do Coração do Cariri e Hospital Gran Cariri</span></div><span class="meta period">Ago 2022 — Mai 2024</span></div>
+<ul class="bullet-list"><li>Help Desk presencial e remoto via AnyDesk para equipes clínicas e administrativas, apoiando a continuidade do atendimento hospitalar.</li><li>Manutenção preventiva/corretiva de computadores, impressoras e redes locais; suporte a sistemas corporativos, incluindo Wareline (HIS/ERP hospitalar).</li><li>Apoio à infraestrutura de TI em setores críticos.</li></ul>
+<ul aria-label="Competências na Fundação" class="tag-list"><li class="tag">Help Desk</li><li class="tag">AnyDesk</li><li class="tag">Redes</li><li class="tag">Wareline</li><li class="tag">Ambiente hospitalar</li></ul></div></article>
+</div>
+</section>
+<section class="container section" id="projetos">
+<div class="section-header" data-animate="">
+<span class="section-kicker">03 / Projetos</span>
+<div>
+<h2 class="section-title">Projetos públicos</h2>
+<p class="section-lead">Projetos de desenvolvimento e pesquisa aplicada. O ALECE terá sua própria página de apresentação e um teste ao vivo, que serão disponibilizados futuramente.</p>
+</div>
+</div>
+<div class="project-grid" data-stagger=""><article class="card project-card is-featured alece-feature"><div><span class="project-flag">ESTUDO DE CASO · INTERFACE E ARQUITETURA</span><div class="alece-mini-label"><span class="alece-symbol">A</span><span>GESTÃO FINANCEIRA SELF-HOSTED</span></div><h3>ALECE</h3><p>Plataforma de gestão financeira pessoal e familiar concebida para execução local: múltiplos perfis financeiros, contas, despesas, planejamento, reserva, investimentos e revisão assistida de extratos. O protótipo de interface está em HTML; a aplicação Django/PostgreSQL ainda é uma proposta de implementação.</p><ul class="tag-list"><li class="tag">Python / Django (planejado)</li><li class="tag">PostgreSQL (planejado)</li><li class="tag">Docker (planejado)</li><li class="tag">Protótipo HTML</li><li class="tag">UX/UI</li></ul></div><div class="project-links alece-actions">
+<a aria-label="Portfólio do ALECE — página em preparação" class="project-link is-primary" href="./projetos/alece/" title="A apresentação será publicada neste endereço futuramente">Portfólio do ALECE ↗</a>
+<span aria-disabled="true" aria-label="Live teste do ALECE — disponível futuramente" class="project-link is-disabled" title="O endereço do teste ao vivo será adicionado depois">Live teste · em breve</span>
+</div>
+<p class="project-note">Apresentação ainda não publicada · endereço reservado: /projetos/alece/</p></article>
+<article class="card project-card">
+<div>
+<span aria-label="Projeto em destaque" class="project-flag">DESENVOLVIMENTO WEB · PROJETO</span>
+<h3>Clean Flow</h3>
+<p>
                 Sistema web e mobile de gestão de resíduos sólidos para empresas de saneamento: controle completo da
                 entrada à saída das estações de tratamento, com registros, dashboards, relatórios e gestão de acessos, além
                 de versão mobile para operadores de campo.
               </p>
-              <ul class="tag-list">
-                <li class="tag">Laravel</li>
-                <li class="tag">PHP</li>
-                <li class="tag">MySQL</li>
-                <li class="tag">Redis</li>
-                <li class="tag">Nginx</li>
-                <li class="tag">Docker</li>
-              </ul>
-            </div>
-            <div class="project-links">
-              <a class="project-link is-primary" href="https://github.com/caiotomaza/clean_flow" target="_blank" rel="noreferrer">Repositório ↗</a>
-              <a class="project-link" href="http://31.97.160.19/" target="_blank" rel="noreferrer">Demo ao vivo ↗</a>
-            </div>
-          </article>
-
-          <article class="card project-card">
-            <div>
-              <h3>GovCert</h3>
-              <p>
+<ul class="tag-list">
+<li class="tag">Laravel</li>
+<li class="tag">PHP</li>
+<li class="tag">MySQL</li>
+<li class="tag">Redis</li>
+<li class="tag">Nginx</li>
+<li class="tag">Docker</li>
+</ul>
+</div>
+<div class="project-links">
+<a class="project-link is-primary" href="https://github.com/caiotomaza/clean_flow" rel="noopener noreferrer" target="_blank">Repositório ↗</a>
+</div>
+</article>
+<article class="card project-card">
+<div>
+<h3>GovCert</h3>
+<p>
                 Sistema de auditoria e governança do uso de IA generativa em órgãos públicos: captura, registra e
                 classifica interações com IA, identifica risco de vazamento de dados sensíveis (CPF, credenciais) com
                 mascaramento obrigatório e exibe evidências em painel com KPIs e exportação CSV/PDF.
               </p>
-              <ul class="tag-list">
-                <li class="tag">Laravel 12</li>
-                <li class="tag">PHP 8.2</li>
-                <li class="tag">MySQL</li>
-                <li class="tag">Redis</li>
-                <li class="tag">Chrome MV3</li>
-                <li class="tag">Docker</li>
-                <li class="tag">Sanctum</li>
-                <li class="tag">IA Gemini/OpenAI</li>
-              </ul>
-            </div>
-            <div class="project-links">
-              <a class="project-link is-primary" href="https://github.com/caiotomaza/govcert" target="_blank" rel="noreferrer">Repositório ↗</a>
-            </div>
-          </article>
-
-          <article class="card project-card">
-            <div>
-              <h3>Flytics</h3>
-              <p>
+<ul class="tag-list">
+<li class="tag">Laravel 12</li>
+<li class="tag">PHP 8.2</li>
+<li class="tag">MySQL</li>
+<li class="tag">Redis</li>
+<li class="tag">Chrome MV3</li>
+<li class="tag">Docker</li>
+<li class="tag">Sanctum</li>
+<li class="tag">IA Gemini/OpenAI</li>
+</ul>
+</div>
+<div class="project-links">
+<a class="project-link is-primary" href="https://github.com/caiotomaza/govcert" rel="noopener noreferrer" target="_blank">Repositório ↗</a>
+</div>
+</article>
+<article class="card project-card">
+<div>
+<h3>Flytics</h3>
+<p>
                 Projeto de análise de dados e machine learning em Python para prever atrasos e analisar a pontualidade de
                 voos: análise exploratória, modelos de classificação e regressão, dashboard e API de previsão.
               </p>
-              <ul class="tag-list">
-                <li class="tag">Python</li>
-                <li class="tag">Pandas</li>
-                <li class="tag">NumPy</li>
-                <li class="tag">scikit-learn</li>
-                <li class="tag">XGBoost</li>
-                <li class="tag">LightGBM</li>
-                <li class="tag">CatBoost</li>
-                <li class="tag">React</li>
-              </ul>
-            </div>
-            <div class="project-links">
-              <a class="project-link is-primary" href="https://github.com/caiotomaza/flytics" target="_blank" rel="noreferrer">Repositório ↗</a>
-            </div>
-          </article>
-
-          <article class="card project-card">
-            <div>
-              <h3>Analysis Retina</h3>
-              <p>
-                Projeto em Python de análise de imagens de retina (fundo de olho) para apoiar diagnósticos rápidos e
-                automatizados.
-              </p>
-              <ul class="tag-list">
-                <li class="tag">Python</li>
-                <li class="tag">Análise de Imagens</li>
-                <li class="tag">Machine Learning</li>
-              </ul>
-            </div>
-            <div class="project-links">
-              <a class="project-link is-primary" href="https://github.com/caiotomaza/analysis_retina" target="_blank" rel="noreferrer">Repositório ↗</a>
-            </div>
-          </article>
-        </div>
-
-        <p class="projects-more">
-          <a href="https://github.com/caiotomaza" target="_blank" rel="noreferrer">Ver mais projetos no GitHub ↗</a>
-        </p>
-      </section>
-
-      <section class="container section" id="competencias">
-        <div class="section-header" data-animate>
-          <span class="section-kicker">04 / Competências</span>
-          <div>
-            <h2 class="section-title">Habilidades técnicas</h2>
-            <p class="section-lead">
+<ul class="tag-list">
+<li class="tag">Python</li>
+<li class="tag">Pandas</li>
+<li class="tag">NumPy</li>
+<li class="tag">scikit-learn</li>
+<li class="tag">XGBoost</li>
+<li class="tag">LightGBM</li>
+<li class="tag">CatBoost</li>
+<li class="tag">React</li>
+</ul>
+</div>
+<div class="project-links">
+<a class="project-link is-primary" href="https://github.com/caiotomaza/flytics" rel="noopener noreferrer" target="_blank">Repositório ↗</a>
+</div>
+</article>
+<article class="card project-card">
+<div>
+<h3>Analysis Retina</h3>
+<p>Estudo em Python com visão computacional e aprendizagem de máquina para análise exploratória de imagens de retina, sem finalidade clínica validada.</p>
+<ul class="tag-list">
+<li class="tag">Python</li>
+<li class="tag">Análise de Imagens</li>
+<li class="tag">Machine Learning</li>
+</ul>
+</div>
+<div class="project-links">
+<a class="project-link is-primary" href="https://github.com/caiotomaza/analysis_retina" rel="noopener noreferrer" target="_blank">Repositório ↗</a>
+</div>
+</article>
+</div>
+<p class="projects-more">Veja também <a href="https://github.com/caiotomaza" rel="noopener noreferrer" target="_blank">todos os meus repositórios no GitHub ↗</a>.</p>
+</section>
+<section class="container section" id="competencias">
+<div class="section-header" data-animate="">
+<span class="section-kicker">04 / Competências</span>
+<div>
+<h2 class="section-title">Habilidades técnicas</h2>
+<p class="section-lead">
               Conjunto de práticas e ferramentas orientadas a suporte, Service Desk, governança, infraestrutura e análise
               de dados.
             </p>
-          </div>
-        </div>
-
-        <div class="skill-grid" data-stagger>
-          <article class="card skill-card">
-            <h3>Suporte e Service Desk</h3>
-            <ul class="skill-list">
-              <li>Service Desk</li>
-              <li>Help Desk</li>
-              <li>Suporte Técnico N1 e N2</li>
-              <li>Atendimento presencial, remoto e híbrido</li>
-              <li>Acesso remoto</li>
-              <li>Gestão de chamados (tickets)</li>
-              <li>Troubleshooting</li>
-            </ul>
-          </article>
-
-          <article class="card skill-card">
-            <h3>Ferramentas</h3>
-            <ul class="skill-list">
-              <li>ManageEngine (chamados, endpoints e relatórios)</li>
-              <li>AnyDesk</li>
-            </ul>
-          </article>
-
-          <article class="card skill-card">
-            <h3>Governança e Gestão de TI</h3>
-            <ul class="skill-list">
-              <li>ITIL</li>
-              <li>ITSM</li>
-              <li>ITAM</li>
-              <li>SLA</li>
-              <li>Gestão de ativos e inventário de TI</li>
-            </ul>
-          </article>
-
-          <article class="card skill-card">
-            <h3>Gerenciamento de Dispositivos</h3>
-            <ul class="skill-list">
-              <li>MDM (Mobile Device Management)</li>
-              <li>UEM (Unified Endpoint Management)</li>
-              <li>Endpoints corporativos</li>
-            </ul>
-          </article>
-
-          <article class="card skill-card">
-            <h3>Infraestrutura</h3>
-            <ul class="skill-list">
-              <li>Windows</li>
-              <li>Linux (Debian, Ubuntu Server, Arch)</li>
-              <li>Servidores</li>
-              <li>Nobreaks</li>
-              <li>Manutenção de hardware</li>
-              <li>Redes e cabeamento estruturado</li>
-              <li>Conectividade</li>
-            </ul>
-          </article>
-
-          <article class="card skill-card">
-            <h3>Segurança e Dados</h3>
-            <ul class="skill-list">
-              <li>Segurança da Informação</li>
-              <li>LGPD</li>
-              <li>Rotinas de backup</li>
-              <li>PostgreSQL</li>
-              <li>MySQL</li>
-            </ul>
-          </article>
-
-          <article class="card skill-card">
-            <h3>Automação e Análise de Dados</h3>
-            <ul class="skill-list">
-              <li>Python (Pandas)</li>
-              <li>Google Colab</li>
-              <li>Looker</li>
-              <li>Google Sheets</li>
-              <li>Automação de tarefas</li>
-              <li>Tratamento de dados</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <section class="container section" id="formacao">
-        <div class="section-header" data-animate>
-          <span class="section-kicker">05 / Formação</span>
-          <div>
-            <h2 class="section-title">Formação acadêmica</h2>
-            <p class="section-lead">Base acadêmica em Sistemas de Informação e redes de computadores.</p>
-          </div>
-        </div>
-
-        <div class="education-grid" data-stagger>
-          <div class="education-stack">
-            <article class="card education-card">
-              <h3>Bacharelado em Sistemas de Informação</h3>
-              <div class="education-meta">
-                <span class="meta">Centro Universitário Paraíso</span>
-                <span class="meta">7º semestre — Noturno</span>
-                <span class="meta">Previsão de conclusão: 2027</span>
-              </div>
-            </article>
-
-            <article class="card education-card">
-              <h3>Técnico em Redes de Computadores</h3>
-              <div class="education-meta">
-                <span class="meta">EEEP Otília Correia Saraiva</span>
-                <span class="meta">Conclusão: 2022</span>
-              </div>
-            </article>
-          </div>
-
-          <article class="card language-card">
-            <h3>Idiomas</h3>
-            <ul class="language-list">
-              <li>
-                <strong>Português</strong>
-                <span>Nativo</span>
-              </li>
-              <li>
-                <strong>Inglês</strong>
-                <span>Intermediário, leitura técnica e documentação</span>
-              </li>
-              <li>
-                <strong>Espanhol</strong>
-                <span>Básico</span>
-              </li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <section class="container section" id="certificacoes">
-        <div class="section-header" data-animate>
-          <span class="section-kicker">06 / Certificações</span>
-          <div>
-            <h2 class="section-title">Cursos e certificações</h2>
-            <p class="section-lead">Formações complementares em segurança, LGPD, fundamentos de TI, redes e dados.</p>
-          </div>
-        </div>
-
-        <div class="cert-grid" data-stagger>
-          <article class="card cert-card">
-            <h3>Segurança em Tecnologia da Informação</h3>
-            <span class="meta">Fundação Bradesco, 2024</span>
-          </article>
-          <article class="card cert-card">
-            <h3>Fundamentos de TI: Software e Hardware</h3>
-            <span class="meta">Fundação Bradesco, 2024</span>
-          </article>
-          <article class="card cert-card">
-            <h3>Introdução a Redes de Computadores</h3>
-            <span class="meta">Fundação Bradesco, 2024</span>
-          </article>
-          <article class="card cert-card">
-            <h3>Lei Geral de Proteção de Dados (LGPD)</h3>
-            <span class="meta">Fundação Bradesco, 2023</span>
-          </article>
-          <article class="card cert-card">
-            <h3>Lei Geral de Proteção de Dados (LGPD)</h3>
-            <span class="meta">Academia Aegea, 2024</span>
-          </article>
-          <article class="card cert-card">
-            <h3>Big Data e Internet das Coisas</h3>
-            <span class="meta">Academia Aegea, 2025</span>
-          </article>
-          <article class="card cert-card">
-            <h3>Programa de Segurança Digital</h3>
-            <span class="meta">Academia Aegea, 2024</span>
-          </article>
-          <article class="card cert-card">
-            <h3>Colaboração Ágil e Facilitação</h3>
-            <span class="meta">Academia Aegea, 2024</span>
-          </article>
-        </div>
-      </section>
-
-      <section class="container section" id="contato">
-        <div class="section-header" data-animate>
-          <span class="section-kicker">07 / Contato</span>
-          <div>
-            <h2 class="section-title">Contato</h2>
-            <p class="section-lead">
-              Estou aberto a conexões profissionais e oportunidades em Service Desk, suporte técnico, infraestrutura de TI,
-              automação de processos e análise de dados aplicada à operação.
-            </p>
-
-            <div class="contact-actions">
-              <a class="button button-primary" href="mailto:caiotomaza@outlook.com">Enviar e-mail</a>
-              <a class="button button-secondary" href="https://linkedin.com/in/caiotomaza" target="_blank" rel="noreferrer">LinkedIn</a>
-              <a class="button button-secondary" href="https://github.com/caiotomaza" target="_blank" rel="noreferrer">GitHub</a>
-              <a class="button button-secondary" href="./assets/curriculo-caio-tomaz.pdf" download>Baixar currículo</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="contact-grid" data-stagger>
-          <article class="card contact-panel">
-            <h3>Canais profissionais</h3>
-            <p>
+</div>
+</div>
+<div class="skill-grid" data-stagger="">
+<article class="card skill-card">
+<h3>Suporte e Service Desk</h3>
+<ul class="skill-list">
+<li>Service Desk</li>
+<li>Help Desk</li>
+<li>Suporte Técnico N1 e N2</li>
+<li>Atendimento presencial, remoto e híbrido</li>
+<li>Acesso remoto</li>
+<li>Gestão de chamados (tickets)</li>
+<li>Troubleshooting</li>
+</ul>
+</article>
+<article class="card skill-card">
+<h3>Ferramentas</h3>
+<ul class="skill-list"><li>ServiceNow (ITSM)</li><li>ManageEngine (suporte remoto e relatórios)</li><li>AnyDesk</li><li>Microsoft 365 / Outlook</li><li>Azure AD</li></ul>
+</article>
+<article class="card skill-card">
+<h3>Governança e Gestão de TI</h3>
+<ul class="skill-list">
+<li>ITIL</li>
+<li>ITSM</li>
+<li>ITAM</li>
+<li>SLA</li>
+<li>Gestão de ativos e inventário de TI</li>
+</ul>
+</article>
+<article class="card skill-card">
+<h3>Gerenciamento de Dispositivos</h3>
+<ul class="skill-list"><li>Urmobo UEM</li><li>Cloud4Mobile</li><li>nxt4insight</li><li>UEM / MDM e endpoints corporativos</li></ul>
+</article>
+<article class="card skill-card">
+<h3>Infraestrutura</h3>
+<ul class="skill-list"><li>Windows</li><li>Linux: Fedora Server e Ubuntu Server</li><li>Servidores, Samba/SMB e backup</li><li>Manutenção de hardware e impressoras</li><li>Redes locais e conectividade</li></ul>
+</article>
+<article class="card skill-card">
+<h3>Segurança e Dados</h3>
+<ul class="skill-list">
+<li>Segurança da Informação</li>
+<li>LGPD</li>
+<li>Rotinas de backup</li>
+<li>PostgreSQL</li>
+<li>MySQL</li>
+</ul>
+</article>
+<article class="card skill-card">
+<h3>Automação e Análise de Dados</h3>
+<ul class="skill-list"><li>Python / Pandas</li><li>Looker Studio</li><li>Google Sheets</li><li>Automação de tarefas</li><li>Tratamento de dados e relatórios</li></ul>
+</article>
+</div>
+</section>
+<section class="container section" id="formacao">
+<div class="section-header" data-animate="">
+<span class="section-kicker">05 / Formação</span>
+<div>
+<h2 class="section-title">Formação acadêmica</h2>
+<p class="section-lead">Base acadêmica em Sistemas de Informação e redes de computadores.</p>
+</div>
+</div>
+<div class="education-grid" data-stagger="">
+<div class="education-stack">
+<article class="card education-card">
+<h3>Bacharelado em Sistemas de Informação</h3>
+<div class="education-meta">
+<span class="meta">Centro Universitário Paraíso</span>
+<span class="meta">7º semestre — Noturno</span>
+<span class="meta">Previsão de conclusão: 2027</span>
+</div>
+</article>
+<article class="card education-card">
+<h3>Técnico em Redes de Computadores</h3>
+<div class="education-meta">
+<span class="meta">EEEP Otília Correia Saraiva</span>
+<span class="meta">Conclusão: 2022</span>
+</div>
+</article>
+</div>
+<article class="card language-card">
+<h3>Idiomas</h3>
+<ul class="language-list">
+<li>
+<strong>Português</strong>
+<span>Nativo</span>
+</li>
+<li>
+<strong>Inglês</strong>
+<span>Intermediário, leitura técnica e documentação</span>
+</li>
+<li>
+<strong>Espanhol</strong>
+<span>Básico</span>
+</li>
+</ul>
+</article>
+</div>
+</section>
+<section class="container section" id="certificacoes">
+<div class="section-header" data-animate="">
+<span class="section-kicker">06 / Certificações</span>
+<div>
+<h2 class="section-title">Cursos e certificações</h2>
+<p class="section-lead">Formações complementares em segurança, LGPD, fundamentos de TI, redes e dados.</p>
+</div>
+</div>
+<div class="cert-grid" data-stagger="">
+<article class="card cert-card">
+<h3>Segurança em Tecnologia da Informação</h3>
+<span class="meta">Fundação Bradesco, 2024</span>
+</article>
+<article class="card cert-card">
+<h3>Fundamentos de TI: Software e Hardware</h3>
+<span class="meta">Fundação Bradesco, 2024</span>
+</article>
+<article class="card cert-card">
+<h3>Introdução a Redes de Computadores</h3>
+<span class="meta">Fundação Bradesco, 2024</span>
+</article>
+<article class="card cert-card">
+<h3>Lei Geral de Proteção de Dados (LGPD)</h3>
+<span class="meta">Fundação Bradesco, 2023</span>
+</article>
+<article class="card cert-card">
+<h3>Lei Geral de Proteção de Dados (LGPD)</h3>
+<span class="meta">Academia Aegea, 2024</span>
+</article>
+<article class="card cert-card">
+<h3>Big Data e Internet das Coisas</h3>
+<span class="meta">Academia Aegea, 2025</span>
+</article>
+<article class="card cert-card">
+<h3>Programa de Segurança Digital</h3>
+<span class="meta">Academia Aegea, 2024</span>
+</article>
+<article class="card cert-card">
+<h3>Colaboração Ágil e Facilitação</h3>
+<span class="meta">Academia Aegea, 2024</span>
+</article>
+<article class="card cert-card"><h3>IA e produtividade pessoal no serviço público</h3><span class="meta">Escola Nacional de Administração Pública — Enap, 2026</span></article></div>
+</section>
+<section class="container section" id="contato">
+<div class="section-header" data-animate="">
+<span class="section-kicker">07 / Contato</span>
+<div>
+<h2 class="section-title">Contato</h2>
+<p class="section-lead">Para networking profissional, projetos e contato direto, utilize os canais abaixo. Acompanhe meu trabalho técnico no GitHub e minha trajetória profissional no LinkedIn.</p>
+<div class="contact-actions">
+<a class="button button-primary" href="mailto:caiotomaza@gmail.com">Enviar e-mail</a>
+<a class="button button-secondary" href="https://linkedin.com/in/caiotomaza" rel="noopener noreferrer" target="_blank">LinkedIn</a>
+<a class="button button-secondary" href="https://github.com/caiotomaza" rel="noopener noreferrer" target="_blank">GitHub</a>
+<a class="button button-secondary" download="" href="./assets/curriculo-caio-tomaz.pdf">Baixar currículo</a>
+</div>
+</div>
+</div>
+<div class="contact-grid" data-stagger="">
+<article class="card contact-panel">
+<h3>Canais profissionais</h3>
+<p>
               Use os links oficiais abaixo para contato, networking profissional, acesso aos projetos no GitHub ou ao
               currículo em PDF.
             </p>
-          </article>
-
-          <aside class="card contact-panel" aria-label="Links de contato">
-            <ul class="contact-list">
-              <li>
-                <a href="mailto:caiotomaza@outlook.com">
-                  <span class="contact-label">E-mail</span>
-                  <span class="contact-value">caiotomaza@outlook.com</span>
-                </a>
-              </li>
-              <li>
-                <a href="tel:+5588981675605">
-                  <span class="contact-label">Telefone</span>
-                  <span class="contact-value">(88) 98167-5605</span>
-                </a>
-              </li>
-              <li>
-                <a href="https://linkedin.com/in/caiotomaza" target="_blank" rel="noreferrer">
-                  <span class="contact-label">LinkedIn</span>
-                  <span class="contact-value">linkedin.com/in/caiotomaza</span>
-                </a>
-              </li>
-              <li>
-                <a href="https://github.com/caiotomaza" target="_blank" rel="noreferrer">
-                  <span class="contact-label">GitHub</span>
-                  <span class="contact-value">github.com/caiotomaza</span>
-                </a>
-              </li>
-              <li>
-                <a href="./assets/curriculo-caio-tomaz.pdf" download>
-                  <span class="contact-label">Currículo</span>
-                  <span class="contact-value">curriculo-caio-tomaz.pdf</span>
-                </a>
-              </li>
-            </ul>
-          </aside>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="footer-inner">
-        <p>© 2026 Caio Tomaz Araújo Silva. Desenvolvido para GitHub Pages.</p>
-        <span class="status"><span class="status-dot" aria-hidden="true"></span>status: online</span>
-      </div>
-    </footer>
-
-    <a class="back-to-top" href="#inicio" aria-label="Voltar ao topo" data-back-to-top>↑</a>
-    <script src="./script.js"></script>
-  </body>
+</article>
+<aside aria-label="Links de contato" class="card contact-panel">
+<ul class="contact-list">
+<li>
+<a href="mailto:caiotomaza@gmail.com">
+<span class="contact-label">E-mail</span>
+<span class="contact-value">caiotomaza@gmail.com</span>
+</a>
+</li>
+<li>
+<a href="tel:+5588981675605">
+<span class="contact-label">Telefone</span>
+<span class="contact-value">(88) 98167-5605</span>
+</a>
+</li>
+<li>
+<a href="https://linkedin.com/in/caiotomaza" rel="noopener noreferrer" target="_blank">
+<span class="contact-label">LinkedIn</span>
+<span class="contact-value">linkedin.com/in/caiotomaza</span>
+</a>
+</li>
+<li>
+<a href="https://github.com/caiotomaza" rel="noopener noreferrer" target="_blank">
+<span class="contact-label">GitHub</span>
+<span class="contact-value">github.com/caiotomaza</span>
+</a>
+</li>
+<li>
+<a download="" href="./assets/curriculo-caio-tomaz.pdf">
+<span class="contact-label">Currículo</span>
+<span class="contact-value">curriculo-caio-tomaz.pdf</span>
+</a>
+</li>
+</ul>
+</aside>
+</div>
+</section>
+</main>
+<footer aria-label="Rodapé do portfólio" class="site-footer"><div class="footer-inner footer-layout">
+<div class="footer-about"><a class="footer-brand" href="#inicio"><span class="brand-monogram">CT</span><span>Caio Tomaz<span aria-hidden="true" class="mark-dot"></span></span></a><p>Suporte técnico, Service Desk N1/N2 e infraestrutura. Soluções práticas para a continuidade das operações.</p><p class="footer-location">Barbalha · Ceará · Brasil</p></div>
+<nav aria-label="Atalhos do site" class="footer-col"><h3>Navegação</h3><a href="#sobre">Sobre mim</a><a href="#experiencia">Experiência</a><a href="#projetos">Projetos</a><a href="#competencias">Competências</a><a href="#formacao">Formação</a></nav>
+<nav aria-label="Portfólio e projetos" class="footer-col"><h3>Projetos</h3><a href="#projetos">Ver projetos no site</a><a href="https://github.com/caiotomaza/clean_flow" rel="noopener noreferrer" target="_blank">Clean Flow ↗</a><a href="https://github.com/caiotomaza/govcert" rel="noopener noreferrer" target="_blank">GovCert ↗</a><a href="https://github.com/caiotomaza" rel="noopener noreferrer" target="_blank">GitHub · Código-fonte ↗</a></nav>
+<div class="footer-col footer-contact"><h3>Contato e perfis</h3><a href="mailto:caiotomaza@gmail.com">caiotomaza@gmail.com</a><a href="tel:+5588981675605">(88) 98167-5605</a><a href="https://www.linkedin.com/in/caiotomaza" rel="noopener noreferrer" target="_blank">LinkedIn ↗</a><a download="" href="./assets/curriculo-caio-tomaz.pdf">Currículo em PDF ↓</a></div>
+</div><div class="footer-bottom"><span>© 2026 Caio Tomaz Araújo Silva</span><span>Portfólio estático · GitHub Pages</span><a href="#inicio">Voltar ao topo ↑</a></div></footer>
+<a aria-label="Voltar ao topo" class="back-to-top" data-back-to-top="" href="#inicio">↑</a>
+<script src="./script.js"></script>
+</body>
 </html>
