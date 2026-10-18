@@ -1,0 +1,25 @@
+digraph alece_saida_confirmada {
+	bgcolor="#111e18" fontcolor="#e5f4e8" fontname="DejaVu Sans" nodesep=0.52 pad=0.35 rankdir=LR ranksep=0.68
+	node [color="#416651" fillcolor="#1a3024" fontcolor="#e5f4e8" fontname="DejaVu Sans" fontsize=12 margin="0.20,0.14" penwidth=1.2 shape=box style="rounded,filled"]
+	edge [arrowsize=0.7 color="#789985" fontcolor="#b5d3bf" fontname="DejaVu Sans" fontsize=10]
+	A [label="Usuário autorizado
+solicita baixa" color="#78dc9e"]
+	B [label="View autentica
+valida permissão" color="#a2c5f3"]
+	C [label="Service verifica
+perfil + idempotência" color="#e7c887"]
+	D [label="Transação atômica
+select_for_update" color="#e7c887"]
+	E [label="Valida contas + saldo
+e deduz valores" color="#e7c887"]
+	F [label="Grava TransactionBatch
+e LedgerLeg" color="#a2c5f3"]
+	G [label="Commit ou rollback
+resposta ao usuário" color="#78dc9e"]
+	A -> B
+	B -> C
+	C -> D
+	D -> E
+	E -> F
+	F -> G
+}
