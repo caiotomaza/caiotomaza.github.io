@@ -1,0 +1,20 @@
+digraph G {
+graph [bgcolor="#FFFFFF",pad="0.35",nodesep="0.43",ranksep="0.75",fontname="Arial",fontsize="20",fontcolor="#0E6846",label="Camadas e fronteiras MVT / MVC adaptado",labelloc=t];
+node [shape=box,style="rounded,filled",fillcolor="#F0F5F1",color="#93B6A1",fontname="Arial",fontsize=12,fontcolor="#17261D",margin="0.2,0.14"];
+edge [color="#29875C",fontname="Arial",fontsize=10,arrowsize=.72];
+
+browser [label="Browser\nHTML CSS JS"];
+web [label="src/web.py\nURLconf"];
+middleware [label="Middleware\nSessao CSRF Setup"];
+view [label="View Django\nController HTTP"];
+service [label="Service layer\nCasos de uso",fillcolor="#C6EAD8"];
+model [label="ORM Models\nConstraints / Migrations"];
+domain [label="Dominio puro\nDecimal / Calculos"];
+template [label="Django Template\nApresentacao"];
+db [label="PostgreSQL",shape=cylinder];
+browser -> web -> middleware -> view;
+view -> service -> model -> db;
+service -> domain [dir=both];
+view -> template -> browser;
+
+}

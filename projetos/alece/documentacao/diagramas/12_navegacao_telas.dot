@@ -1,0 +1,18 @@
+digraph G {
+graph [bgcolor="#FFFFFF",pad="0.35",nodesep="0.43",ranksep="0.75",fontname="Arial",fontsize="20",fontcolor="#0E6846",label="Jornadas e abas canônicas",labelloc=t];
+node [shape=box,style="rounded,filled",fillcolor="#F0F5F1",color="#93B6A1",fontname="Arial",fontsize=12,fontcolor="#17261D",margin="0.2,0.14"];
+edge [color="#29875C",fontname="Arial",fontsize=10,arrowsize=.72];
+
+login [label="/entrar/"];
+overview [label="/visao-geral/",fillcolor="#C6EAD8"];
+expenses [label="/despesas/"];
+invest [label="/investimentos/"];
+movement [label="/movimentacoes/"];
+settings [label="/configuracoes/"];
+logs [label="/logs/"];
+report [label="/relatorios/"];
+login -> overview;
+overview -> expenses;overview -> invest;overview -> movement;overview -> settings;
+settings -> logs;settings -> report;
+
+}

@@ -1,0 +1,40 @@
+@startuml ALECE_Modelo_v0_2
+' Modelo orientativo derivado de apps/finance/models.py; não substitui migrations.
+left to right direction
+skinparam classAttributeIconSize 0
+class Workspace {name: str
+created_by: User}
+class WorkspaceMembership {role: admin|common}
+class FinancialProfile {name: str
+monthly_income: Decimal?}
+class ProfileGrant {can_view: bool
+can_edit: bool}
+class BankAccount {kind: bank|cash
+balance: Decimal?}
+class RecurringExpense {amount: Decimal
+due_day: int[1..31]}
+class UnexpectedExpense {amount: Decimal
+recorded_on: Date}
+class InvestmentPosition {applied_amount: Decimal
+current_value: Decimal}
+class ReservePolicy {coverage_months: int[6..12]}
+class TransactionBatch {kind: enum
+amount: Decimal
+idempotency_key: str?}
+class LedgerLeg {delta: Decimal}
+Workspace "1" -- "*" WorkspaceMembership
+Workspace "1" -- "*" FinancialProfile
+WorkspaceMembership "1" -- "*" ProfileGrant
+FinancialProfile "1" -- "*" ProfileGrant
+FinancialProfile "1" -- "*" BankAccount
+FinancialProfile "1" -- "*" RecurringExpense
+FinancialProfile "1" -- "*" UnexpectedExpense
+FinancialProfile "1" -- "*" InvestmentPosition
+FinancialProfile "1" -- "0..1" ReservePolicy
+FinancialProfile "1" -- "*" TransactionBatch
+TransactionBatch "1" -- "*" LedgerLeg
+BankAccount "1" -- "*" LedgerLeg
+TransactionBatch "*" --> "0..1" RecurringExpense
+TransactionBatch "*" --> "0..1" UnexpectedExpense
+TransactionBatch "*" --> "0..1" InvestmentPosition
+@enduml

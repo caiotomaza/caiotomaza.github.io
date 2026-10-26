@@ -1,0 +1,18 @@
+digraph G {
+graph [bgcolor="#FFFFFF",pad="0.35",nodesep="0.43",ranksep="0.75",fontname="Arial",fontsize="20",fontcolor="#0E6846",label="Inicializacao e readiness",labelloc=t];
+node [shape=box,style="rounded,filled",fillcolor="#F0F5F1",color="#93B6A1",fontname="Arial",fontsize=12,fontcolor="#17261D",margin="0.2,0.14"];
+edge [color="#29875C",fontname="Arial",fontsize=10,arrowsize=.72];
+
+init [label="secrets-init"];
+secrets [label="Checar segredos"];
+check [label="manage.py check"];
+migrate [label="migrate --noinput\nPODE alterar schema",fillcolor="#FFF0D8"];
+verify [label="migrate --check"];
+validator [label="alece_startup_check\nrotas, templates, DB, volumes",fillcolor="#C6EAD8"];
+gunicorn [label="Gunicorn"];
+health [label="/saude/pronto/\nconsulta SQL"];
+fail [label="Abortar / logar erro",fillcolor="#FCE4E4"];
+init -> secrets -> check -> migrate -> verify -> validator -> gunicorn -> health;
+secrets -> fail [style=dashed];check -> fail [style=dashed];migrate -> fail [style=dashed];verify -> fail [style=dashed];validator -> fail [style=dashed];
+
+}

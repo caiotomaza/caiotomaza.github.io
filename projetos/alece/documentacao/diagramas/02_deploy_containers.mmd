@@ -1,0 +1,11 @@
+flowchart LR
+  B[Browser / Proxy HTTPS] --> WEB[web Django / Gunicorn]
+  INIT[secrets-init] --> SEC[(app_secrets)]
+  INIT --> WEB
+  INIT --> DB[(PostgreSQL 16)]
+  WEB --> DB
+  DB --> PG[(app_pgdata)]
+  WEB --> MEDIA[(app_media)]
+  WEB --> AI[(app_ai_tokens)]
+  WEB --> BACK[(app_financial_backups)]
+  WEB --> LOGS[src/logs]

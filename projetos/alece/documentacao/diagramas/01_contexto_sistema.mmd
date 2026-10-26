@@ -1,0 +1,6 @@
+flowchart LR
+  U[Pessoa usuaria] -->|HTTPS| A[ALECE Django]
+  ADM[Administrador] --> A
+  F[Extratos CSV OFX PDF] -->|staging| A
+  A -->|ORM| DB[(PostgreSQL)]
+  A -.->|consentimento explicito| IA[Provedor externo IA]

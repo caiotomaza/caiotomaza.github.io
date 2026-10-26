@@ -1,0 +1,7 @@
+flowchart LR
+  PR[PR] --> STATIC[Sintaxe e estrutura]
+  STATIC --> UNIT[Unitarios]
+  UNIT --> DB[Integracao Django DB]
+  DB --> E2E[Browser E2E]
+  E2E --> REST[Restore isolado]
+  REST --> REL[Release SHA256]

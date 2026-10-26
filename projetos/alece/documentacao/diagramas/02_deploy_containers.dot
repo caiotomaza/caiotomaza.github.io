@@ -1,0 +1,24 @@
+digraph G {
+graph [bgcolor="#FFFFFF",pad="0.35",nodesep="0.43",ranksep="0.75",fontname="Arial",fontsize="20",fontcolor="#0E6846",label="Containers e volumes persistentes",labelloc=t];
+node [shape=box,style="rounded,filled",fillcolor="#F0F5F1",color="#93B6A1",fontname="Arial",fontsize=12,fontcolor="#17261D",margin="0.2,0.14"];
+edge [color="#29875C",fontname="Arial",fontsize=10,arrowsize=.72];
+
+subgraph cluster_docker {label="Docker Compose - alece";style="rounded";color="#B8D3C1";
+init [label="secrets-init\nPython 3.12 Alpine"];
+web [label="web\nDjango + Gunicorn",fillcolor="#C6EAD8"];
+db [label="db\nPostgreSQL 16",shape=cylinder];
+init -> web [label="segredos"];
+init -> db [label="senha DB"];
+web -> db [label="SQL"];
+}
+proxy [label="Browser / Proxy TLS"];
+secret [label="app_secrets",shape=folder];
+pgdata [label="app_pgdata",shape=folder];
+media [label="app_media",shape=folder];
+tokens [label="app_ai_tokens",shape=folder];
+backup [label="app_financial_backups",shape=folder];
+logs [label="src/logs",shape=folder];
+proxy -> web [label="localhost:8088"];
+init -> secret; db -> pgdata; web -> media; web -> tokens; web -> backup; web -> logs;
+
+}

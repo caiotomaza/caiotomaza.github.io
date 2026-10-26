@@ -1,0 +1,8 @@
+flowchart LR
+  UP[Upload CSV OFX PDF] --> V[Validacao e parser]
+  V --> S[ImportBatch e ImportRow]
+  S --> H[Previa humana]
+  H --> DR[Simulacao / deduplicacao]
+  DR -->|corrigir| H
+  DR -->|confirmar| TX[Transacao atomica]
+  TX --> L[Ledger / auditoria]

@@ -1,0 +1,26 @@
+digraph G {
+graph [bgcolor="#FFFFFF",pad="0.35",nodesep="0.43",ranksep="0.75",fontname="Arial",fontsize="20",fontcolor="#0E6846",label="Autorizacao por objeto e modulo",labelloc=t];
+node [shape=box,style="rounded,filled",fillcolor="#F0F5F1",color="#93B6A1",fontname="Arial",fontsize=12,fontcolor="#17261D",margin="0.2,0.14"];
+edge [color="#29875C",fontname="Arial",fontsize=10,arrowsize=.72];
+
+request [label="Requisicao HTTP"];
+auth [label="Sessao valida?",shape=diamond,fillcolor="#FAF3DB"];
+workspace [label="Workspace e membership?",shape=diamond,fillcolor="#FAF3DB"];
+admin [label="Administrador?",shape=diamond,fillcolor="#FAF3DB"];
+grant [label="Grant do perfil/modulo?",shape=diamond,fillcolor="#FAF3DB"];
+obj [label="Objeto do mesmo perfil?",shape=diamond,fillcolor="#FAF3DB"];
+allow [label="Servico / transacao",fillcolor="#C6EAD8"];
+deny [label="Negar 401/403/404",fillcolor="#FCE4E4"];
+request -> auth;
+auth -> workspace [label="sim"];
+auth -> deny [label="nao"];
+workspace -> admin [label="sim"];
+workspace -> deny [label="nao"];
+admin -> obj [label="sim"];
+admin -> grant [label="nao"];
+grant -> obj [label="permitido"];
+grant -> deny [label="negado"];
+obj -> allow [label="sim"];
+obj -> deny [label="nao"];
+
+}

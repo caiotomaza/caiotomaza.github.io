@@ -1,0 +1,25 @@
+digraph ALECE_Fluxo_Confirmacao_Mobile {
+	bgcolor="#111e18" fontname="DejaVu Sans" nodesep=0.25 pad=0.32 rankdir=TB ranksep=0.36
+	node [color="#51836b" fillcolor="#1a3024" fontcolor="#e9f6e9" fontname="DejaVu Sans" fontsize=12 margin="0.22,0.16" shape=box style="rounded,filled"]
+	edge [arrowsize=0.65 color="#78cfa0"]
+	A [label="01 · Solicitação de baixa
+Usuário autorizado"]
+	B [label="02 · View Django
+Validação de permissão"]
+	C [label="03 · Service
+Perfil e idempotência"]
+	D [label="04 · Transação atômica
+Bloqueio select_for_update"]
+	E [label="05 · Validação
+Contas e saldos"]
+	F [label="06 · Persistência
+TransactionBatch + LedgerLeg"]
+	G [label="07 · Commit ou rollback
+Resposta ao usuário"]
+	A -> B
+	B -> C
+	C -> D
+	D -> E
+	E -> F
+	F -> G
+}

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="730" height="180" viewBox="0 0 730 180" role="img" aria-label="ALECE Finance">
+<rect width="730" height="180" rx="26" fill="#0d1512"/>
+<rect x="28" y="27" width="126" height="126" rx="33" fill="#0E6846"/>
+<path d="M48 127 79 51h18l31 76h-20l-6-18H75l-6 18H48zm34-33h15L89 71z" fill="#F2FCF6"/>
+<circle cx="130" cy="51" r="8" fill="#C0E6AD"/>
+<text x="182" y="101" fill="#F2FCF6" font-size="63" font-family="Arial,sans-serif" font-weight="800" letter-spacing="-3">ALECE</text>
+<text x="187" y="132" fill="#99b9a8" font-size="21" font-family="Arial,sans-serif" font-weight="700" letter-spacing="7">FINANCE</text>
+<circle cx="405" cy="85" r="6" fill="#65D4A0"/>
+</svg>

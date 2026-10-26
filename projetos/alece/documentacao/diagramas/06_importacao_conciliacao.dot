@@ -1,0 +1,23 @@
+digraph G {
+graph [bgcolor="#FFFFFF",pad="0.35",nodesep="0.43",ranksep="0.75",fontname="Arial",fontsize="20",fontcolor="#0E6846",label="Importacao bancaria com revisao humana",labelloc=t];
+node [shape=box,style="rounded,filled",fillcolor="#F0F5F1",color="#93B6A1",fontname="Arial",fontsize=12,fontcolor="#17261D",margin="0.2,0.14"];
+edge [color="#29875C",fontname="Arial",fontsize=10,arrowsize=.72];
+
+upload [label="Upload CSV / OFX / PDF"];
+validate [label="Limites e parser"];
+staging [label="ImportBatch / ImportRow"];
+review [label="Previa editavel\nRevisao humana",fillcolor="#C6EAD8"];
+check [label="Dry run / duplicatas"];
+commit [label="Commit atomico"];
+ledger [label="TransactionBatch\nLedgerLeg / JournalEntry"];
+report [label="Relatorio de importacao"];
+reject [label="Erro / rejeicao",fillcolor="#FCE4E4"];
+upload -> validate;
+validate -> staging [label="valido"];
+validate -> reject [label="invalido"];
+staging -> review -> check;
+check -> review [label="corrigir",style=dashed];
+check -> commit [label="confirmar"];
+commit -> ledger -> report;
+
+}

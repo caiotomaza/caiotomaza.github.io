@@ -1,0 +1,4131 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>ALECE — Manual técnico completo</title><link href="assets/identidade/favicon_original.svg" rel="icon"/><link href="assets/documentacao.css" rel="stylesheet"/></head><body><header><div class="bar"><a class="brand" href="index.html"><img alt="Ícone ALECE" src="assets/identidade/favicon_original.svg"/>ALECE · Documentação</a><div class="nav-actions"><a class="button" href="../">Site do projeto</a><a class="button" href="manual.html">Manual</a><a class="button" href="INDICE.md">Markdown</a><button aria-label="Alternar tema" data-theme-toggle="" type="button">Claro / Escuro</button></div></div></header><div class="manual-layout"><nav aria-label="Índice de capítulos" class="manual-nav"><label for="nav-search">Buscar capítulo</label><input class="search" id="nav-search" placeholder="Ex.: ledger, IA, deploy"/><h2>Produto</h2><a data-document="" href="#01_PRODUTO-01_IDENTIDADE_ESCOPO">Identidade, propósito e contrato do produto</a><a data-document="" href="#01_PRODUTO-02_MATRIZ_FUNCIONAL">Mapa funcional por página, regra e persistência</a><h2>Arquitetura</h2><a data-document="" href="#02_ARQUITETURA-01_ESTILO_CAMADAS">Estilo arquitetural e fronteiras</a><a data-document="" href="#02_ARQUITETURA-02_STACK_EXECUCAO">Stack, dependências e infraestrutura</a><a data-document="" href="#02_ARQUITETURA-03_ESTRUTURA_REPOSITORIO">Estrutura de repositório e responsabilidades</a><h2>Domínio financeiro</h2><a data-document="" href="#03_DOMINIO-01_GLOSSARIO_INVARIANTES">Glossário financeiro e invariantes</a><a data-document="" href="#03_DOMINIO-02_USUARIOS_PERFIS_PERMISSOES">Identidades, núcleos, perfis e autorização</a><a data-document="" href="#03_DOMINIO-03_LEDGER_CONTAS_ESTORNOS">Ledger, contas e integridade transacional</a><a data-document="" href="#03_DOMINIO-04_IMPORTACAO_BANCARIA">Ingestão CSV, OFX e PDF e conciliação</a><a data-document="" href="#03_DOMINIO-05_INVESTIMENTOS_RESERVA">Investimentos, renda, planejamento e Reserva</a><a data-document="" href="#03_DOMINIO-06_IA_PRIVACIDADE">Integrações de IA e privacidade de dados</a><a data-document="" href="#03_DOMINIO-07_TRANSFERENCIA_FINANCEIRA">Exportação e importação financeira portável</a><h2>Modelagem de dados</h2><a data-document="" href="#04_DADOS-01_MODELO_RELACIONAL">Modelagem de dados: conceitos, relacionamentos e integridade</a><a data-document="" href="#04_DADOS-02_DICIONARIO_ORM_GERADO">Dicionário de modelos ORM (gerado automaticamente)</a><a data-document="" href="#04_DADOS-03_MIGRACOES_EVOLUCAO">Migrações, compatibilidade e evolução do esquema</a><h2>Interface e rotas</h2><a data-document="" href="#05_INTERFACE-01_DESIGN_SYSTEM">Design system e experiência responsiva</a><a data-document="" href="#05_INTERFACE-02_ROTAS_TELAS_FORMULARIOS">Rotas, views e contratos de UI</a><a data-document="" href="#05_INTERFACE-03_CATALOGO_ROTAS_GERADO">Catálogo de rotas identificadas por inspeção de código</a><h2>Segurança</h2><a data-document="" href="#06_SEGURANCA-01_MODELO_AMEACAS">Segurança: ativos, ameaças e controles</a><a data-document="" href="#06_SEGURANCA-02_PRIVACIDADE_DADOS">Privacidade, retenção e exportação</a><h2>Operação e deploy</h2><a data-document="" href="#07_OPERACOES-01_IMPLANTACAO_SELF_HOST">Implantação self-hosted e infraestrutura</a><a data-document="" href="#07_OPERACOES-02_VARIAVEIS_AMBIENTE">Configuração operacional por ambiente</a><a data-document="" href="#07_OPERACOES-03_STARTUP_HEALTH">Startup, healthchecks e condições de falha</a><a data-document="" href="#07_OPERACOES-04_LOGS_OBSERVABILIDADE">Logs, auditoria e diagnóstico</a><a data-document="" href="#07_OPERACOES-05_BACKUP_ROLLBACK">Backup, restauração e rollback</a><h2>Qualidade e testes</h2><a data-document="" href="#08_QUALIDADE-01_ESTRATEGIA_TESTES">Estratégia de testes: qualidade funcional e estabilidade</a><a data-document="" href="#08_QUALIDADE-02_MATRIZ_CRUD_ACEITE">Matriz de CRUD, autorização e renderização</a><a data-document="" href="#08_QUALIDADE-03_CICD_PROCESSO_EQUIPE">CI/CD, modelo de trabalho e governança</a><h2>Decisões e roadmap</h2><a data-document="" href="#09_DECISOES-01_ADRS_E_STATUS">Decisões de arquitetura e estado das evidências</a><a data-document="" href="#09_DECISOES-02_RISCOS_LIMITACOES_ROADMAP">Riscos, limitações e roadmap técnico</a></nav><div><article class="chapter" id="01_PRODUTO-01_IDENTIDADE_ESCOPO"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Identidade, propósito e contrato do produto</h1>
+<p><strong>ALECE Finance</strong> é uma aplicação web de gestão financeira pessoal/familiar, planejada para execução <strong>self-hosted</strong>. O usuário hospeda o software, mantém os dados sob seu controle e pode inspecionar e alterar o código sob <strong>GNU GPL-3.0-only</strong>. O nome remete à história familiar narrada nos documentos do projeto; essa origem não implica associação institucional com entidades homônimas.</p>
+<h2>Problema e proposta de valor</h2>
+<p>O produto evita confundir previsão financeira com dinheiro movimentado. Reúne renda planejada, saldos de contas, despesas recorrentes e eventuais, investimentos, metas, reserva, movimentações efetivas, importações e relatórios. Cada evento financeiro tem uma fonte de verdade em dados persistidos e deve ser auditável.</p>
+<h2>Público e operação</h2>
+<ul>
+<li>Pessoa individual ou grupo familiar em espaço financeiro (<code>Workspace</code>) com um ou mais usuários.</li>
+<li>Dois papéis de negócio: <code>admin</code> e <code>common</code>. Ser administrador de um espaço não concede acesso a outro.</li>
+<li>Até cinco perfis financeiros <strong>ativos</strong> por espaço, além de arquivados/históricos.</li>
+<li>Navegação em português brasileiro com rotas sem acentos: <code>/visao-geral/</code>, <code>/despesas/</code>, <code>/investimentos/</code>, <code>/movimentacoes/</code>, <code>/configuracoes/</code>.</li>
+<li>Interface em claro/escuro e controle de aparência associado ao usuário.</li>
+</ul>
+<h2>Princípios normativos</h2>
+<ol>
+<li><strong>Estabilidade &gt; confiabilidade &gt; segurança &gt; recuperabilidade &gt; manutenibilidade &gt; desempenho.</strong></li>
+<li><strong>Privacidade por desenho:</strong> o sistema não exige telemetria; envio a provedor externo de IA requer escolha e consentimento explícitos.</li>
+<li><strong>Planejar não é executar:</strong> cadastro de renda, contas ou compromissos não gera pagamento.</li>
+<li><strong>Histórico auditável:</strong> valores financeiros confirmados não devem ser apagados por correção silenciosa; usar estorno/correção rastreável.</li>
+<li><strong>Autorização no servidor</strong> por usuário, espaço, perfil, módulo e objeto; esconder botões não equivale a controlar acesso.</li>
+<li><strong>Portabilidade:</strong> Docker Compose é o alvo operacional, sem dependência indispensável de um servidor ZimaOS específico.</li>
+</ol>
+<h2>Fora do escopo desta documentação</h2>
+<p>Não é garantia de retorno financeiro, conciliação automática sem supervisão, auditoria regulatória, política de privacidade jurídica nem laudo de pentest. A especificação v1.32.1 inclui decisões históricas que podem não ter sido materializadas.</p>
+<h2>Evidências e trilha</h2>
+<ul>
+<li>Fontes anexadas: <code>ALECE_Contexto_Integral_para_Gemini_2026-10-18.md</code>, <code>ALECE_Documentacao_Completa_Engenharia_2026-10-18.md</code>, <code>documentacao-tecica_v1.32.1.md</code>.</li>
+<li>Código conferido: <code>README.md</code>, <code>docs/PRODUCT.md</code>, <code>src/web.py</code>, <code>src/controller/apps/finance/models.py</code>.</li>
+</ul>
+</article><article class="chapter" id="01_PRODUTO-02_MATRIZ_FUNCIONAL"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Mapa funcional por página, regra e persistência</h1>
+<table>
+<thead>
+<tr>
+<th>Área</th>
+<th>Finalidade</th>
+<th>Casos de uso / ações</th>
+<th>Evidência de código</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Visão geral</td>
+<td>panorama e renda consolidada</td>
+<td>saldo informado, compromissos do mês, Resumo, gráficos, renda, contas</td>
+<td><code>apps.finance.public_routes</code>, <code>views</code>, <code>services.metrics</code></td>
+</tr>
+<tr>
+<td>Despesas</td>
+<td>planejar e consultar gastos</td>
+<td>CRUD de previsíveis, imprevisíveis, categorias, competências, filtro de mês</td>
+<td><code>views.record_edit/delete</code>, <code>models.RecurringExpense</code>, <code>UnexpectedExpense</code>, <code>MonthlyExpense</code></td>
+</tr>
+<tr>
+<td>Investimentos</td>
+<td>patrimônio e objetivos</td>
+<td>posições, categorias fixas, aplicações/resgates, metas e reserva</td>
+<td><code>InvestmentPosition</code>, <code>ReservePolicy</code>, <code>transaction_views</code>, <code>services.planning</code></td>
+</tr>
+<tr>
+<td>Movimentações</td>
+<td>execução e conferência</td>
+<td>pagar, transferir, estornar, importar, revisar e confirmar</td>
+<td><code>TransactionBatch</code>, <code>LedgerLeg</code>, <code>JournalEntry</code>, <code>import_views</code></td>
+</tr>
+<tr>
+<td>Configurações</td>
+<td>identidade e administração</td>
+<td>conta, usuários, perfis, permissões, provedores de IA, logs, relatórios</td>
+<td><code>settings_views</code>, <code>user_views</code>, <code>permissions</code>, templates core</td>
+</tr>
+<tr>
+<td>Logs</td>
+<td>auditoria e diagnóstico</td>
+<td>filtrar, detalhar, identificar incidentes</td>
+<td><code>SystemLog</code>, <code>core.views</code>, <code>/logs/</code></td>
+</tr>
+<tr>
+<td>Relatórios</td>
+<td>panoramas e transferência</td>
+<td>DRE, patrimônio, investimentos, metas, exportação XLSX/JSON</td>
+<td><code>reports_views</code>, <code>financial_transfer_views</code></td>
+</tr>
+</tbody>
+</table>
+<h2>Operações de escrita / leitura</h2>
+<p>Um formulário de cadastro apresenta uma intenção de escrita. Para efetivar um débito, a aplicação precisa validar permissões, integridade de saldo, conta, perfil, competência e idempotência no backend. Gráficos usam dados confirmados quando assim declarados; cadastros ainda não pagos não são eventos de ledger.</p>
+<h2>UX consolidada</h2>
+<ul>
+<li>Modais Django para criação e edição, com tratamento de envio, confirmação e responsividade.</li>
+<li>Componentes de tabela dentro de cartões; cabeçalho e ações alinhados, distanciamento interno consistente.</li>
+<li>Campos <code>select</code>, <code>checkbox</code>, datas e ações obedecem aos tokens de tema.</li>
+<li>Importação bancária inicia após seleção/arraste do arquivo e segue para <strong>prévia</strong>, não para confirmação financeira automática.</li>
+</ul>
+<h2>Estado da verificação</h2>
+<p>Os arquivos citados estão presentes no snapshot auditado. Um item existir como rota ou template não comprova cobertura end-to-end nem êxito no PostgreSQL real; ver <code>08_QUALIDADE/01_ESTRATEGIA_TESTES.md</code>.</p>
+</article><article class="chapter" id="02_ARQUITETURA-01_ESTILO_CAMADAS"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Estilo arquitetural e fronteiras</h1>
+<p><strong>Padrão principal:</strong> monólito modular Django com PostgreSQL, organizado por áreas de domínio (<code>core</code>, <code>finance</code>) e serviços de aplicação. É uma decisão deliberada para permitir transações financeiras dentro de um único banco, operação mais simples e recuperação controlada. Não é um conjunto de microsserviços.</p>
+<h2>MVT versus MVC</h2>
+<p>A tecnologia Django define <strong>Model–View–Template (MVT)</strong>:</p>
+<ul>
+<li><strong>Model:</strong> dados e mapeamento ORM; constraints e migrações Django, sobretudo <code>apps.finance.models</code> e <code>apps.core.models</code>.</li>
+<li><strong>View Django:</strong> controlador da requisição HTTP: autenticação, validação, montagem do contexto e resposta. Conceitualmente assume parte do <strong>Controller</strong> do MVC tradicional.</li>
+<li><strong>Template:</strong> camada de apresentação HTML. Não executa SQL, lançamento financeiro ou autorização independente.</li>
+</ul>
+<p>O repositório também tem diretórios <code>src/model</code>, <code>src/view</code> e <code>src/controller</code>; esses nomes traduzem responsabilidades, mas <strong>não transformam Django em um framework MVC puro</strong>. O roteador <code>src/web.py</code> agrupa URL patterns como conveniência similar a Laravel, sem substituição do mecanismo oficial de URLconf e <code>reverse()</code>.</p>
+<h2>Mapa de execução</h2>
+<ol>
+<li>Browser envia HTTP com sessão e proteção CSRF.</li>
+<li>Django resolve <code>src/web.py</code> / includes de apps e passa por middleware.</li>
+<li>View identifica usuário e objeto, avalia autorização e chama formulário/serviço.</li>
+<li>Serviço de aplicação mantém transação, bloqueios e validações relevantes.</li>
+<li>Modelos ORM persistem no PostgreSQL; cálculos puros usam <code>Decimal</code>.</li>
+<li>Template renderiza resultado ou o serviço retorna documento / download.</li>
+</ol>
+<h2>Padrões observados e responsabilidade</h2>
+<table>
+<thead>
+<tr>
+<th>Padrão</th>
+<th>Aplicação observada</th>
+<th>Cuidado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Modular monolith</td>
+<td>apps <code>core</code>, <code>finance</code></td>
+<td>preservar fronteira sem rede entre módulos</td>
+</tr>
+<tr>
+<td>MVT/MVC adaptado</td>
+<td>views HTTP, templates, models</td>
+<td>controller não conter transação financeira extensa</td>
+</tr>
+<tr>
+<td>Service layer</td>
+<td><code>apps.finance.services.*</code></td>
+<td>validação central, autorização por objeto</td>
+</tr>
+<tr>
+<td>Domain model / funções puras</td>
+<td><code>src/model/finance/domain</code>, <code>apps.finance.domain</code></td>
+<td>preferir <code>Decimal</code> e testes isolados</td>
+</tr>
+<tr>
+<td>Transactional consistency</td>
+<td><code>transaction.atomic</code>, ledger e estornos</td>
+<td>impedir gravações parciais</td>
+</tr>
+<tr>
+<td>Idempotency</td>
+<td>chaves em <code>TransactionBatch</code> e <code>ImportRow</code></td>
+<td>verificar concorrência e repetição</td>
+</tr>
+<tr>
+<td>Audit trail</td>
+<td><code>SystemLog</code>, batches e journal</td>
+<td>separar operação de usuário de evento de diagnóstico</td>
+</tr>
+<tr>
+<td>Adapter/pipeline</td>
+<td>parsing CSV, OFX, PDF, staging</td>
+<td>tratar input externo como não confiável</td>
+</tr>
+<tr>
+<td>Soft delete/arquivamento</td>
+<td>perfis, contas, vínculos</td>
+<td>preservar integridade histórica</td>
+</tr>
+<tr>
+<td>Configuration via environment</td>
+<td>settings e volumes de segredos</td>
+<td>nunca comitar credenciais reais</td>
+</tr>
+</tbody>
+</table>
+<h2>Regras entre camadas</h2>
+<ul>
+<li>View não deve alterar <code>BankAccount.balance</code> arbitrariamente.</li>
+<li>Serviço não deve conhecer CSS, HTML ou DOM.</li>
+<li>Autorização <strong>não</strong> deve depender de estado de checkbox do frontend.</li>
+<li>Integração com IA não pode alterar lançamentos apenas por responder com uma análise.</li>
+<li><code>src/model/</code> abriga domínio puro, não um segundo ORM paralelo ao Django.</li>
+</ul>
+<p><strong>Referências:</strong> <code>docs/ARCHITECTURE.md</code>, <code>docs/ARCHITECTURE_MVC.md</code>, <code>src/web.py</code>, <code>apps.finance.services.ledger</code>.</p>
+</article><article class="chapter" id="02_ARQUITETURA-02_STACK_EXECUCAO"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Stack, dependências e infraestrutura</h1>
+<h2>Stack comprovada no snapshot examinado</h2>
+<table>
+<thead>
+<tr>
+<th>Camada</th>
+<th>Tecnologia / versão configurada</th>
+<th>Evidência</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linguagem</td>
+<td>Python no container definido em <code>docker/Dockerfile</code>; utilitário <code>secrets-init</code>: Python 3.12 Alpine</td>
+<td><code>docker/Dockerfile</code>, <code>compose.yaml</code></td>
+</tr>
+<tr>
+<td>Framework web</td>
+<td>Django <strong>5.2.18</strong></td>
+<td><code>src/requirements/production.lock</code></td>
+</tr>
+<tr>
+<td>Banco</td>
+<td>PostgreSQL <strong>16</strong> Bookworm</td>
+<td><code>compose.yaml</code> (<code>postgres:16-bookworm</code>)</td>
+</tr>
+<tr>
+<td>Driver</td>
+<td>Psycopg <strong>3.3.6</strong></td>
+<td>lockfile de produção</td>
+</tr>
+<tr>
+<td>Servidor WSGI</td>
+<td>Gunicorn <strong>23.0.0</strong>, dois workers</td>
+<td><code>production.lock</code>, <code>docker/start.sh</code></td>
+</tr>
+<tr>
+<td>Static</td>
+<td>WhiteNoise + Django Staticfiles</td>
+<td><code>config/settings.py</code></td>
+</tr>
+<tr>
+<td>Frontend</td>
+<td>Django Templates, CSS e JavaScript próprios</td>
+<td><code>src/view</code></td>
+</tr>
+<tr>
+<td>Gráficos</td>
+<td>artefato Chart.js local, onde referenciado</td>
+<td><code>src/view/static/vendor</code>, templates</td>
+</tr>
+<tr>
+<td>Dependências</td>
+<td><code>pip-compile</code> / <code>production.lock</code> com hashes</td>
+<td><code>src/requirements</code></td>
+</tr>
+<tr>
+<td>Orquestração</td>
+<td>Docker Compose, projeto <code>alece</code></td>
+<td><code>compose.yaml</code></td>
+</tr>
+<tr>
+<td>Rede</td>
+<td>bridge interna do Compose, banco sem porta publicada</td>
+<td><code>compose.yaml</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Conflito histórico:</strong> textos de 18/10 citam PostgreSQL 18 e Python 3.13 para DevKit/proposta. O <code>compose.yaml</code> do código examinado usa PostgreSQL 16. Para implantar, prevalece a versão realmente construída e implantada, não a antiga descrição.</p>
+<h2>Containers e persistência</h2>
+<ul>
+<li><code>secrets-init</code>: cria segredos persistentes no volume <code>app_secrets</code>, sem imprimi-los.</li>
+<li><code>db</code>: PostgreSQL isolado na rede <code>internal</code>, volume <code>app_pgdata</code>.</li>
+<li><code>web</code>: Django/Gunicorn, healthcheck <code>/saude/pronto/</code>; porta publicada em <code>ALECE_BIND_IP:ALECE_PORT</code>, valor padrão <code>127.0.0.1:8088</code>.</li>
+<li><code>app_media</code>: arquivos de upload; <code>app_ai_tokens</code>: credenciais externas de IA; <code>app_financial_backups</code>: backups financeiros do serviço.</li>
+<li><code>./src/logs:/app/src/logs</code>: registro opcional por inicialização, a partir de <code>ALECE_LOG_VALIDACAO</code>.</li>
+</ul>
+<h2>Entradas HTTP e HTTPS</h2>
+<ul>
+<li>A aplicação atende HTTP interno; um proxy reverso (ex.: Caddy) pode estabelecer HTTPS público, observando <code>ALLOWED_HOSTS</code>, origens CSRF e cabeçalhos encaminhados.</li>
+<li>PostgreSQL não deve ser exposto externamente.</li>
+<li>TLS e cookies seguros são requisitos para autenticação fora do loopback. Não indicar <code>ALECE_SECURE_COOKIES=false</code> como configuração de produção em HTTPS.</li>
+</ul>
+<h2>Reprodutibilidade</h2>
+<p>O lockfile contém versões e hashes. Isso <strong>não</strong> garante que o build funcionará em arquiteturas não verificadas ou que a disponibilidade das dependências será eterna. Mantenha CI e auditoria de vulnerabilidades.</p>
+</article><article class="chapter" id="02_ARQUITETURA-03_ESTRUTURA_REPOSITORIO"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Estrutura de repositório e responsabilidades</h1>
+<pre><code class="language-text">alece/
+├── compose.yaml                 # serviços, redes e volumes
+├── docker/                      # Dockerfile, secrets-init, startup e logs
+├── manage.py                    # CLI Django
+├── src/
+│   ├── web.py                   # declaração central de rotas WEB
+│   ├── controller/
+│   │   ├── config/              # settings, urls adapter, wsgi/asgi
+│   │   └── apps/
+│   │       ├── core/            # autenticação, usuário, auditoria, IA, health
+│   │       └── finance/         # models, forms, views, serviços financeiros
+│   ├── model/finance/domain/    # regras matemáticas puras, sem Django
+│   ├── view/
+│   │   ├── templates/           # HTML Django por recurso
+│   │   └── static/              # CSS, JS, ícones e dependências vendorizadas
+│   ├── requirements/           # produção/dev com locks
+│   └── logs/                   # logs opt-in, não colocar segredos
+├── tests/                       # auth, finance, imports, UI, ops etc.
+├── docs/                        # ADRs, manutenção, segurança, histórico
+├── scripts/                     # verificações e auditoria visual
+└── .github/workflows/           # CI e release
+</code></pre>
+<h2>Sobre <code>public/</code></h2>
+<p>A distribuição mais recente examinada não depende da pasta antiga <code>public/</code>; <code>MEDIA_ROOT</code> aponta para <code>media/</code> e <code>STATIC_ROOT</code> para <code>.staticfiles/</code>. <code>app_media</code> continua sendo o volume persistente no container. <strong>Não remova volumes</strong> ao reestruturar diretórios.</p>
+<h2>Pontos de entrada e rastreamento</h2>
+<ul>
+<li>Route: <code>src/web.py</code> → <code>config.urls</code> → <code>apps.core.urls</code> / <code>apps.finance.urls</code>.</li>
+<li>Alteração financeira: view → formulário → <code>services.*</code> → ORM → <code>TransactionBatch</code> / <code>JournalEntry</code>.</li>
+<li>Autenticação: views <code>core.auth_views</code>, modelo <code>UserProfile</code> e tabelas Django <code>auth_user</code>.</li>
+<li>Template: <code>src/view/templates/{finance,core,auth}/...</code>.</li>
+</ul>
+<h2>Convenção de alterações</h2>
+<ol>
+<li>Alterar serviço/contrato com comportamento testável; não duplicar regras em JS.</li>
+<li>Incluir testes regressivos no diretório de domínio.</li>
+<li>Se schema mudar, criar migration sem destruir dados e definir rollback.</li>
+<li>Documentar decisão em ADR e atualizar changelog quando a interface pública ou persistência mudar.</li>
+</ol>
+</article><article class="chapter" id="03_DOMINIO-01_GLOSSARIO_INVARIANTES"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Glossário financeiro e invariantes</h1>
+<table>
+<thead>
+<tr>
+<th>Termo</th>
+<th>Definição operacional</th>
+<th>Não confundir com</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Núcleo (<code>Workspace</code>)</td>
+<td>fronteira de dados e permissões</td>
+<td>perfil financeiro ou usuário</td>
+</tr>
+<tr>
+<td>Perfil (<code>FinancialProfile</code>)</td>
+<td>unidade de renda, contas, gastos e metas</td>
+<td>identidade de login</td>
+</tr>
+<tr>
+<td>Renda mensal</td>
+<td>premissa orçamentária do perfil</td>
+<td>crédito bancário</td>
+</tr>
+<tr>
+<td>Saldo conhecido (<code>0</code>)</td>
+<td>montante efetivamente informado como zero</td>
+<td>não informado (<code>NULL</code>)</td>
+</tr>
+<tr>
+<td>Despesa previsível</td>
+<td>compromisso cadastrado por categoria e dia de vencimento</td>
+<td>pagamento confirmado</td>
+</tr>
+<tr>
+<td>Competência (<code>YYYY-MM</code>)</td>
+<td>período contábil de obrigação</td>
+<td>timestamp de execução</td>
+</tr>
+<tr>
+<td>Despesa imprevisível</td>
+<td>gasto avulso com data do evento</td>
+<td>previsão mensal</td>
+</tr>
+<tr>
+<td>Posição de investimento</td>
+<td>patrimônio aplicado/atual estimado</td>
+<td>aplicação ou resgate transacional</td>
+</tr>
+<tr>
+<td>Reserva</td>
+<td>objetivo prudencial calculado sobre despesas essenciais</td>
+<td>conta bancária ou investimento automaticamente criado</td>
+</tr>
+<tr>
+<td>Movimentação (<code>TransactionBatch</code>)</td>
+<td>agrupamento de evento financeiro real</td>
+<td>formulário de cadastro</td>
+</tr>
+<tr>
+<td>Lançamento (<code>LedgerLeg</code>, <code>JournalEntry</code>)</td>
+<td>efeitos contábeis de um evento</td>
+<td>UI do gráfico</td>
+</tr>
+<tr>
+<td>Estorno</td>
+<td>evento vinculado que compensa o efeito anterior</td>
+<td>DELETE do registro original</td>
+</tr>
+</tbody>
+</table>
+<h2>Invariantes a preservar</h2>
+<ol>
+<li><strong>Precisão:</strong> armazenar dinheiro em <code>Decimal</code> / PostgreSQL <code>NUMERIC</code>. Não usar <code>float</code> para fonte de verdade.</li>
+<li><strong>Sem dupla contagem:</strong> obrigação paga já debitou a conta e não deve ser descontada novamente da projeção.</li>
+<li><strong><code>NULL != 0</code>:</strong> campo ausente deve continuar sendo desconhecido, inclusive em gráficos e totais derivados.</li>
+<li><strong>Saldo não negativo quando aplicável:</strong> restrição <code>ck_account_nonnegative</code> e validação de débito por saldo disponível.</li>
+<li><strong>Contas do mesmo perfil:</strong> pagamentos divididos e transferências precisam garantir mesma fronteira do perfil autorizada.</li>
+<li><strong>Atômico:</strong> conjunto de pernas contábeis é validado e persistido ou revertido integralmente.</li>
+<li><strong>Idempotente:</strong> repetição de requisição/arquivo não pode criar evento financeiro duplicado.</li>
+<li><strong>Estorno auditável:</strong> criar contrapartida, manter vínculo <code>reversal_of</code> e trilha original.</li>
+<li><strong>Permissões por objeto:</strong> recurso fora do espaço/perfil autorizado não é editável por URL direta.</li>
+<li><strong>Sem ação financeira por IA:</strong> provedores só devolvem análise; backend controla lançamentos e consentimento.</li>
+</ol>
+<h2>Fórmulas documentadas</h2>
+<ul>
+<li><strong>Pendente de obrigação:</strong> <code>max(0, obrigação do mês − soma dos pagamentos confirmados vinculados)</code>.</li>
+<li><strong>Projeção de caixa:</strong> <code>saldo atual conhecido − total de compromissos ainda não confirmados e não debitados</code>.</li>
+<li><strong>Meta de Reserva:</strong> <code>despesas essenciais mensais × meses de cobertura</code> (padrão nove; permitido de seis a doze).</li>
+<li><strong>Montante disponível para investimento:</strong> parte da renda após despesas e prioridade de proteção; método específico depende de <code>planning.py</code> / parâmetros ativos.</li>
+</ul>
+<h2>Testes de invariantes</h2>
+<p>Inclua casos de saldo desconhecido versus zero, vencimento no dia 31 em fevereiro, múltiplas contas, valores decimais, duas confirmações concorrentes, estorno parcial, transação estornada duas vezes, importação repetida e metas sem renda cadastrada.</p>
+</article><article class="chapter" id="03_DOMINIO-02_USUARIOS_PERFIS_PERMISSOES"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Identidades, núcleos, perfis e autorização</h1>
+<h2>Separação de identidades</h2>
+<p><code>auth.User</code> é a conta de login. <code>UserProfile</code> guarda preferências complementares. <code>Workspace</code> limita a operação financeira; <code>WorkspaceMembership</code> vincula usuário e papel (<code>admin</code>/<code>common</code>). <code>FinancialProfile</code> guarda saldo, renda e vínculos financeiros. <code>ProfileGrant</code> concede acesso entre membership e perfil.</p>
+<h2>Matriz por módulo</h2>
+<p>Cada grant contém níveis <code>none</code>, <code>view</code>, <code>edit</code> para <code>overview</code>, <code>accounts</code>, <code>expenses</code>, <code>investments</code> e <code>movements</code>. <code>edit</code> pressupõe leitura. Os checkboxes <strong>Visualizar</strong> e <strong>Editar</strong> são controles de interface para aplicar níveis em massa; o backend deve validar os níveis de cada módulo.</p>
+<h2>Regras de acesso</h2>
+<ul>
+<li>Administrador de núcleo: gerencia seu espaço e seus perfis, não ganha direitos em outros espaços.</li>
+<li>Usuário comum: só entra em perfil e módulo com grant explícito.</li>
+<li>O alvo de qualquer URL com <code>profile_id</code>, <code>workspace_id</code>, <code>account_id</code> ou <code>membership_id</code> precisa ser verificado no servidor.</li>
+<li>Arquivamento: o perfil deixa de aparecer nas operações ativas, preservando histórico.</li>
+<li>Exclusão lógica: <code>FinancialProfile.deleted_at</code> registra remoção de uso normal sem quebrar referências do ledger.</li>
+<li>A exclusão administrativa de usuário preserva identidade técnica anonimizável quando necessária para auditoria.</li>
+</ul>
+<h2>Recuperação de conta</h2>
+<p>Recuperação por <strong>seis códigos de uso único</strong> gerados na emissão. O armazenamento inclui <code>code_hash</code>, <code>slot</code>, <code>used_at</code>; os originais não podem ser relidos após confirmados. O primeiro cadastro exige geração; copiar e baixar <code>txt</code> ocorre na emissão. Não é correto oferecer um botão de "ver códigos antigos".</p>
+<h2>Login</h2>
+<p>Nome de usuário é obrigatório. E-mail é opcional e, se cadastrado de forma única, também pode identificar o usuário na autenticação; senha continua verificada pelo Django. Limites de tentativas ficam registrados sem salvar senhas digitadas.</p>
+<h2>Fluxo de segurança</h2>
+<p>Autenticar → resolver espaço/perfil → verificar papel → verificar grant por módulo → validar vínculo de objeto → executar serviço → registrar auditoria. <strong>Nunca</strong> antecipar permissões apenas por checkbox do navegador.</p>
+<h2>Casos negativos</h2>
+<ul>
+<li>Usuário A tenta editar o perfil de outro núcleo → negar.</li>
+<li>Usuário comum tenta abrir <code>/configuracoes/api/</code> → negar.</li>
+<li>Usuário bloqueado tenta login por e-mail → negar.</li>
+<li>Seis códigos usados/expirados → negar reutilização.</li>
+<li>Conta desativada → bloquear sessão ou ações conforme política do backend.</li>
+</ul>
+</article><article class="chapter" id="03_DOMINIO-03_LEDGER_CONTAS_ESTORNOS"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Ledger, contas e integridade transacional</h1>
+<h2>Modelo de execução</h2>
+<p><code>TransactionBatch</code> descreve o evento e vínculos (despesa, investimento, competência, estorno). <code>LedgerLeg</code> representa delta em conta. <code>JournalEntry</code> suporta efeitos contábeis e reconciliação. O serviço transacional <code>apps.finance.services.ledger</code> é a entrada preferida para alterações de saldo.</p>
+<h2>Exemplo de pagamento dividido</h2>
+<p>Obrigação R$ 150,00. Conta A possui R$ 100,00 e Conta B R$ 80,00. Alocações solicitadas: A = 90, B = 60. O serviço deve validar saldo conhecido, perfil, autorização e correspondência da soma com o valor liquidado. O commit registra batch e efeitos em uma única transação. A UI só informa o resultado após a confirmação.</p>
+<h2>Transferência interna</h2>
+<p>Transferir R$ 75,00 de A para B muda dois saldos, mas não configura receita nem despesa. O batch deve balancear as pernas correspondentes e preservar a unidade do perfil financeiro. Não incluir em gastos consumidos.</p>
+<h2>Estorno</h2>
+<p>Em vez de excluir registro confirmado, criar evento <code>reversal_of</code>, manter histórico original e aplicar efeitos contrários. Validar que o lote de origem existe, pertence ao perfil, é reversível e não foi revertido antes. Em importação, estorno deve preservar vínculo da linha que gerou o lançamento.</p>
+<h2>Idempotência e concorrência</h2>
+<p>Há campos <code>idempotency_key</code> em <code>TransactionBatch</code> e <code>ImportRow</code>. A camada de serviço deve coordenar unicidade no banco, bloqueios (<code>select_for_update</code> quando apropriado), <code>transaction.atomic()</code> e rejeição explícita de duplicações; uma chave sozinha não substitui tratamento completo de corrida.</p>
+<h2>Anti-padrões</h2>
+<ul>
+<li><code>balance -= amount</code> em uma view fora de transação.</li>
+<li>Alterar ledger postado por <code>save()</code> manual de admin.</li>
+<li>Tratar <code>balance=None</code> como saldo disponível.</li>
+<li>Recalcular histórico antigo com regra nova e sobrescrever sem trilha.</li>
+<li>Importar <code>created_by</code> arbitrário de uma instalação externa.</li>
+</ul>
+<h2>Evidências</h2>
+<p><code>finance/models.py</code> (<code>TransactionBatch</code>, <code>LedgerLeg</code>, <code>JournalEntry</code>) e <code>finance/services/{ledger,accounts,records}.py</code>.</p>
+</article><article class="chapter" id="03_DOMINIO-04_IMPORTACAO_BANCARIA"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Ingestão CSV, OFX e PDF e conciliação</h1>
+<h2>Etapas</h2>
+<ol>
+<li><strong>Entrada não confiável:</strong> arquivo escolhido ou arrastado, validado por tamanho, extensão e, no servidor, conteúdo.</li>
+<li><strong>Parse:</strong> adaptadores para CSV, OFX e PDF normalizam data, sinal, valor <code>Decimal</code>, descrição, conta e referência externa.</li>
+<li><strong>Staging:</strong> criar <code>ImportBatch</code> e <code>ImportRow</code> em estado de prévia; nenhum lançamento confirmado.</li>
+<li><strong>Revisão humana:</strong> ajustar categorias, contas, datas, sinal, vínculo de despesa/investimento e remover linhas que não devem entrar.</li>
+<li><strong>Verificação:</strong> simulação (<code>dry_run</code>), deduplicação, permissão, saldo e idempotência.</li>
+<li><strong>Commit:</strong> lote confirmado em <code>transaction.atomic</code>, gerando batches/lançamentos e trilha de auditoria.</li>
+<li><strong>Pós-processamento:</strong> relatório de inclusões, descartes, duplicatas, divergências e erros; estorno por contrapartida quando necessário.</li>
+</ol>
+<h2>Limites e comportamento</h2>
+<p>O upload web atual apresenta uma área dropzone, envio automático após selecionar e redirecionamento para revisão. O limite reportado para essa interação é 5 MiB por arquivo; outros fluxos (transferência financeira completa) têm limites próprios. O servidor é a fonte final de validação; confiar apenas em extensão ou <code>accept</code> do input é inseguro.</p>
+<h2>Deduplicação</h2>
+<p>Priorizar identificador bancário estável. Complementar com conta, data, quantidade de centavos, referência e fingerprint. A identidade do arquivo isoladamente não basta: o mesmo extrato pode ser reexportado com nome/codificação distinta. Rejeitar ambiguidade ao invés de confirmar silenciosamente.</p>
+<h2>PDF</h2>
+<p>Extração PDF real não deve ser confundida com simulação do protótipo HTML histórico v1.32.1; cobertura final depende de validar parser e conteúdo no serviço <code>finance/services/importers.py</code> da versão alvo. OCR é último recurso.</p>
+<h2>Ameaças e validação</h2>
+<p>CSV injection no XLSX, ZIP bombs, caminho de arquivo, strings malformadas, caracteres estranhos, datas inválidas, valores desproporcionais, duplicação concorrente e anexos contendo dados pessoais. O fluxo não deve enviar arquivos para IA sem consentimento.</p>
+<h2>Evidências</h2>
+<p><code>finance/services/{importers,imports,categorization}.py</code>, <code>finance/import_views.py</code>, modelos <code>ImportBatch</code>, <code>ImportRow</code>, <code>CategorizationRule</code>, <code>CategorizationRuleVersion</code>.</p>
+</article><article class="chapter" id="03_DOMINIO-05_INVESTIMENTOS_RESERVA"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Investimentos, renda, planejamento e Reserva</h1>
+<h2>Categorias de investimento</h2>
+<ol>
+<li><strong>Desenvolvimento pessoal e profissional</strong> (<code>development</code>).</li>
+<li><strong>Aquisição patrimonial</strong> (<code>patrimony</code>).</li>
+<li><strong>Consumo planejado</strong> (<code>planned</code>).</li>
+<li><strong>Reserva</strong> (<code>reserve</code>).</li>
+</ol>
+<p>A posição de investimento armazena aplicado, valor atual, data e meta opcional (não permitida como meta manual para Reserva). Cadastro de posição <strong>não debita conta</strong>. Aplicação/resgate efetivo usa movimentação própria autorizada.</p>
+<h2>Despesas previsíveis</h2>
+<p>Categorias <code>essential</code>, <code>strategic</code> e <code>discretionary</code>, vencimento de 1 a 31; último dia válido nos meses menores. Despesa imprevisível tem ocorrência concreta com data.</p>
+<h2>Reserva</h2>
+<p><code>ReservePolicy.coverage_months</code> varia de 6 a 12 e usa padrão 9. O cálculo conceitual é despesa essencial mensal × meses de cobertura. Se faltar renda/despesa essencial de referência, indicar incompletude e não fabricar projeção a partir de zero.</p>
+<h2>Renda e orçamento</h2>
+<p><code>FinancialProfile.monthly_income</code> é nullable. <code>None</code> é desconhecido, 0 significa conhecido igual a zero. A distribuição mensal sugerida prioriza proteção da Reserva, seguida de objetivos. <code>MonthlyExpense</code> e <code>MonthlyInvestmentPlan</code> tratam competências e compromissos mensais.</p>
+<h2>Casos de teste</h2>
+<p>Meta de Reserva automática; renda não informada; despesa essencial ausente; investimento com valor atual inferior ao aplicado; resgate maior que posição; aplicação de conta sem saldo conhecido; dois perfis distintos; mês com 28/29 dias.</p>
+</article><article class="chapter" id="03_DOMINIO-06_IA_PRIVACIDADE"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Integrações de IA e privacidade de dados</h1>
+<h2>Papel da IA</h2>
+<p>O ALECE oferece análises informativas para despesas, investimentos e movimentações. Um provedor não deve criar, alterar, cancelar ou confirmar eventos de ledger. A análise passa por integração HTTP do backend, com envio JSON controlado e consentimento informado.</p>
+<h2>Gestão de provedores</h2>
+<p>Modelos <code>AIProviderConfig</code> e <code>AIAnalysis</code>. Presets documentados: OpenAI, Gemini, DeepSeek, Groq, Mistral e OpenRouter, além de endpoint personalizado compatível. Endpoint/modelo predefinidos quando possível; chave privada armazenada fora do PostgreSQL no volume <code>app_ai_tokens</code> / <code>/app/private/ai</code>. Não incluir tokens em HTML, URL, logs ou exportação financeira.</p>
+<h2>Seleção exclusiva</h2>
+<p>A interface permite múltiplos cadastros, mas <strong>uma integração ativa por Workspace</strong>. A migração <code>core.0009_one_active_ai_provider</code> aplica exclusividade no banco. Alterar a seleção deve desabilitar o anterior em transação consistente e registrar a operação.</p>
+<h2>Política de envio</h2>
+<ul>
+<li>Antes do POST externo: mostrar destinatário e escopo dos dados; obter consentimento específico.</li>
+<li>Permitir apenas destinos autorizados (<code>ALECE_AI_ALLOWED_HOSTS</code>, onde aplicável), validar HTTPS e bloquear SSRF.</li>
+<li>Minimizar campos pessoais; nunca incluir senha, recovery codes, cookies, tokens, detalhes de sessão ou logs.</li>
+<li>Tratar saída da IA como <strong>texto não confiável</strong>; não renderizar HTML bruto nem executar comandos sugeridos.</li>
+<li>Preferir timeout, limite de tamanho, registros redigidos e falha controlada.</li>
+</ul>
+<h2>Ameaças</h2>
+<p>SSRF por endpoint personalizado, prompt injection em extratos, vazamento de dados em prompt, excesso de permissão, formato JSON arbitrário e alucinação financeira. Esses pontos são requisitos de revisão contínua, não provas de segurança já certificada.</p>
+<h2>Evidência</h2>
+<p><code>core/ai_catalog.py</code>, <code>ai_credentials.py</code>, <code>ai_service.py</code>, <code>settings_views.py</code>, <code>models.py</code> e migração 0009.</p>
+</article><article class="chapter" id="03_DOMINIO-07_TRANSFERENCIA_FINANCEIRA"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Exportação e importação financeira portável</h1>
+<h2>Contrato da exportação</h2>
+<p>O sistema gera um ZIP lógico que contém <code>financeiro.json</code> (versão <code>alece-financeiro</code> v1, importável), <code>leitura_financeira.xlsx</code> (leitura humana), <code>manifesto.json</code> (SHA-256 e contagens) e <code>LEIA_ME.txt</code>. O XLSX <strong>não é</strong> o arquivo restaurado.</p>
+<h2>14 entidades transferidas</h2>
+<p><code>FinancialProfile</code>, <code>BankAccount</code>, <code>RecurringExpense</code>, <code>UnexpectedExpense</code>, <code>InvestmentPosition</code>, <code>ReservePolicy</code>, <code>MonthlyExpense</code>, <code>MonthlyInvestmentPlan</code>, <code>TransactionBatch</code>, <code>LedgerLeg</code>, <code>JournalEntry</code>, <code>ImportBatch</code>, <code>ImportRow</code>, <code>CategorizationRule</code>.</p>
+<h2>Exclusões intencionais</h2>
+<p>NÃO transferir <code>auth.User</code>, <code>WorkspaceMembership</code>, <code>ProfileGrant</code>, <code>SystemLog</code>, <code>RecoveryCode</code>, segredos, chaves de IA, sessões, versões de regras e histórico operacional de exportação. Campos <code>created_by</code> são reatribuídos quando exigidos; autoria histórica <strong>não é reconstituída</strong>.</p>
+<h2>Restauração no destino</h2>
+<ol>
+<li>Admin do espaço escolhe ZIP e confirma <code>IMPORTAR</code>.</li>
+<li>Servidor valida limites, formato, manifesto, hashes, referências e schema.</li>
+<li>Cria backup financeiro pré-importação, protegido por SHA-256, fora do request público.</li>
+<li>Reconstitui novos IDs para perfis/contas/lotes, preservando ligações de negócio.</li>
+<li>Importa de forma <strong>aditiva</strong> sob transação. Resolve nomes conflitantes com sufixo; perfis que excedem cinco ativos ficam arquivados.</li>
+<li>Não traz permissões anteriores. <strong>Por decisão implementada, membros já existentes no espaço de destino recebem acesso de edição aos perfis importados.</strong> O administrador deve revisar imediatamente esse acesso. Essa política é deliberadamente permissiva e merece avaliação de risco antes de produção.</li>
+</ol>
+<h2>Limites documentados</h2>
+<p>Arquivo ZIP até 25 MiB, total descompactado 65 MiB e 100.000 registros no formato atual. Verificar implementações exatas no ambiente instalado.</p>
+<h2>Ressalva de recuperação</h2>
+<p>Um ZIP financeiro portável <strong>não substitui</strong> um dump consistente do PostgreSQL, backup de volumes, secrets e definição de serviço. Não contém auditoria/identidades, e não é rollback de toda a aplicação.</p>
+<h2>Fonte</h2>
+<p><code>finance/services/financial_transfer.py</code>, <code>financial_xlsx.py</code>, <code>financial_transfer_views.py</code>, <code>docs/TRANSFERENCIA_FINANCEIRA_COMPLETA_2026-10-24.md</code>.</p>
+</article><article class="chapter" id="04_DADOS-01_MODELO_RELACIONAL"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Modelagem de dados: conceitos, relacionamentos e integridade</h1>
+<h2>Modelo conceitual</h2>
+<p>Identidade de login e autorização são independentes do patrimônio. <code>Workspace</code> agrega vários <code>FinancialProfile</code>. <code>WorkspaceMembership</code> conecta usuário ao espaço, atribui papel e recebe permissões de módulo por <code>ProfileGrant</code>. Cada perfil tem contas, despesas, posições e eventos financeiros; movimentações pertencem ao perfil, às contas e, quando aplicável, à obrigação/investimento correspondente.</p>
+<h2>Agregados relevantes</h2>
+<ul>
+<li><strong>Identidade:</strong> User → UserProfile / RecoveryCode / AuthenticationAttempt; membership em Workspace.</li>
+<li><strong>Patrimônio:</strong> FinancialProfile → BankAccount, InvestmentPosition, ReservePolicy.</li>
+<li><strong>Planejamento:</strong> RecurringExpense, UnexpectedExpense, MonthlyExpense, MonthlyInvestmentPlan.</li>
+<li><strong>Execução:</strong> TransactionBatch → LedgerLeg e JournalEntry; vínculos com despesa/investimento e <code>reversal_of</code>.</li>
+<li><strong>Importação:</strong> ImportBatch → ImportRow, CategorizationRule / Version.</li>
+<li><strong>Auditoria:</strong> SystemLog com referências de usuário, espaço, perfil e ação; independente de ledger financeiro.</li>
+<li><strong>IA:</strong> AIProviderConfig por Workspace; AIAnalysis armazena análise vinculada às referências permitidas.</li>
+</ul>
+<h2>Chaves e vínculos</h2>
+<p>São usados <code>ForeignKey</code> com <code>PROTECT</code> em entidades financeiras para impedir exclusão de um objeto ainda referenciado, <code>CASCADE</code> em associações derivadas apropriadas e unicidade para membership, nome de perfil por espaço, conta por perfil e idempotência. Consulte o dicionário gerado <code>02_DICIONARIO_ORM_GERADO.md</code> para tipos reais e nulabilidade.</p>
+<h2>Constraints de referência</h2>
+<p>Exemplos da base inspecionada: <code>uq_member_user</code>, <code>uq_profile_workspace_name</code>, <code>uq_member_profile_grant</code>, <code>uq_account_profile_name</code>, <code>ck_account_nonnegative</code>, <code>ck_recurring_due_day_range</code>, <code>ck_reserve_months_range</code>. Uma constraint no DB é proteção suplementar, não substituto da validação de caso de uso.</p>
+<h2>Quadro conceitual versus físico</h2>
+<p>O desenho <code>diagramas/04_modelo_entidades.svg</code> é <strong>simplificado</strong> para leitura. Não inclui todas as 23+ classes/colunas. O inventário físico gerado por AST é a referência precisa dos campos declarados no snapshot; só migrations efetivamente aplicadas confirmam o esquema do servidor.</p>
+</article><article class="chapter" id="04_DADOS-02_DICIONARIO_ORM_GERADO"><h1>Dicionário de modelos ORM (gerado automaticamente)</h1>
+<blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<blockquote>
+<p><strong>Método:</strong> leitura sintática do AST de <code>apps/core/models.py</code> e <code>apps/finance/models.py</code> no snapshot de código auditado. Os campos são <strong>declarações Python</strong>; o estado real das tabelas depende das migrations aplicadas ao banco. Campos automáticos <code>id</code> e relacionamentos reversos não aparecem aqui.</p>
+</blockquote>
+<h2>Índice de modelos</h2>
+<p><strong>26 classes ORM</strong> e <strong>219 campos explicitamente declarados</strong>.</p>
+<ul>
+<li><code>finance.Workspace</code> — 3 campos</li>
+<li><code>finance.WorkspaceMembership</code> — 3 campos</li>
+<li><code>finance.FinancialProfile</code> — 7 campos</li>
+<li><code>finance.ProfileGrant</code> — 9 campos</li>
+<li><code>finance.BankAccount</code> — 7 campos</li>
+<li><code>finance.RecurringExpense</code> — 6 campos</li>
+<li><code>finance.UnexpectedExpense</code> — 5 campos</li>
+<li><code>finance.InvestmentPosition</code> — 9 campos</li>
+<li><code>finance.ReservePolicy</code> — 2 campos</li>
+<li><code>finance.TransactionBatch</code> — 16 campos</li>
+<li><code>finance.LedgerLeg</code> — 3 campos</li>
+<li><code>finance.MonthlyExpense</code> — 5 campos</li>
+<li><code>finance.MonthlyInvestmentPlan</code> — 5 campos</li>
+<li><code>finance.JournalEntry</code> — 5 campos</li>
+<li><code>finance.ImportBatch</code> — 15 campos</li>
+<li><code>finance.ImportRow</code> — 19 campos</li>
+<li><code>finance.CategorizationRule</code> — 16 campos</li>
+<li><code>finance.CategorizationRuleVersion</code> — 13 campos</li>
+<li><code>finance.ReportExport</code> — 13 campos</li>
+<li><code>core.UserProfile</code> — 8 campos</li>
+<li><code>core.RecoveryCode</code> — 5 campos</li>
+<li><code>core.AuthenticationAttempt</code> — 3 campos</li>
+<li><code>core.BootstrapToken</code> — 6 campos</li>
+<li><code>core.SystemLog</code> — 18 campos</li>
+<li><code>core.AIProviderConfig</code> — 9 campos</li>
+<li><code>core.AIAnalysis</code> — 9 campos</li>
+</ul>
+<h2>Declarações por entidade</h2>
+<h3><code>finance.Workspace</code></h3>
+<p>Arquivo: <code>src/controller/apps/finance/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>created_by</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>settings.AUTH_USER_MODEL</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>finance.WorkspaceMembership</code></h3>
+<p>Arquivo: <code>src/controller/apps/finance/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>workspace</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>Workspace</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>user</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>settings.AUTH_USER_MODEL</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>role</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>Role.COMMON</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>finance.FinancialProfile</code></h3>
+<p>Arquivo: <code>src/controller/apps/finance/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>workspace</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>Workspace</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>emoji</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>monthly_income</code></td>
+<td><code>DecimalField</code></td>
+<td><code>—</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>is_archived</code></td>
+<td><code>BooleanField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+</tr>
+<tr>
+<td><code>deleted_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>finance.ProfileGrant</code></h3>
+<p>Arquivo: <code>src/controller/apps/finance/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>membership</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>WorkspaceMembership</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>profile</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>FinancialProfile</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>can_view</code></td>
+<td><code>BooleanField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>True</code></td>
+</tr>
+<tr>
+<td><code>can_edit</code></td>
+<td><code>BooleanField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+</tr>
+<tr>
+<td><code>overview_level</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>Level.NONE</code></td>
+</tr>
+<tr>
+<td><code>accounts_level</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>Level.NONE</code></td>
+</tr>
+<tr>
+<td><code>expenses_level</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>Level.NONE</code></td>
+</tr>
+<tr>
+<td><code>investments_level</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>Level.NONE</code></td>
+</tr>
+<tr>
+<td><code>movements_level</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>Level.NONE</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>finance.BankAccount</code></h3>
+<p>Arquivo: <code>src/controller/apps/finance/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>profile</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>FinancialProfile</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>Kind.BANK</code></td>
+</tr>
+<tr>
+<td><code>balance</code></td>
+<td><code>DecimalField</code></td>
+<td><code>—</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>opening_balance</code></td>
+<td><code>DecimalField</code></td>
+<td><code>—</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>is_archived</code></td>
+<td><code>BooleanField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>finance.RecurringExpense</code></h3>
+<p>Arquivo: <code>src/controller/apps/finance/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>profile</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>FinancialProfile</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>category</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>amount</code></td>
+<td><code>DecimalField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>due_day</code></td>
+<td><code>PositiveSmallIntegerField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>is_active</code></td>
+<td><code>BooleanField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>True</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>finance.UnexpectedExpense</code></h3>
+<p>Arquivo: <code>src/controller/apps/finance/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>profile</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>FinancialProfile</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>amount</code></td>
+<td><code>DecimalField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>recorded_on</code></td>
+<td><code>DateField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>finance.InvestmentPosition</code></h3>
+<p>Arquivo: <code>src/controller/apps/finance/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>profile</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>FinancialProfile</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>institution</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>category</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>applied_amount</code></td>
+<td><code>DecimalField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>Decimal('0.00')</code></td>
+</tr>
+<tr>
+<td><code>current_value</code></td>
+<td><code>DecimalField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>Decimal('0.00')</code></td>
+</tr>
+<tr>
+<td><code>target_amount</code></td>
+<td><code>DecimalField</code></td>
+<td><code>—</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>is_active</code></td>
+<td><code>BooleanField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>True</code></td>
+</tr>
+<tr>
+<td><code>recorded_on</code></td>
+<td><code>DateField</code></td>
+<td><code>—</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>finance.ReservePolicy</code></h3>
+<p>Arquivo: <code>src/controller/apps/finance/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>profile</code></td>
+<td><code>OneToOneField</code></td>
+<td><code>FinancialProfile</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>coverage_months</code></td>
+<td><code>PositiveSmallIntegerField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>9</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>finance.TransactionBatch</code></h3>
+<p>Arquivo: <code>src/controller/apps/finance/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>profile</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>FinancialProfile</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>amount</code></td>
+<td><code>DecimalField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>occurred_on</code></td>
+<td><code>DateField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>competence_month</code></td>
+<td><code>DateField</code></td>
+<td><code>—</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>note</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>created_by</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>settings.AUTH_USER_MODEL</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>investment_applied_delta</code></td>
+<td><code>DecimalField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>Decimal('0.00')</code></td>
+</tr>
+<tr>
+<td><code>idempotency_key</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>True</code></td>
+<td><code>True</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>recurring_expense</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>RecurringExpense</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>monthly_expense</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>'MonthlyExpense'</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>monthly_investment_plan</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>'MonthlyInvestmentPlan'</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>unexpected_expense</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>UnexpectedExpense</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>investment</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>InvestmentPosition</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>reversal_of</code></td>
+<td><code>OneToOneField</code></td>
+<td><code>'self'</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>finance.LedgerLeg</code></h3>
+<p>Arquivo: <code>src/controller/apps/finance/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>batch</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>TransactionBatch</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>account</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>BankAccount</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>delta</code></td>
+<td><code>DecimalField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>finance.MonthlyExpense</code></h3>
+<p>Arquivo: <code>src/controller/apps/finance/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>profile</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>FinancialProfile</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>recurring_expense</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>RecurringExpense</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>competence_month</code></td>
+<td><code>DateField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>amount</code></td>
+<td><code>DecimalField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>finance.MonthlyInvestmentPlan</code></h3>
+<p>Arquivo: <code>src/controller/apps/finance/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>profile</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>FinancialProfile</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>investment</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>InvestmentPosition</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>competence_month</code></td>
+<td><code>DateField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>amount</code></td>
+<td><code>DecimalField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>finance.JournalEntry</code></h3>
+<p>Arquivo: <code>src/controller/apps/finance/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>batch</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>TransactionBatch</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>account_code</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>debit</code></td>
+<td><code>DecimalField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>Decimal('0.00')</code></td>
+</tr>
+<tr>
+<td><code>credit</code></td>
+<td><code>DecimalField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>Decimal('0.00')</code></td>
+</tr>
+<tr>
+<td><code>bank_account</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>BankAccount</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>finance.ImportBatch</code></h3>
+<p>Arquivo: <code>src/controller/apps/finance/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>profile</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>FinancialProfile</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>account</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>BankAccount</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>filename</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>file_hash</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>idempotency_key</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>True</code></td>
+<td><code>True</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>format</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>parser_version</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>Status.STAGED</code></td>
+</tr>
+<tr>
+<td><code>total_rows</code></td>
+<td><code>PositiveIntegerField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>valid_rows</code></td>
+<td><code>PositiveIntegerField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>duplicate_rows</code></td>
+<td><code>PositiveIntegerField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>error_rows</code></td>
+<td><code>PositiveIntegerField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>created_by</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>settings.AUTH_USER_MODEL</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>committed_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>finance.ImportRow</code></h3>
+<p>Arquivo: <code>src/controller/apps/finance/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>batch</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>ImportBatch</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>row_number</code></td>
+<td><code>PositiveIntegerField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>fitid</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>occurred_on</code></td>
+<td><code>DateField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>posted_on</code></td>
+<td><code>DateField</code></td>
+<td><code>—</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>memo</code></td>
+<td><code>TextField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>amount</code></td>
+<td><code>DecimalField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>is_credit</code></td>
+<td><code>BooleanField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+</tr>
+<tr>
+<td><code>raw_data</code></td>
+<td><code>JSONField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>dict</code></td>
+</tr>
+<tr>
+<td><code>suggested_kind</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>suggested_link</code></td>
+<td><code>JSONField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>dict</code></td>
+</tr>
+<tr>
+<td><code>confidence</code></td>
+<td><code>DecimalField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>Decimal('0.00')</code></td>
+</tr>
+<tr>
+<td><code>justification</code></td>
+<td><code>TextField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>Status.PENDING</code></td>
+</tr>
+<tr>
+<td><code>linked_batch</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>TransactionBatch</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>decided_by</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>settings.AUTH_USER_MODEL</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>decided_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>idempotency_key</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>True</code></td>
+<td><code>True</code></td>
+<td><code>—</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>finance.CategorizationRule</code></h3>
+<p>Arquivo: <code>src/controller/apps/finance/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>workspace</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>Workspace</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>profile</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>FinancialProfile</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>TextField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>match_type</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>MatchType.EXACT</code></td>
+</tr>
+<tr>
+<td><code>pattern</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>match_field</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>MatchField.BOTH</code></td>
+</tr>
+<tr>
+<td><code>case_sensitive</code></td>
+<td><code>BooleanField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+</tr>
+<tr>
+<td><code>suggested_kind</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>suggested_link</code></td>
+<td><code>JSONField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>dict</code></td>
+</tr>
+<tr>
+<td><code>priority</code></td>
+<td><code>PositiveIntegerField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>100</code></td>
+</tr>
+<tr>
+<td><code>is_active</code></td>
+<td><code>BooleanField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>True</code></td>
+</tr>
+<tr>
+<td><code>created_by</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>settings.AUTH_USER_MODEL</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>updated_by</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>settings.AUTH_USER_MODEL</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>updated_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>finance.CategorizationRuleVersion</code></h3>
+<p>Arquivo: <code>src/controller/apps/finance/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rule</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>CategorizationRule</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>version_number</code></td>
+<td><code>PositiveIntegerField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>pattern</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>match_type</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>match_field</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>case_sensitive</code></td>
+<td><code>BooleanField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+</tr>
+<tr>
+<td><code>suggested_kind</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>suggested_link</code></td>
+<td><code>JSONField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>dict</code></td>
+</tr>
+<tr>
+<td><code>priority</code></td>
+<td><code>PositiveIntegerField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>is_active</code></td>
+<td><code>BooleanField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>changed_by</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>settings.AUTH_USER_MODEL</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>changed_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>change_reason</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>finance.ReportExport</code></h3>
+<p>Arquivo: <code>src/controller/apps/finance/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>profile</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>FinancialProfile</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>report_type</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>format</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>Status.PENDING</code></td>
+</tr>
+<tr>
+<td><code>period_start</code></td>
+<td><code>DateField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>period_end</code></td>
+<td><code>DateField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>interval</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>file</code></td>
+<td><code>FileField</code></td>
+<td><code>—</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>file_hash</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>error_message</code></td>
+<td><code>TextField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>requested_by</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>settings.AUTH_USER_MODEL</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>requested_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>completed_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>core.UserProfile</code></h3>
+<p>Arquivo: <code>src/controller/apps/core/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>user</code></td>
+<td><code>OneToOneField</code></td>
+<td><code>settings.AUTH_USER_MODEL</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>recovery_code_hash</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>recovery_code_version</code></td>
+<td><code>PositiveSmallIntegerField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>recovery_code_created</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>recovery_acknowledged_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>theme</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>'auto'</code></td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>updated_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>core.RecoveryCode</code></h3>
+<p>Arquivo: <code>src/controller/apps/core/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>user</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>settings.AUTH_USER_MODEL</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>slot</code></td>
+<td><code>PositiveSmallIntegerField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>code_hash</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>used_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>core.AuthenticationAttempt</code></h3>
+<p>Arquivo: <code>src/controller/apps/core/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>key</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>True</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>window_started</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>attempts</code></td>
+<td><code>PositiveIntegerField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>0</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>core.BootstrapToken</code></h3>
+<p>Arquivo: <code>src/controller/apps/core/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>token_hash</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>True</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>is_used</code></td>
+<td><code>BooleanField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+</tr>
+<tr>
+<td><code>used_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>used_by</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>settings.AUTH_USER_MODEL</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>expires_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>core.SystemLog</code></h3>
+<p>Arquivo: <code>src/controller/apps/core/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>timestamp</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>severity</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>Severity.INFO</code></td>
+</tr>
+<tr>
+<td><code>module</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>action</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>result</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>Result.SUCCESS</code></td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>TextField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>details</code></td>
+<td><code>JSONField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>dict</code></td>
+</tr>
+<tr>
+<td><code>workspace</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>'finance.Workspace'</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>profile</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>'finance.FinancialProfile'</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>user</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>settings.AUTH_USER_MODEL</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>request_id</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>ip_address</code></td>
+<td><code>GenericIPAddressField</code></td>
+<td><code>—</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>user_agent</code></td>
+<td><code>TextField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>object_type</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>object_id</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>object_repr</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>is_financial_audit</code></td>
+<td><code>BooleanField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+</tr>
+<tr>
+<td><code>ledger_batch_id</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>core.AIProviderConfig</code></h3>
+<p>Arquivo: <code>src/controller/apps/core/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>workspace</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>'finance.Workspace'</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>endpoint</code></td>
+<td><code>URLField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>model_name</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>api_key_env</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>sections</code></td>
+<td><code>JSONField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>list</code></td>
+</tr>
+<tr>
+<td><code>enabled</code></td>
+<td><code>BooleanField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>updated_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>core.AIAnalysis</code></h3>
+<p>Arquivo: <code>src/controller/apps/core/models.py</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo ORM</th>
+<th>Referência / valor</th>
+<th>null</th>
+<th>único</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>workspace</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>'finance.Workspace'</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>profile</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>'finance.FinancialProfile'</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>provider</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>AIProviderConfig</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>section</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>summary</code></td>
+<td><code>TextField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>data_hash</code></td>
+<td><code>CharField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>record_count</code></td>
+<td><code>PositiveSmallIntegerField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>created_by</code></td>
+<td><code>ForeignKey</code></td>
+<td><code>settings.AUTH_USER_MODEL</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td><code>DateTimeField</code></td>
+<td><code>—</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>—</code></td>
+</tr>
+</tbody>
+</table>
+</article><article class="chapter" id="04_DADOS-03_MIGRACOES_EVOLUCAO"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Migrações, compatibilidade e evolução do esquema</h1>
+<p>O repositório observado possui migrações separadas para <code>apps.core</code> e <code>apps.finance</code>. Exemplos recentes: <code>core.0008_recovery_code_set</code>, <code>core.0009_one_active_ai_provider</code>, <code>finance.0011_financialprofile_deleted_at</code>. As migrations têm dependências e transições de schema; mantenha ordem e verifique o grafo com Django.</p>
+<h2>Fluxo recomendado</h2>
+<ol>
+<li>Antes do deploy: identificar versão e migration atual; backup lógico consistente com SHA-256; validar capacidade de restore.</li>
+<li>Executar <code>python manage.py check</code> e <code>python manage.py migrate --plan</code> em ambiente com dependências.</li>
+<li>Simular upgrade numa cópia do banco com dados representativos, testando migrações e regras.</li>
+<li>Aplicar sob janela de mudança; inspecionar logs e constraints.</li>
+<li>Rodar <code>python manage.py migrate --check --noinput</code> e testes de leitura/escrita autorizados.</li>
+<li>Para rollback com migração não reversível ou destrutiva, restaurar backup compatível em vez de invocar <code>migrate</code> às cegas.</li>
+</ol>
+<h2>Risco operacional atual</h2>
+<p><code>docker/start.sh</code> executa <code>migrate --noinput</code> automaticamente <strong>antes</strong> do validador read-only. Portanto, iniciar uma versão nova pode modificar o banco. A checagem de startup não substitui backup prévio. Não use <code>docker compose down -v</code>.</p>
+<h2>Princípio expand/contract</h2>
+<p>Adicionar coluna nullable → popular via migration idempotente → código compatível → só depois, numa versão distinta, remover campo anterior. Ao alterar formato de dados portáveis, versionar schema e manter migração de formato explícita.</p>
+</article><article class="chapter" id="05_INTERFACE-01_DESIGN_SYSTEM"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Design system e experiência responsiva</h1>
+<h2>Identidade visual</h2>
+<p>O site de apresentação e o projeto usam a marca ALECE Finance, com cor primária verde, tipografia sans-serif do ambiente e variações light/dark. Os SVGs oficiais do ZIP original são preservados em <code>assets/identidade/</code>, especialmente <code>favicon_original.svg</code>. O frontend possui tokens em <code>src/view/static/finance/alece.css</code>, não dependência de uma biblioteca UI geral.</p>
+<h2>Tokens evidenciados</h2>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Tema claro</th>
+<th>Tema escuro</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundo</td>
+<td><code>#F6F8F5</code></td>
+<td><code>#0D1512</code></td>
+</tr>
+<tr>
+<td>Superfície</td>
+<td><code>#FFFFFF</code></td>
+<td><code>#15211B</code></td>
+</tr>
+<tr>
+<td>Texto</td>
+<td><code>#17261D</code></td>
+<td><code>#F2F7F2</code></td>
+</tr>
+<tr>
+<td>Primário</td>
+<td><code>#146C43</code></td>
+<td><code>#65D4A0</code></td>
+</tr>
+<tr>
+<td>Borda</td>
+<td><code>#DBE5DD</code></td>
+<td><code>#34453B</code></td>
+</tr>
+</tbody>
+</table>
+<h2>Princípios de composição</h2>
+<ul>
+<li>Títulos e ações pertencem ao cartão que comandam; margem superior consistente.</li>
+<li>Tabelas têm contêiner com bordas e espaçamento interno; extremidades de colunas com recuo suficiente.</li>
+<li>Botões + filtros com alturas e raios compatíveis, sem gradientes discrepantes.</li>
+<li><code>checkbox</code>, <code>select</code>, <code>input</code>, date e opções de select legíveis no dark mode.</li>
+<li>Popup ~540 px no desktop e largura fluida no mobile; scrollbar discreta, sem rolar a página atrás.</li>
+<li>Alterações não salvas pedem confirmação antes de fechar; ações destrutivas exigem confirmação específica.</li>
+<li>Ícones têm <code>aria-label</code> em botões sem texto; formulários rotulados, foco visível e teclado suportado.</li>
+</ul>
+<h2>Não confundir consistência com uniformidade absoluta</h2>
+<p>Tabelas densas podem usar scroll horizontal <strong>interno</strong> no mobile; cards e filtros devem refluír. Acessibilidade de contraste, zoom 200% e leitores de tela requerem testes dedicados, não apenas comparação visual.</p>
+<h2>Componentes e CSS</h2>
+<p><code>alece.css</code> define os tokens; <code>alece_ui_consistency.css</code> contém regras adicionais específicas. Regras globais conflitantes foram fonte de regressões históricas; documente precedência e remova overrides obsoletos antes de expandir o design system.</p>
+</article><article class="chapter" id="05_INTERFACE-02_ROTAS_TELAS_FORMULARIOS"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Rotas, views e contratos de UI</h1>
+<h2>Rotas canônicas</h2>
+<table>
+<thead>
+<tr>
+<th>Caminho</th>
+<th>Tela</th>
+<th>Operação típica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/visao-geral/</code></td>
+<td>dashboard</td>
+<td>leitura, edição contextual de renda</td>
+</tr>
+<tr>
+<td><code>/despesas/</code></td>
+<td>despesas</td>
+<td>CRUD, filtro, pagamento vinculado</td>
+</tr>
+<tr>
+<td><code>/investimentos/</code></td>
+<td>investimentos</td>
+<td>posições, metas, reserva</td>
+</tr>
+<tr>
+<td><code>/movimentacoes/</code></td>
+<td>transações</td>
+<td>consulta, importação e confirmação</td>
+</tr>
+<tr>
+<td><code>/configuracoes/</code></td>
+<td>conta/admin</td>
+<td>usuários, perfis, APIs, logs e relatórios</td>
+</tr>
+<tr>
+<td><code>/logs/</code></td>
+<td>auditoria</td>
+<td>filtros e expansão de evento</td>
+</tr>
+<tr>
+<td><code>/relatorios/</code></td>
+<td>panoramas</td>
+<td>relatórios e transferências</td>
+</tr>
+<tr>
+<td><code>/entrar/</code> / <code>/sair/</code></td>
+<td>autenticação</td>
+<td>sessão</td>
+</tr>
+<tr>
+<td><code>/saude/ativo/</code> / <code>/saude/pronto/</code></td>
+<td>health</td>
+<td>liveness/readiness</td>
+</tr>
+</tbody>
+</table>
+<p>A origem exata dos caminhos está em <code>src/web.py</code>. Rotas de detalhes, CRUD e auditoria também são definidas nos includes de apps. Consulte <code>03_CATALOGO_ROTAS_GERADO.md</code> para extratos diretos das declarações <code>path()</code> observadas. Algumas URLs são construídas dinamicamente; o inventário estático não substitui <code>python manage.py show_urls</code> ou a resolução real em Django.</p>
+<h2>Formulários</h2>
+<ul>
+<li>HTTP GET carrega leitura/formulário; POST faz operação mutável com CSRF.</li>
+<li>O redirecionamento após POST reduz reenvio e permite mostrar confirmação.</li>
+<li>Um modal visual não muda autorização; o endpoint continua independente e seguro.</li>
+<li>Nunca montar URL de escrita concatenando IDs fornecidos sem validar seu espaço.</li>
+</ul>
+<h2>Tratamento de erros</h2>
+<p>Handlers Django 400, 403, 404, 500 e 503 renderizam página ALECE de erro; logs de diagnóstico devem ser protegidos. Nenhum stack trace, token, segredo de sessão ou cookie deve aparecer em página pública.</p>
+</article><article class="chapter" id="05_INTERFACE-03_CATALOGO_ROTAS_GERADO"><h1>Catálogo de rotas identificadas por inspeção de código</h1>
+<blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<blockquote>
+<p><strong>Método:</strong> leitura estática de chamadas <code>path()</code> e <code>re_path()</code> em <code>src/web.py</code> e <code>apps/**/urls.py</code>. Includes possuem prefixos próprios; rotas montadas em laços Python podem não aparecer aqui. Este não é um dump de URLconf Django executado.</p>
+</blockquote>
+<p><strong>100 declarações <code>path()</code>/<code>re_path()</code> de padrão literal encontradas.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Origem</th>
+<th>Caminho declarado</th>
+<th>Nome</th>
+<th>Handler ou include</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/controller/apps/core/urls.py</code></td>
+<td><code>configuracao-inicial/</code></td>
+<td><code>setup</code></td>
+<td><code>setup_view</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/core/urls.py</code></td>
+<td><code>logs-sistema/</code></td>
+<td><code>system-logs-list</code></td>
+<td><code>views.system_logs_legacy_redirect</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/core/urls.py</code></td>
+<td><code>logs-sistema/&lt;int:log_id&gt;/</code></td>
+<td><code>system-log-detail</code></td>
+<td><code>views.system_log_detail</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/core/urls.py</code></td>
+<td><code>permissoes/&lt;int:workspace_id&gt;/&lt;int:membership_id&gt;/</code></td>
+<td><code>grant-management</code></td>
+<td><code>grant_management</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/core/urls.py</code></td>
+<td><code>usuarios/&lt;int:workspace_id&gt;/</code></td>
+<td><code>user-management</code></td>
+<td><code>user_management</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/core/urls.py</code></td>
+<td><code>usuarios/&lt;int:workspace_id&gt;/&lt;int:user_id&gt;/editar/</code></td>
+<td><code>user-edit</code></td>
+<td><code>user_edit</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/core/urls.py</code></td>
+<td><code>usuarios/&lt;int:workspace_id&gt;/&lt;int:user_id&gt;/excluir/</code></td>
+<td><code>user-delete-account</code></td>
+<td><code>user_delete_account</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/core/urls.py</code></td>
+<td><code>usuarios/&lt;int:workspace_id&gt;/&lt;int:user_id&gt;/remover/</code></td>
+<td><code>user-remove-access</code></td>
+<td><code>user_remove_access</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/core/urls.py</code></td>
+<td><code>usuarios/&lt;int:workspace_id&gt;/&lt;int:user_id&gt;/revogar-sessoes/</code></td>
+<td><code>user-revoke-sessions</code></td>
+<td><code>user_revoke_sessions</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/core/urls.py</code></td>
+<td><code>usuarios/&lt;int:workspace_id&gt;/&lt;int:user_id&gt;/senha/</code></td>
+<td><code>user-password-reset</code></td>
+<td><code>user_password_reset</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>nucleos/&lt;int:workspace_id&gt;/</code></td>
+<td><code>overview</code></td>
+<td><code>views.workspace_page</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>nucleos/&lt;int:workspace_id&gt;/categorizacao/</code></td>
+<td><code>categorization-list</code></td>
+<td><code>categorization_views.categorization_list</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>nucleos/&lt;int:workspace_id&gt;/categorizacao/&lt;int:rule_id&gt;/editar/</code></td>
+<td><code>categorization-edit</code></td>
+<td><code>categorization_views.categorization_edit</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>nucleos/&lt;int:workspace_id&gt;/categorizacao/&lt;int:rule_id&gt;/excluir/</code></td>
+<td><code>categorization-delete</code></td>
+<td><code>categorization_views.categorization_delete</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>nucleos/&lt;int:workspace_id&gt;/categorizacao/novo/</code></td>
+<td><code>categorization-create</code></td>
+<td><code>categorization_views.categorization_create</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>nucleos/&lt;int:workspace_id&gt;/categorizacao/testar/</code></td>
+<td><code>categorization-test</code></td>
+<td><code>categorization_views.categorization_test</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>nucleos/&lt;int:workspace_id&gt;/despesas/</code></td>
+<td><code>expenses</code></td>
+<td><code>views.workspace_page</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>nucleos/&lt;int:workspace_id&gt;/importacoes/</code></td>
+<td><code>import-list</code></td>
+<td><code>import_views.import_list</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>nucleos/&lt;int:workspace_id&gt;/investimentos/</code></td>
+<td><code>investments</code></td>
+<td><code>views.workspace_page</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>nucleos/&lt;int:workspace_id&gt;/movimentacoes/</code></td>
+<td><code>movements</code></td>
+<td><code>views.workspace_page</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>nucleos/&lt;int:workspace_id&gt;/perfis/</code></td>
+<td><code>profile-list</code></td>
+<td><code>views.profile_list</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>nucleos/&lt;int:workspace_id&gt;/perfis/&lt;int:profile_id&gt;/relatorios/dre/</code></td>
+<td><code>dre-report</code></td>
+<td><code>reports_views.dre_report</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>nucleos/&lt;int:workspace_id&gt;/perfis/&lt;int:profile_id&gt;/relatorios/exportar/&lt;relatorio:report_type&gt;/</code></td>
+<td><code>export-report</code></td>
+<td><code>reports_views.export_report</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>nucleos/&lt;int:workspace_id&gt;/perfis/&lt;int:profile_id&gt;/relatorios/investimentos/</code></td>
+<td><code>investment-report</code></td>
+<td><code>reports_views.investment_report</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>nucleos/&lt;int:workspace_id&gt;/perfis/&lt;int:profile_id&gt;/relatorios/metas/</code></td>
+<td><code>goals-report</code></td>
+<td><code>reports_views.goals_report</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>nucleos/&lt;int:workspace_id&gt;/perfis/&lt;int:profile_id&gt;/relatorios/patrimonio/</code></td>
+<td><code>equity-report</code></td>
+<td><code>reports_views.equity_evolution_report</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>nucleos/&lt;int:workspace_id&gt;/perfis/novo/</code></td>
+<td><code>profile-create</code></td>
+<td><code>views.profile_create</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>nucleos/&lt;int:workspace_id&gt;/relatorios/</code></td>
+<td><code>reports-dashboard</code></td>
+<td><code>reports_views.reports_dashboard</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>nucleos/&lt;int:workspace_id&gt;/relatorios/tecnico/</code></td>
+<td><code>technical-reports</code></td>
+<td><code>financial_transfer_views.technical_reports</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>nucleos/&lt;int:workspace_id&gt;/relatorios/tecnico/exportar/</code></td>
+<td><code>financial-export</code></td>
+<td><code>financial_transfer_views.export_financial</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>nucleos/&lt;int:workspace_id&gt;/relatorios/tecnico/importar/</code></td>
+<td><code>financial-import</code></td>
+<td><code>financial_transfer_views.import_financial</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>perfis/&lt;int:profile_id&gt;/</code></td>
+<td><code>profile-detail</code></td>
+<td><code>views.profile_detail</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>perfis/&lt;int:profile_id&gt;/contas/novo/</code></td>
+<td><code>account-create</code></td>
+<td><code>views.account_create</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>perfis/&lt;int:profile_id&gt;/desmarcar/&lt;tipo:kind&gt;/&lt;int:object_id&gt;/</code></td>
+<td><code>reverse-item</code></td>
+<td><code>transaction_views.reverse_item</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>perfis/&lt;int:profile_id&gt;/editar/</code></td>
+<td><code>profile-edit</code></td>
+<td><code>views.profile_edit</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>perfis/&lt;int:profile_id&gt;/gerenciar/</code></td>
+<td><code>profile-manage</code></td>
+<td><code>views.profile_manage</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>perfis/&lt;int:profile_id&gt;/importacoes/&lt;int:batch_id&gt;/</code></td>
+<td><code>import-preview</code></td>
+<td><code>import_views.import_preview</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>perfis/&lt;int:profile_id&gt;/importacoes/&lt;int:batch_id&gt;/confirmar/</code></td>
+<td><code>import-commit</code></td>
+<td><code>import_views.import_commit</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>perfis/&lt;int:profile_id&gt;/importacoes/&lt;int:batch_id&gt;/linhas/&lt;int:row_id&gt;/</code></td>
+<td><code>import-row-detail</code></td>
+<td><code>import_views.import_row_detail</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>perfis/&lt;int:profile_id&gt;/importacoes/&lt;int:batch_id&gt;/linhas/&lt;int:row_id&gt;/editar/</code></td>
+<td><code>import-row-edit</code></td>
+<td><code>import_views.import_row_edit</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>perfis/&lt;int:profile_id&gt;/importacoes/&lt;int:batch_id&gt;/relatorio/</code></td>
+<td><code>import-report</code></td>
+<td><code>import_views.import_report</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>perfis/&lt;int:profile_id&gt;/importacoes/&lt;int:batch_id&gt;/simulacao/</code></td>
+<td><code>import-dry-run</code></td>
+<td><code>import_views.import_dry_run</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>perfis/&lt;int:profile_id&gt;/importacoes/novo/</code></td>
+<td><code>import-upload</code></td>
+<td><code>import_views.import_upload</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>perfis/&lt;int:profile_id&gt;/investimentos/&lt;int:investment_id&gt;/resgatar/</code></td>
+<td><code>withdrawal</code></td>
+<td><code>transaction_views.withdrawal</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>perfis/&lt;int:profile_id&gt;/movimentacoes/&lt;int:batch_id&gt;/</code></td>
+<td><code>movement-detail</code></td>
+<td><code>transaction_views.movement_detail</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>perfis/&lt;int:profile_id&gt;/movimentacoes/&lt;int:batch_id&gt;/estornar/</code></td>
+<td><code>reverse-movement</code></td>
+<td><code>transaction_views.reverse_movement</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>perfis/&lt;int:profile_id&gt;/pagar/&lt;tipo:kind&gt;/&lt;int:object_id&gt;/</code></td>
+<td><code>payment</code></td>
+<td><code>transaction_views.payment</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>perfis/&lt;int:profile_id&gt;/permissoes/</code></td>
+<td><code>grant-list</code></td>
+<td><code>grant_views.grant_list</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>perfis/&lt;int:profile_id&gt;/permissoes/&lt;int:membership_id&gt;/</code></td>
+<td><code>grant-edit</code></td>
+<td><code>grant_views.grant_edit</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>perfis/&lt;int:profile_id&gt;/renda/</code></td>
+<td><code>income-edit</code></td>
+<td><code>views.income_edit</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>perfis/&lt;int:profile_id&gt;/reserva/</code></td>
+<td><code>reserve-edit</code></td>
+<td><code>views.record_edit</code></td>
+</tr>
+<tr>
+<td><code>src/controller/apps/finance/urls.py</code></td>
+<td><code>perfis/&lt;int:profile_id&gt;/transferir/</code></td>
+<td><code>transfer</code></td>
+<td><code>transaction_views.transfer_view</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td>``</td>
+<td><code>home</code></td>
+<td><code>views.index</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>about/</code></td>
+<td><code>—</code></td>
+<td><code>views.about_page</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>admin/</code></td>
+<td><code>—</code></td>
+<td><code>admin.site.urls</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>administracao/</code></td>
+<td><code>—</code></td>
+<td><code>admin.site.urls</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>configuracao-inicial/</code></td>
+<td><code>setup</code></td>
+<td><code>user_views.setup_view</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>configuracoes/</code></td>
+<td><code>configuracoes</code></td>
+<td><code>public_routes.public_page</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>configuracoes/api/&lt;int:provider_id&gt;/analisar/</code></td>
+<td><code>configuracoes-api-analisar</code></td>
+<td><code>settings_views.analyze_imports</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>configuracoes/api/&lt;int:provider_id&gt;/editar/</code></td>
+<td><code>configuracoes-api-editar</code></td>
+<td><code>settings_views.provider_form</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>configuracoes/api/&lt;int:provider_id&gt;/excluir/</code></td>
+<td><code>configuracoes-api-excluir</code></td>
+<td><code>settings_views.provider_delete</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>configuracoes/api/&lt;int:provider_id&gt;/selecionar/</code></td>
+<td><code>configuracoes-api-selecionar</code></td>
+<td><code>settings_views.provider_select</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>configuracoes/api/nova/</code></td>
+<td><code>configuracoes-api-nova</code></td>
+<td><code>settings_views.provider_form</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>configuracoes/codigos/</code></td>
+<td><code>configuracoes-codigos</code></td>
+<td><code>settings_views.recovery_status</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>configuracoes/minha-conta/</code></td>
+<td><code>configuracoes-minha-conta</code></td>
+<td><code>settings_views.my_information</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>core/</code></td>
+<td><code>—</code></td>
+<td><code>include('apps.core.legacy_urls')</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>despesas/</code></td>
+<td><code>despesas</code></td>
+<td><code>public_routes.public_page</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>entrar/</code></td>
+<td><code>login</code></td>
+<td><code>auth_views.login_view</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>financas/</code></td>
+<td><code>—</code></td>
+<td><code>include('apps.finance.urls')</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>finance/</code></td>
+<td><code>—</code></td>
+<td><code>include('apps.finance.legacy_urls')</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>health/live/</code></td>
+<td><code>—</code></td>
+<td><code>views.live</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>health/ready/</code></td>
+<td><code>—</code></td>
+<td><code>views.ready</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>healthz/</code></td>
+<td><code>—</code></td>
+<td><code>views.healthz</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>investimentos/</code></td>
+<td><code>investimentos</code></td>
+<td><code>public_routes.public_page</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>login/</code></td>
+<td><code>—</code></td>
+<td><code>auth_views.login_view</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>logout/</code></td>
+<td><code>—</code></td>
+<td><code>auth_views.logout_view</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>logs/</code></td>
+<td><code>logs</code></td>
+<td><code>views.system_logs_list</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>logs/diagnostico/</code></td>
+<td><code>logs-diagnostico</code></td>
+<td><code>views.system_logs_diagnostic</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>movimentacoes/</code></td>
+<td><code>movimentacoes</code></td>
+<td><code>public_routes.public_page</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>password/change/</code></td>
+<td><code>—</code></td>
+<td><code>auth_views.password_change_view</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>preferencias/tema/</code></td>
+<td><code>preferencia-tema</code></td>
+<td><code>set_theme_preference</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>recovery/</code></td>
+<td><code>—</code></td>
+<td><code>auth_views.recovery_code_request_view</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>recovery/generate/</code></td>
+<td><code>—</code></td>
+<td><code>auth_views.recovery_code_generate_view</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>recovery/use/</code></td>
+<td><code>—</code></td>
+<td><code>auth_views.recovery_code_use_view</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>recuperacao/</code></td>
+<td><code>recovery_request</code></td>
+<td><code>auth_views.recovery_code_request_view</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>recuperacao/gerar/</code></td>
+<td><code>recovery_generate</code></td>
+<td><code>auth_views.recovery_code_generate_view</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>recuperacao/usar/</code></td>
+<td><code>recovery_use</code></td>
+<td><code>auth_views.recovery_code_use_view</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>relatorios/</code></td>
+<td><code>relatorios</code></td>
+<td><code>public_routes.public_technical_reports</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>relatorios/exportar/</code></td>
+<td><code>relatorios-exportar</code></td>
+<td><code>public_routes.public_financial_export</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>relatorios/importar/</code></td>
+<td><code>relatorios-importar</code></td>
+<td><code>public_routes.public_financial_import</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>sair/</code></td>
+<td><code>logout</code></td>
+<td><code>auth_views.logout_view</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>saude/</code></td>
+<td><code>healthz</code></td>
+<td><code>views.healthz</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>saude/ativo/</code></td>
+<td><code>health-live</code></td>
+<td><code>views.live</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>saude/pronto/</code></td>
+<td><code>health-ready</code></td>
+<td><code>views.ready</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>selecionar-nucleo/&lt;int:workspace_id&gt;/</code></td>
+<td><code>selecionar-nucleo</code></td>
+<td><code>public_routes.select_workspace</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>senha/alterar/</code></td>
+<td><code>password_change</code></td>
+<td><code>auth_views.password_change_view</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>setup/</code></td>
+<td><code>—</code></td>
+<td><code>user_views.setup_view</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>sistema/</code></td>
+<td><code>—</code></td>
+<td><code>include('apps.core.urls')</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>sobre/</code></td>
+<td><code>about-page</code></td>
+<td><code>views.about_page</code></td>
+</tr>
+<tr>
+<td><code>src/web.py</code></td>
+<td><code>visao-geral/</code></td>
+<td><code>visao-geral</code></td>
+<td><code>public_routes.public_page</code></td>
+</tr>
+</tbody>
+</table>
+</article><article class="chapter" id="06_SEGURANCA-01_MODELO_AMEACAS"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Segurança: ativos, ameaças e controles</h1>
+<h2>Ativos críticos</h2>
+<p>Dados financeiros, integridade do ledger, conta de admin, códigos de recuperação, sessões, chaves de IA, DB, uploads, dumps e logs de auditoria.</p>
+<h2>Fronteiras de confiança</h2>
+<p>Browser e uploads são não confiáveis. Provedores de IA são terceiros externos. O container web tem direito restrito ao banco e volumes. A aplicação deve verificar autorização por workspace/objeto em <strong>cada</strong> ação.</p>
+<table>
+<thead>
+<tr>
+<th>Ameaça</th>
+<th>Vetor</th>
+<th>Controle documentado / a confirmar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IDOR/BOLA</td>
+<td>manipular <code>profile_id</code> ou <code>object_id</code></td>
+<td><code>require_workspace_admin</code>, <code>require_module</code>, validação de ownership</td>
+</tr>
+<tr>
+<td>CSRF</td>
+<td>POST originado em outra página</td>
+<td>Django CSRF middleware e tokens</td>
+</tr>
+<tr>
+<td>força bruta</td>
+<td>login/recovery</td>
+<td><code>AuthenticationAttempt</code>, throttling, hashes de códigos</td>
+</tr>
+<tr>
+<td>exfiltração IA</td>
+<td>endpoint externo ou prompt injection</td>
+<td>allowlist, consentimento, minimização, volume privado de tokens</td>
+</tr>
+<tr>
+<td>SSRF</td>
+<td>endpoint de IA personalizado</td>
+<td>validação de host/HTTPS, bloqueio de destinos internos</td>
+</tr>
+<tr>
+<td>upload malicioso</td>
+<td>CSV/OFX/PDF e ZIP de backup</td>
+<td>limites, parser defensivo, staging, hashes, transação</td>
+</tr>
+<tr>
+<td>concorrência financeira</td>
+<td>confirmação duplicada</td>
+<td>idempotência, bloqueio transacional e constraints</td>
+</tr>
+<tr>
+<td>vazamento em logs</td>
+<td>traceback e parâmetros</td>
+<td>sanitização, permissão admin, sem segredos nos logs</td>
+</tr>
+<tr>
+<td>perda de dados</td>
+<td>volume removido ou migração</td>
+<td>pg_dump, teste de restore, backups SHA-256, rollback</td>
+</tr>
+<tr>
+<td>tema/acessibilidade</td>
+<td>baixo contraste em opções</td>
+<td>CSS de <code>color-scheme</code>, testes light/dark</td>
+</tr>
+</tbody>
+</table>
+<h2>Controles configurados</h2>
+<p><code>SECURE_CONTENT_TYPE_NOSNIFF=True</code>, <code>X_FRAME_OPTIONS='DENY'</code>, SameSite=Lax para cookies e proteção CSRF. <code>ALECE_SECURE_COOKIES</code> configura Secure de cookies; defina <code>true</code> quando servido sobre HTTPS com proxy corretamente configurado. <code>DEBUG=False</code> em produção.</p>
+<h2>Recomendações de desenvolvimento</h2>
+<p>Usar OWASP ASVS, autenticação com teste negativo, threat modeling nos fluxos de importação/IA/export, scan de dependências e revisão de permissão por objeto em PR. Este documento não certifica a implementação nem substitui um pentest.</p>
+</article><article class="chapter" id="06_SEGURANCA-02_PRIVACIDADE_DADOS"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Privacidade, retenção e exportação</h1>
+<p>O ALECE adota compromisso de self-host e não transmissão compulsória de telemetria. O usuário mantém controle do servidor, mas continua responsável por segurança física/lógica, acesso, rotinas de backup e eventuais obrigações legais aplicáveis.</p>
+<h2>Classes de dados</h2>
+<ul>
+<li><strong>Credenciais:</strong> hash de senha e códigos de uso único; não exportar em pacote financeiro.</li>
+<li><strong>Dados financeiros:</strong> nomes de contas, datas, valores, descrições e categorias; podem conter dados pessoais incidentalmente.</li>
+<li><strong>Dados de segurança/auditoria:</strong> IP e eventos de operação sujeitos a retenção controlada e acesso restrito.</li>
+<li><strong>Integração externa:</strong> JSON financeiro enviado a IA somente mediante ação/autorização/consentimento.</li>
+</ul>
+<h2>Minimização</h2>
+<p>Não usar dados reais nos screenshots/fixtures; evitar PII em logs; mascarar códigos de recuperação após primeiro acesso; exportações portáveis não incluem usuários ou senhas; auditar downloads de backups.</p>
+<h2>Retenção e deleção</h2>
+<p>Exclusão lógica preserva relações de ledger. A definição de prazos reais de retenção, atendimento de direitos de titulares e base legal depende de política organizacional e não está inteiramente estabelecida no pacote histórico.</p>
+<h2>Backup</h2>
+<p>Criptografar armazenamento e transferência de backup quando aplicável; incluir integridade com SHA-256 e testar restauração. Logs de importação devem registrar sucesso/falha sem conter o conteúdo integral de dados sensíveis.</p>
+</article><article class="chapter" id="07_OPERACOES-01_IMPLANTACAO_SELF_HOST"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Implantação self-hosted e infraestrutura</h1>
+<h2>Premissas a confirmar</h2>
+<p>Host com Docker/Compose compatíveis, arquitetura e recursos suficientes, acesso administrativo, espaço em disco/backup, política de TLS e DNS. Os comandos abaixo são <strong>referências para ambiente compatível identificado</strong>, não autorização para executar em produção sem backup.</p>
+<h2>Composição típica</h2>
+<ol>
+<li><code>secrets-init</code> prepara <code>app_secrets</code> persistente.</li>
+<li><code>db</code> sobe PostgreSQL 16 e recebe healthcheck <code>pg_isready</code>.</li>
+<li><code>web</code> monta mídia, segredos e tokens, espera banco pronto e executa inicialização.</li>
+<li>Gunicorn recebe HTTP interno na porta 8000; host padrão <code>127.0.0.1:8088</code>.</li>
+<li>Proxy reverso opcional fornece TLS e expõe hostname público sem publicar a porta do banco.</li>
+</ol>
+<h2>Passo a passo controlado</h2>
+<ol>
+<li>Identificar versão, <code>.env</code>, <code>docker compose config</code>, nome do projeto e volumes atuais.</li>
+<li>Criar pg_dump consistente e backups de mídia/segredos e <code>app_ai_tokens</code>; registrar SHA-256 e testar restore em ambiente isolado.</li>
+<li>Inspecionar diferenças de <code>compose.yaml</code> e migrações. NÃO fazer <code>down -v</code>.</li>
+<li>Construir imagem em janela controlada; validar liveness/readiness e histórico de erros.</li>
+<li>Conferir login, recuperação, telas financeiras, criação de perfil, autorização, importação em prévia, relatório e rotina de backup.</li>
+<li>Manter versão anterior e procedimento de rollback disponíveis.</li>
+</ol>
+<h2>Caddy/Pi-hole/VPS</h2>
+<p>O código distribuído <strong>não</strong> configura Caddy ou Pi-hole automaticamente. Em instalações do homelab, o proxy e DNS internos precisam ser documentados separadamente, sem assumir que <code>alece.com.br</code> já está funcional ou que todas as VPS compartilham mesma rede.</p>
+<h2>Comunicação e persistência</h2>
+<p><code>db</code> permanece só na rede Compose <code>internal</code>; volumes <code>app_pgdata</code>, <code>app_media</code>, <code>app_secrets</code>, <code>app_ai_tokens</code>, <code>app_financial_backups</code> e bind <code>src/logs</code> preservam estado distinto do container. Backup de volume físico e dump lógico atendem riscos diferentes.</p>
+</article><article class="chapter" id="07_OPERACOES-02_VARIAVEIS_AMBIENTE"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Configuração operacional por ambiente</h1>
+<p><strong>Não distribua <code>.env</code> com segredos reais neste pacote documental.</strong> A tabela abaixo descreve nomes de variáveis encontrados nos arquivos de configuração e/ou instruções do projeto. A disponibilidade exata depende da imagem executada.</p>
+<table>
+<thead>
+<tr>
+<th>Variável</th>
+<th>Propósito</th>
+<th>Regra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ALECE_BIND_IP</code></td>
+<td>interface publicada no host</td>
+<td>padrão <code>127.0.0.1</code>; use proxy/TLS ao expor</td>
+</tr>
+<tr>
+<td><code>ALECE_PORT</code></td>
+<td>porta publicada</td>
+<td>padrão <code>8088</code> no Compose</td>
+</tr>
+<tr>
+<td><code>ALECE_SECRET_KEY</code> / <code>_FILE</code></td>
+<td>assinatura Django</td>
+<td>segredo de alta entropia e armazenamento privado</td>
+</tr>
+<tr>
+<td><code>ALECE_DB_PASSWORD</code> / <code>_FILE</code></td>
+<td>conexão PostgreSQL</td>
+<td>não versionar senha</td>
+</tr>
+<tr>
+<td><code>ALECE_DB_NAME</code></td>
+<td>base de dados</td>
+<td><code>alece</code> por padrão</td>
+</tr>
+<tr>
+<td><code>ALECE_DB_USER</code></td>
+<td>usuário DB</td>
+<td><code>alece</code> por padrão</td>
+</tr>
+<tr>
+<td><code>ALECE_DB_HOST</code> / <code>ALECE_DB_PORT</code></td>
+<td>acesso DB</td>
+<td><code>db:5432</code> no Compose</td>
+</tr>
+<tr>
+<td><code>ALECE_DEBUG</code></td>
+<td>debug do framework</td>
+<td><code>false</code> em produção</td>
+</tr>
+<tr>
+<td><code>ALECE_ALLOWED_HOSTS</code></td>
+<td>hosts permitidos</td>
+<td>alinhar com DNS/proxy</td>
+</tr>
+<tr>
+<td><code>ALECE_CSRF_TRUSTED_ORIGINS</code></td>
+<td>origins CSRF</td>
+<td>URLs HTTPS exatas</td>
+</tr>
+<tr>
+<td><code>ALECE_SECURE_COOKIES</code></td>
+<td>flags Secure</td>
+<td>habilitar sobre HTTPS</td>
+</tr>
+<tr>
+<td><code>ALECE_SECURE_PROXY_SSL</code></td>
+<td>cabeçalho HTTPS do proxy</td>
+<td>usar somente com proxy confiável</td>
+</tr>
+<tr>
+<td><code>ALECE_LOG_VALIDACAO</code></td>
+<td>duplicação de logs por startup</td>
+<td><code>true</code> conforme padrão solicitado</td>
+</tr>
+<tr>
+<td><code>ALECE_LOG_LEVEL</code></td>
+<td>nível de logging</td>
+<td><code>INFO</code> por padrão</td>
+</tr>
+<tr>
+<td><code>ALECE_AI_SECRET_DIR</code></td>
+<td>volume privado das API keys</td>
+<td><code>/app/private/ai</code> no web</td>
+</tr>
+<tr>
+<td><code>ALECE_AI_ALLOWED_HOSTS</code></td>
+<td>allowlist de destino de IA</td>
+<td>conferir implementação ativa</td>
+</tr>
+</tbody>
+</table>
+<h2>Contrato de segredos</h2>
+<p><code>secrets-init</code> gera os valores em volume persistente; web e banco consomem arquivos montados. Ao migrar host ou restaurar dados, considere a integridade e a compatibilidade dos segredos. Nunca imprimi-los em log.</p>
+<h2>Validação</h2>
+<p><code>docker compose config</code> valida forma e interpolação; <code>manage.py check --deploy</code> é ferramenta adicional de avaliação de segurança (não substitui revisão). Sempre registrar hostname, versão do container e hash de artefato implantado.</p>
+</article><article class="chapter" id="07_OPERACOES-03_STARTUP_HEALTH"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Startup, healthchecks e condições de falha</h1>
+<h2>Sequência real identificada em <code>docker/start.sh</code></h2>
+<ol>
+<li>Verifica acesso a <code>ALECE_SECRET_KEY</code> e <code>ALECE_DB_PASSWORD</code>, sem imprimir valores.</li>
+<li>Executa <code>python manage.py check</code>.</li>
+<li><strong>Executa migrations:</strong> <code>python manage.py migrate --noinput</code> (muda o banco quando há migrations pendentes).</li>
+<li>Confere migrations aplicadas: <code>migrate --check --noinput</code>.</li>
+<li>Executa <code>python manage.py alece_startup_check</code> (leitura).</li>
+<li>Inicia Gunicorn em 0.0.0.0:8000 com dois workers.</li>
+</ol>
+<h2>O validador inspeciona</h2>
+<p><code>reverse/resolve()</code> para rotas essenciais; carregamento de templates; estáticos essenciais; <code>SELECT 1</code> no banco; introspecção de tabelas Django por módulo; acesso de escrita a mídia e diretório de logs quando habilitado.</p>
+<h2>Liveness versus readiness</h2>
+<ul>
+<li><strong>Liveness:</strong> processo/app responde; não comprova dependências funcionais.</li>
+<li><strong>Readiness:</strong> endpoint <code>/saude/pronto/</code> inclui consulta ao PostgreSQL. Banco disponível não significa que cada CRUD/relatório foi testado.</li>
+<li><strong>Teste funcional:</strong> separado em banco de testes com pytest/Django, sem rodar escrituras reais durante boot.</li>
+</ul>
+<h2>Falha crítica</h2>
+<p>Startup aborta e registra diagnóstico; o container pode reiniciar conforme <code>restart: unless-stopped</code>. Não mascarar erro nem entrar em loop sem investigar logs/health e versão de migrations.</p>
+<h2>Critério de aceitação realista</h2>
+<p>Nenhum teste garante operação 100%. O conjunto mínimo é: integridade do build, migrações coerentes, DB pronto, autorização, renderização das páginas, fluxos de pagamento/importação em ambiente isolado, exportação, auditoria e backup/restauração testada.</p>
+</article><article class="chapter" id="07_OPERACOES-04_LOGS_OBSERVABILIDADE"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Logs, auditoria e diagnóstico</h1>
+<h2>Fontes diferentes</h2>
+<ul>
+<li><code>SystemLog</code> em PostgreSQL: auditoria de autenticação, usuários, acessos, ações financeiras, importação e erros; passível de consulta em <code>/logs/</code> (administradores).</li>
+<li>Logs de execução em <code>src/logs/</code>: saída stdout/stderr por inicialização quando <code>ALECE_LOG_VALIDACAO=true</code>, capturada pelo entrypoint.</li>
+<li>Gunicorn/Docker: saída de serviço e healthcheck; não deve receber query string ou secrets em texto.</li>
+</ul>
+<h2>Identificação de evento</h2>
+<p>A UI de logs oferece filtros por severidade, módulo, ação, resultado, usuário, período e texto, além de expansão de detalhes por registro. O endpoint <code>/logs/diagnostico/</code> trata exportação sanitizada condicionada a autorização.</p>
+<h2>Política mínima</h2>
+<table>
+<thead>
+<tr>
+<th>Assunto</th>
+<th>Recomendação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nível</td>
+<td><code>INFO</code> no funcionamento normal, <code>DEBUG</code> somente temporariamente em local seguro</td>
+</tr>
+<tr>
+<td>Redação</td>
+<td>remover cookies, tokens, recovery codes, Authorization e dados financeiros desnecessários</td>
+</tr>
+<tr>
+<td>Permissões</td>
+<td>admins do escopo; diagnóstico operacional global apenas superusuários quando aplicável</td>
+</tr>
+<tr>
+<td>Retenção</td>
+<td>definir por política/legislação; evitar apagar sem aprovação</td>
+</tr>
+<tr>
+<td>Ingestão</td>
+<td>alertar em erro de DB, loop de restart, falhas de backup e migrations</td>
+</tr>
+</tbody>
+</table>
+<h2>Investigação de HTTP 500</h2>
+<p>Capturar timestamp, request id, rota, usuário (ID interno quando permitido), stacktrace sanitizado; correlacionar com migração ou deploy; reproduzir em ambiente isolado. A tela pública de erro não deve exibir traceback.</p>
+</article><article class="chapter" id="07_OPERACOES-05_BACKUP_ROLLBACK"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Backup, restauração e rollback</h1>
+<h2>Camadas de backup</h2>
+<ol>
+<li><strong>PostgreSQL lógico consistente:</strong> schema, usuários, auditoria, financeiro, permissões e dependências.</li>
+<li><strong>Volumes persistentes:</strong> mídia, chaves de IA, segredos e backup financeiro. Não confundir dump do DB com conteúdo de <code>app_media</code>.</li>
+<li><strong>Configuração versionada:</strong> <code>compose.yaml</code>, imagem/tag, variáveis sem segredos e registro de mudanças.</li>
+<li><strong>Financeiro portável:</strong> ZIP <code>financeiro.json</code> + XLSX + manifesto; <strong>não inclui</strong> identidades, permissões nem auditoria e não substitui (1).</li>
+</ol>
+<h2>Processo seguro</h2>
+<p>Inventariar → realizar backup anterior → calcular SHA-256 → verificar hash imediatamente → validar restauração em instância isolada → aplicar alteração → smoke + regressão → conservar arquivos e log de intervenção → manter retorno documentado.</p>
+<h2>Exemplo de manifesto técnico</h2>
+<p>Para cada arquivo registrar SHA-256, tamanho, data/hora, host, versão, tipo de backup e local de armazenamento. Evitar colocar senha de banco em parâmetros de linha de comando e log.</p>
+<h2>Falhas a evitar</h2>
+<ul>
+<li><code>docker compose down -v</code> elimina volumes.</li>
+<li>Restaurar DB sem segredos de sessão/chaves/mídia pode quebrar login, anexos e integrações.</li>
+<li>Rodar migrations novas antes de ter backup impedirá rollback simples.</li>
+<li>Importar ZIP financeiro dando edição geral a usuários de destino aumenta superfície de acesso.</li>
+</ul>
+<h2>Teste de recuperação</h2>
+<p>Validar login administrativo, perfil, conta, saldos, ledger, uma movimentação de teste no ambiente <strong>isolado</strong>, histórico e mídia. Nunca declarar backup “testado” apenas porque o arquivo existe e o hash bate.</p>
+</article><article class="chapter" id="08_QUALIDADE-01_ESTRATEGIA_TESTES"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Estratégia de testes: qualidade funcional e estabilidade</h1>
+<h2>Camadas</h2>
+<table>
+<thead>
+<tr>
+<th>Nível</th>
+<th>Exemplos</th>
+<th>Quando executar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Static/lint</td>
+<td>compile Python, validar YAML, lockfiles e importação de módulos</td>
+<td>cada PR</td>
+</tr>
+<tr>
+<td>Unitário</td>
+<td>cálculos Decimal, Reserva, competência, normalização, idempotência lógica</td>
+<td>a cada alteração de regra</td>
+</tr>
+<tr>
+<td>Integração Django/DB</td>
+<td>CRUD, constraints, autenticação, permissões, migrações, ledger</td>
+<td>CI em DB isolado</td>
+</tr>
+<tr>
+<td>E2E</td>
+<td>criação de perfil, pagamento, estorno, importação/revisão, UI responsiva</td>
+<td>release / homologação</td>
+</tr>
+<tr>
+<td>Segurança</td>
+<td>IDOR, CSRF, rate-limit, dados enviados para IA, upload adversarial</td>
+<td>PRs sensíveis e releases</td>
+</tr>
+<tr>
+<td>Operação</td>
+<td>restore real, startup, liveness/readiness, health, logs</td>
+<td>homologação / após deploy</td>
+</tr>
+</tbody>
+</table>
+<h2>Organização de testes</h2>
+<ul>
+<li><code>tests/auth/</code>: setup, login, senha, e-mail, recuperação por 6 códigos.</li>
+<li><code>tests/configuration/</code>: gestão de usuário, perfis, grants, IA e seleção exclusiva.</li>
+<li><code>tests/finance/</code>: cálculos, views, ledger, CRUD e indicadores.</li>
+<li><code>tests/imports/</code>: importação bancária e ZIP financeiro.</li>
+<li><code>tests/reports/</code>: relatórios e exportações.</li>
+<li><code>tests/ui/</code>: navegação, tema e screenshots.</li>
+<li><code>tests/operations/</code>: startup, rotas, segurança, logs e estrutura do repo.</li>
+</ul>
+<h2>Critérios mínimos do pipeline</h2>
+<p>Compilação, check Django, migrations no banco de teste, suíte unit/integration, form CSRF, cobertura prioritária de dinheiro/permissão, visual em mobile/desktop, teste de instalação limpa e restauração em ambiente descartável.</p>
+<h2>Limites de evidência</h2>
+<p>Há testes estruturais e de cálculo declarados em conversas anteriores, mas a suíte Django/PostgreSQL integral não foi executada no ambiente desta documentação. A presença de um arquivo de teste não prova execução ou aprovação.</p>
+</article><article class="chapter" id="08_QUALIDADE-02_MATRIZ_CRUD_ACEITE"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Matriz de CRUD, autorização e renderização</h1>
+<table>
+<thead>
+<tr>
+<th>Recurso</th>
+<th style="text-align:right">Criar</th>
+<th style="text-align:right">Ler</th>
+<th style="text-align:right">Editar</th>
+<th style="text-align:right">Desativar/Excluir</th>
+<th>Casos negativos a cobrir</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Usuário</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">✓, preservar auditoria</td>
+<td>duplicidade email, self-delete, usuário comum</td>
+</tr>
+<tr>
+<td>Perfil</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">arquivar/excluir lógico</td>
+<td>limite cinco ativos, outro Workspace</td>
+</tr>
+<tr>
+<td>Grant</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">revogar</td>
+<td><code>edit</code> sem leitura, módulo fora do escopo</td>
+</tr>
+<tr>
+<td>Conta</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">arquivar</td>
+<td>saldo negativo, conta com ledger</td>
+</tr>
+<tr>
+<td>Despesa previsível</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">desativar</td>
+<td>vencimento 31, valor &lt;= 0, outro perfil</td>
+</tr>
+<tr>
+<td>Despesa imprevisível</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">conforme regras</td>
+<td>data inválida, valor &lt;= 0</td>
+</tr>
+<tr>
+<td>Posição de investimento</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">desativar</td>
+<td>Reserva com meta manual, resgate acima do saldo</td>
+</tr>
+<tr>
+<td>Movimentação</td>
+<td style="text-align:right">confirmar</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">não editar evento postado</td>
+<td style="text-align:right">estornar</td>
+<td>repetição, duas contas, status parcial</td>
+</tr>
+<tr>
+<td>Importação bancária</td>
+<td style="text-align:right">upload</td>
+<td style="text-align:right">prévia</td>
+<td style="text-align:right">revisar linha</td>
+<td style="text-align:right">descartar prévia</td>
+<td>parser inválido, duplicata, CSV Injection</td>
+</tr>
+<tr>
+<td>API de IA</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">desativar/excluir</td>
+<td>múltiplas ativas, SSRF, falta de consentimento</td>
+</tr>
+<tr>
+<td>Relatório</td>
+<td style="text-align:right">—</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">—</td>
+<td style="text-align:right">—</td>
+<td>leitura por perfil não autorizado</td>
+</tr>
+<tr>
+<td>ZIP financeiro</td>
+<td style="text-align:right">export</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">import aditivo</td>
+<td style="text-align:right">—</td>
+<td>hash errado, ZIP bomb, referência cruzada</td>
+</tr>
+<tr>
+<td>Logs</td>
+<td style="text-align:right">—</td>
+<td style="text-align:right">✓</td>
+<td style="text-align:right">—</td>
+<td style="text-align:right">—</td>
+<td>usuário comum acessando diagnóstico global</td>
+</tr>
+</tbody>
+</table>
+<h2>Testes de apresentação</h2>
+<p>Cada página deve renderizar em claro/escuro e 320, 390, 768, 1280 px, sem overflow horizontal da <strong>página</strong>. Tabelas podem ter scroll interno. Verificar foco, <code>Esc</code>, overlay, saída de modal com mudanças pendentes e reentrada após redirect.</p>
+<h2>Fluxos críticos mínimos E2E</h2>
+<ol>
+<li>Criar usuário comum → gerar recuperação → login por nome/e-mail → grant por módulo → negar ação não permitida.</li>
+<li>Criar perfil → cadastrar renda e despesa → confirmar pagamento → conferir conta, competência, métricas e auditoria → estornar.</li>
+<li>Importar CSV → prévia → correção de linha → confirmar → repetir mesmo arquivo → não duplicar.</li>
+<li>Exportar ZIP financeiro → validar hash/XLSX → importar num espaço isolado → conferir IDs e concessões de destino.</li>
+<li>Ativar uma API → confirmar que as demais desativam → negar envio sem consentimento.</li>
+</ol>
+</article><article class="chapter" id="08_QUALIDADE-03_CICD_PROCESSO_EQUIPE"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>CI/CD, modelo de trabalho e governança</h1>
+<h2>Organização do trabalho</h2>
+<p>Fluxo recomendado baseado no repositório: issues curtas por domínio, PRs pequenos com descrição de risco, teste e migração, revisão técnica e rastreabilidade no changelog. ADRs para decisões que afetam dados, autorização, stack ou contratos externos.</p>
+<h2>Pipeline observado</h2>
+<p>Há <code>.github/workflows/ci.yml</code> e <code>release.yml</code>, scripts em <code>scripts/</code>, lockfiles e testes modulares. Os nomes concretos dos jobs e condições devem ser conferidos no YAML da versão alvo; sua existência não significa execução em servidor.</p>
+<h2>Regras de revisão</h2>
+<ul>
+<li>Mudança de dinheiro: casos de arredondamento, fonte da verdade, idempotência, regressão com ledger e rollback.</li>
+<li>Mudança de autorização: ameaças IDOR e teste de papel em outro Workspace.</li>
+<li>Alteração visual: ao menos dois temas, desktop/mobile, teclado, contraste e SSR templates.</li>
+<li>Mudança de schema: migration reversível quando possível, plano expand/contract e backup.</li>
+<li>Dependência nova: justificativa, provenance, hashes e manutenção.</li>
+</ul>
+<h2>Definition of Done</h2>
+<p>Código com testes locais e CI verde; docs atualizadas; telas funcionais e sem erro 500; auth/CSRF verificados; operação em banco isolado; deploy com backup; saúde validada; logs inspecionados; instruções de rollback. <strong>Não declarar “100% validado” sem execução funcional.</strong></p>
+<h2>Estratégia de release</h2>
+<p>Tag reprodutível, artefato com SHA-256, migrations listadas, risk notes, compatibilidade de volume, release notes e janela de aplicação. Em produção, testar versão em homologação antes de promover.</p>
+</article><article class="chapter" id="09_DECISOES-01_ADRS_E_STATUS"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Decisões de arquitetura e estado das evidências</h1>
+<h2>ADR-001 — monólito modular</h2>
+<p><strong>Decisão vigente:</strong> um deploy Django + PostgreSQL; módulos internos por domínio, evitando microserviços prematuros. <strong>Trade-off:</strong> deploy único acopla disponibilidade; compensa com simplicidade de transações, backup e observabilidade.</p>
+<h2>ADR-002 — valores monetários e ledger</h2>
+<p><code>Decimal</code>/<code>NUMERIC</code>, pagamentos como eventos persistidos, transações atômicas e estorno por nova operação. <strong>Trade-off:</strong> modelo mais complexo que CRUD sobre um saldo, mas preserva histórico e facilita auditoria.</p>
+<h2>ADR-003 — modelo MVT com diretórios MVC (síntese documental)</h2>
+<p>Django MVT mantido; pastas <code>src/model</code>, <code>src/view</code>, <code>src/controller</code> exprimem separação de responsabilidade. <code>src/web.py</code> é router central compatível com includes Django. Não há justificativa técnica para migrar tudo para classes genéricas ao custo de regressões.</p>
+<h2>ADR-004 — autenticação offline</h2>
+<p>Conta por nome de usuário obrigatório e e-mail opcional; seis códigos de uso único hash-only; setup obrigatório. Impacto: exigência de armazenamento seguro no momento da emissão, sem suporte para leitura posterior.</p>
+<h2>ADR-005 — exportação limitada por domínio</h2>
+<p>Formato portável JSON + XLSX + manifesto sem credenciais ou permissões da origem. Impacto: restore não reproduz integralmente estado administrativo.</p>
+<h2>ADR-006 — IA informativa</h2>
+<p>Uma integração ativa por núcleo, com consentimento e segredos externos ao banco. Impacto: não é motor autônomo de execução financeira.</p>
+<h2>Pendências de decisão</h2>
+<p>Retenção de logs, RPO/RTO formal, política de criptografia de backups, modelo de permissão pós-importação (atualmente concede edição aos membros existentes), suporte a upgrades entre versões do formato portável e política de host/SSRFi de integrações customizadas.</p>
+<p><strong>Nota:</strong> ADR-003 a 006 são <strong>sínteses desta documentação</strong>, não arquivos de ADR previamente aprovados pelo projeto. ADRs existentes na fonte incluem <code>docs/ADR/0001-modular-monolith.md</code> e <code>0002-money-ledger.md</code>.</p>
+</article><article class="chapter" id="09_DECISOES-02_RISCOS_LIMITACOES_ROADMAP"><blockquote>
+<p><strong>Base factual.</strong> Conferência documental do <code>docs-alece.zip</code> (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.</p>
+</blockquote>
+<h1>Riscos, limitações e roadmap técnico</h1>
+<h2>Riscos com evidência no código</h2>
+<ul>
+<li><strong>Migrar no boot:</strong> migrações podem alterar schema antes de healthchecks; exigir backup antes de deploy.</li>
+<li><strong>Múltiplos CSS:</strong> regras superpostas podem introduzir regressões visuais em modal/tabela.</li>
+<li><strong>Permissões pós-importação:</strong> todos os membros existentes ganham <code>edit</code> nos perfis importados; revisar conceito de privilégio mínimo.</li>
+<li><strong>Volumes independentes:</strong> restaurar só PostgreSQL não restaura todos os arquivos e secrets.</li>
+<li><strong>Startup não cobre execução:</strong> views e DB podem responder e ainda apresentar erro em CRUD específico.</li>
+<li><strong>IA personalizada:</strong> endpoint externo é superfície de SSRF/vazamento; endurecer allowlist e logs.</li>
+</ul>
+<h2>Melhorias recomendadas (NÃO DECLARAR IMPLEMENTADAS)</h2>
+<ol>
+<li>Revisar política de permissões pós-importação (opção mais segura: somente admin; grant posterior).</li>
+<li>Pipeline completo de testes Django/PostgreSQL na CI com cobertura prioritária de auth, ledger e transferência.</li>
+<li>Contract tests versionados do ZIP financeiro (<code>alece-financeiro</code> v1 → v2).</li>
+<li>Testes de restore automatizados em DB descartável, com evidência de RPO/RTO.</li>
+<li>Consolidação de tokens visuais e remoção de overrides redundantes.</li>
+<li>Observabilidade sem dados sensíveis, alertas para loops de restart e erro 500.</li>
+<li>Revisão de dependências e estratégia de atualização de Docker/Postgres.</li>
+<li>Especificação de ameaças para AI, importação e downloads.</li>
+</ol>
+<h2>Separação de cronologias</h2>
+<p>Protótipo HTML v1.32.1 é uma <strong>revisão de interface/especificação</strong> e não versão do servidor Django. Os documentos de 18/10 carregam decisões antigas; arquivos do código de 24/10 são a fonte de implementação inspecionada; nenhum dos dois representa necessariamente a versão que roda hoje em produção.</p>
+</article></div></div><script src="assets/documentacao.js"></script><footer aria-label="Origem brasileira e cearense do projeto" class="doc-identity-footer"><div class="doc-identity-flags"><img alt="Bandeira do Brasil" loading="lazy" src="../assets/identidade/bandeira-brasil.png"/><img alt="Bandeira do Ceará" loading="lazy" src="../assets/identidade/bandeira-ceara.png"/><img alt="Marca NTEC fornecida pelo autor" loading="lazy" src="../assets/identidade/ntec-original.png"/></div><p>ALECE · Projeto brasileiro de origem cearense, iniciado por profissionais da NTEC e aberto à colaboração mundial. Sem vínculo com instituições governamentais.</p><a href="../">Voltar à apresentação</a></footer></body></html>

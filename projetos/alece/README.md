@@ -1,35 +1,23 @@
-# ALECE — portfólio técnico e live teste
+# ALECE — site institucional, documentação e live teste
 
-Site estático para **GitHub Pages** no endereço `https://caiotomaza.github.io/projetos/alece/`.
+Site estático para GitHub Pages em `https://caiotomaza.github.io/projetos/alece/`.
 
 ## Publicar
+Extraia **o conteúdo dentro da pasta `alece/` do ZIP** diretamente em `projetos/alece/` no repositório `caiotomaza.github.io` (não aninhe outra pasta `alece`). Preserve o index do portfólio na raiz do repositório.
 
-Extraia os **arquivos internos do ZIP** diretamente dentro de `projetos/alece/` no repositório `caiotomaza.github.io`. Não inclua outra pasta `alece` dentro da atual; não altere o `index.html` da raiz.
+Estrutura:
+- `index.html`, `styles.css`, `script.js`: landing page sem backend.
+- `assets/`: imagens, diagramas, marcas e bandeiras originais.
+- `documentacao/`: 30 capítulos, 12 diagramas com fontes e referências de código, manual HTML navegável.
+- `teste/index.html`: ambiente estático demonstrativo, sem autenticação, banco, IA real ou dados de usuário.
+- `docs/`: diagramas originais e notas do site anterior, preservados.
+- `ESTADO_E_FONTES.md`: rastreabilidade do conteúdo.
 
-- `index.html` — página de apresentação (tema dark por padrão; alternância light).
-- `styles.css`, `script.js`, `favicon.svg` — apresentação estática, sem build.
-- `assets/interface-alece.webp` — captura da demo (valores ocultos).
-- `assets/mapa-financeiro-original.jpg` — mapa mental fornecido pelo autor, preservado.
-- `assets/diagramas/*.svg` — diagramas vetoriais renderizados (arquitetura, classes/UML e fluxo de confirmação).
-- `docs/*.puml` / `*.dot` / `*.md` — código-fonte dos diagramas e explicação da modelagem para baixar e adaptar.
-- `teste/index.html` — live teste, com dados fictícios e processamento local na aba, preservado da versão anterior.
+## Produto real e demonstração
+A aplicação Django é mantida no repositório oficial `https://github.com/caiotomaza/alece` e instalada com Docker Compose. O site público mostra conceitos e protótipos fictícios; não é o serviço financeiro real.
 
-## URLs
+## Validação
+Veja `VALIDACAO_SITE.md`: links internos, estados de páginas, sintaxe JavaScript, breakpoints e assets. Para novas versões, confira a stack declarada com o Dockerfile e Compose do repositório e atualize a documentação correspondente.
 
-- Site: `https://caiotomaza.github.io/projetos/alece/`
-- Protótipo: `https://caiotomaza.github.io/projetos/alece/teste/`
-- Repo do produto: `https://github.com/caiotomaza/alece`
-
-## Critérios documentais
-
-O repositório oficial informa **base técnica v0.2.0**, licença **GNU GPL v3 somente (GPL-3.0-only)**, Django 5.2 LTS, Python 3.13, PostgreSQL 18, Docker Compose e auth/modelos iniciais; a interface HTML v1.32.1 **não está integrada** ao banco. Conteúdo do portfólio distingue o que já está disponível do planejado. O ALECE homenageia Alice, mãe do autor e profissional da área de economia; o nome está sujeito à revisão de distintividade por coincidir com sigla institucional conhecida. **Não há afiliação com a Assembleia Legislativa do Estado do Ceará.**
-
-A privacidade e a ausência de telemetria compulsória são compromissos de produto; não substituem auditoria de futuras versões. Não utilizar o starter para dados financeiros reais antes de completar implementação e homologação.
-
-## Diagramas
-
-Os diagramas foram construídos com base nos modelos em `apps/finance/models.py` e regras de `docs/ARCHITECTURE.md` / `docs/DOMAIN.md` do repositório do projeto, combinados com a especificação e a lógica financeira disponibilizada pelo autor. UML é documental: o esquema persistido verdadeiro está nas migrations Django.
-
-O `.puml` pode ser editado em ferramentas compatíveis com PlantUML; o `.dot` é fonte para Graphviz (exemplo `dot -Tsvg docs/modelo-classes.dot -o modelo.svg`).
-
-**Visualização mobile:** o fluxo de confirmação usa diagrama vertical; o modelo UML pode ser arrastado horizontalmente e possui link para o SVG em escala completa.
+## Identidade e origens
+Marca: ALECE, homenagem a Alice Hercília. Projeto independente; não há vínculo com a Assembleia Legislativa do Estado do Ceará. Iniciado no Ceará por profissionais da NTEC, aberto à comunidade brasileira e mundial, conforme informações do responsável. Logos de proveniência: `assets/identidade/CREDITOS.md`.

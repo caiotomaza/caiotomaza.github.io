@@ -1,0 +1,18 @@
+digraph G {
+graph [bgcolor="#FFFFFF",pad="0.35",nodesep="0.43",ranksep="0.75",fontname="Arial",fontsize="20",fontcolor="#0E6846",label="Uma IA ativa por Workspace",labelloc=t];
+node [shape=box,style="rounded,filled",fillcolor="#F0F5F1",color="#93B6A1",fontname="Arial",fontsize=12,fontcolor="#17261D",margin="0.2,0.14"];
+edge [color="#29875C",fontname="Arial",fontsize=10,arrowsize=.72];
+
+admin [label="Administrador"];
+select [label="Escolher API"];
+preset [label="Preset ou custom\nNome endpoint modelo"];
+secret [label="Chave no volume privado",shape=folder];
+unique [label="Transacao / unica ativa\npor Workspace",fillcolor="#C6EAD8"];
+consent [label="Consentimento especifico"];
+external [label="Provedor HTTPS externo"];
+result [label="Analise informativa\nNUNCA altera ledger"];
+admin -> select -> preset -> unique;
+secret -> unique;
+unique -> consent -> external -> result;
+
+}

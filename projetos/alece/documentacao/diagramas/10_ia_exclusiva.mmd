@@ -1,0 +1,7 @@
+flowchart LR
+  A[Admin] --> P[Preset ou personalizada]
+  P --> U[Uma API ativa / Workspace]
+  KEY[(Chave em volume privado)] --> U
+  U --> C[Consentimento do usuario]
+  C --> HTTP[API externa HTTPS]
+  HTTP --> R[Analise - nao escreve ledger]

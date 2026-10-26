@@ -1,0 +1,12 @@
+flowchart TD
+  REQ[Requisicao] --> AUTH{Sessao valida?}
+  AUTH -->|nao| DENY[Negar]
+  AUTH -->|sim| W{Membership valido?}
+  W -->|nao| DENY
+  W -->|sim| ADM{Admin do workspace?}
+  ADM -->|sim| OBJ{Objeto pertence ao perfil?}
+  ADM -->|nao| GR{Grant por modulo suficiente?}
+  GR -->|nao| DENY
+  GR -->|sim| OBJ
+  OBJ -->|nao| DENY
+  OBJ -->|sim| S[Executar service]

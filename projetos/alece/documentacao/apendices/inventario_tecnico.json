@@ -1,0 +1,46 @@
+{
+  "fonte_documental_sha256": "1191a66eb87a9a7710cf192b12e0abe68cb69b6c8c3ff919fd6326067f6b719a",
+  "fonte_codigo_sha256": "3c5fc12804edc39c876f113022982df713841edf3490144570fa3ed52034d723",
+  "modelos_ORM": 26,
+  "campos_explicitamente_declarados": 219,
+  "rotas_path_literais": 100,
+  "dependencias_producao": [
+    [
+      "asgiref",
+      "3.12.1"
+    ],
+    [
+      "django",
+      "5.2.18"
+    ],
+    [
+      "gunicorn",
+      "23.0.0"
+    ],
+    [
+      "packaging",
+      "26.3"
+    ],
+    [
+      "psycopg",
+      "3.3.6"
+    ],
+    [
+      "psycopg-binary",
+      "3.3.6"
+    ],
+    [
+      "sqlparse",
+      "0.6.0"
+    ],
+    [
+      "typing-extensions",
+      "4.16.0"
+    ],
+    [
+      "whitenoise",
+      "6.12.0"
+    ]
+  ],
+  "verificado_por": "inspecao estatica de codigo, sem Django e sem PostgreSQL em execucao"
+}

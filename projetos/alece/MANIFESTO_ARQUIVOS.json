@@ -1,0 +1,715 @@
+{
+  "snapshot": "2026-10-25",
+  "arquivos": [
+    {
+      "arquivo": ".gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "arquivo": "ESTADO_E_FONTES.md",
+      "sha256": "6b349abcd54a93165b48872ab63d593366b8ac640ef98383d469e7e2a6590290",
+      "bytes": 2333
+    },
+    {
+      "arquivo": "README.md",
+      "sha256": "68504129fe76996d0e9b652e0cd94ddafd22ee343b1626a876e5a90d2bbd9265",
+      "bytes": 1721
+    },
+    {
+      "arquivo": "VALIDACAO_SITE.md",
+      "sha256": "698a9fb71af5587049f4c0e9fcc58e236eba0d540c0d051b698425bb6d3bb042",
+      "bytes": 1565
+    },
+    {
+      "arquivo": "assets/diagramas/arquitetura.svg",
+      "sha256": "16bc87e291317588ff97ea6a96f15956bc1d064a53d9e83295bc3f295e47378d",
+      "bytes": 9314
+    },
+    {
+      "arquivo": "assets/diagramas/fluxo-confirmacao-mobile.svg",
+      "sha256": "f843fcc02c0f3fcbc3ea22ca9caaf5866180eb6d665bc174d6b2e3928e82cfef",
+      "bytes": 6548
+    },
+    {
+      "arquivo": "assets/diagramas/fluxo-confirmacao.svg",
+      "sha256": "d06a6d38b2b8277cd1e42b525dacefb668b3c22aba633c90a2ff0b3b0d02eb13",
+      "bytes": 6312
+    },
+    {
+      "arquivo": "assets/diagramas/modelo-classes.svg",
+      "sha256": "999588f14bd3bb7d4700a8aca4c08a2228d8c77d84b7f141915565c8e2775453",
+      "bytes": 18960
+    },
+    {
+      "arquivo": "assets/identidade/CREDITOS.md",
+      "sha256": "af72d795e82cfcdad08e0e8fdcacd3e90221d759cae6d60e2e643555211cd9f0",
+      "bytes": 774
+    },
+    {
+      "arquivo": "assets/identidade/bandeira-brasil.png",
+      "sha256": "5f7653b200cd3b730d23c748ad044314b7bf9ba91ec95ea1c8f470af74617ca6",
+      "bytes": 13635
+    },
+    {
+      "arquivo": "assets/identidade/bandeira-ceara.png",
+      "sha256": "ad538b56697d11e3a46acf50534c668b381940fa31eebe97b1cb7c986d00e60f",
+      "bytes": 10967
+    },
+    {
+      "arquivo": "assets/identidade/ntec-original.png",
+      "sha256": "366cf24a2f364e0df0f71d4b5d0fea9c8834f73e6a145fb1c9cb1777abfd6c0f",
+      "bytes": 140029
+    },
+    {
+      "arquivo": "assets/interface-alece.webp",
+      "sha256": "552c6e8283e358de76a5ce8dd4329c77dcf6e3bd9e676d05d4023a9edbe029ed",
+      "bytes": 46398
+    },
+    {
+      "arquivo": "assets/mapa-financeiro-original.jpg",
+      "sha256": "f7ba5d5e039ffa19acc30ae3a75b00a33bade6805aa6ac987a473c3579d77d96",
+      "bytes": 92897
+    },
+    {
+      "arquivo": "docs/MODELO_E_ARQUITETURA.md",
+      "sha256": "eaba864f59ef9049d7ea7f2ac41b5cd11253a6bbb87d1caa1ab6a50333a8b530",
+      "bytes": 3102
+    },
+    {
+      "arquivo": "docs/arquitetura.dot",
+      "sha256": "c89c52e090e3b300ccc2c74624ad350e6aeb68b4b3c304784b51d75ce7e45c44",
+      "bytes": 1526
+    },
+    {
+      "arquivo": "docs/fluxo-confirmacao-mobile.dot",
+      "sha256": "07a16392dfd9302618ac3958106fda3ea26b31806c87f8c48abfe087a1f62195",
+      "bytes": 773
+    },
+    {
+      "arquivo": "docs/fluxo-confirmacao.dot",
+      "sha256": "bf3770a446f9fd600355d22aa1a585cbb6b1d1f02fa9ea89c132e5d8a2f66d98",
+      "bytes": 911
+    },
+    {
+      "arquivo": "docs/fluxo-confirmacao.puml",
+      "sha256": "e2bbd639b880dd6942ef1bca926044ae59111a759e514458b2599a9d22318b93",
+      "bytes": 776
+    },
+    {
+      "arquivo": "docs/modelo-classes.dot",
+      "sha256": "07f5a3620df27e9ab1ea8c0ee3df7ca32932f9c5d6d346d8917fed7a36fc14b0",
+      "bytes": 4203
+    },
+    {
+      "arquivo": "docs/modelo-classes.puml",
+      "sha256": "24141e7e05aebf3ea53a6ba84f9687f9605b950de4cb98b997d4f3c218e241c6",
+      "bytes": 1441
+    },
+    {
+      "arquivo": "documentacao/INDICE.md",
+      "sha256": "8a3368ec0156a5fdb4199a0f989b525880dfa54d8e3cd1b3af5bd65bff23cbfd",
+      "bytes": 3972
+    },
+    {
+      "arquivo": "documentacao/LEIA_ESTADO_ATUAL.md",
+      "sha256": "36c6116ee0b28dc3c5504b2be3c2f11d4b4068cf414bb86e0fcb943ffcc80a6c",
+      "bytes": 854
+    },
+    {
+      "arquivo": "documentacao/MANUAL_TECNICO_CONSOLIDADO.md",
+      "sha256": "c8d51b33b751fa0bc1b1758fc99cd10cb05823822d30630c1093906eec4e412b",
+      "bytes": 106795
+    },
+    {
+      "arquivo": "documentacao/README.md",
+      "sha256": "91926a464a9b0c3a4a533ad18ba941b015ddacb8c31c9c0fb35313617b4a405a",
+      "bytes": 4611
+    },
+    {
+      "arquivo": "documentacao/REGISTRO_DAS_FONTES.md",
+      "sha256": "6d741ba3066cf9ccbaab8cb7a3c3b2e438096950cd6668b2890c86c68edb62f9",
+      "bytes": 2974
+    },
+    {
+      "arquivo": "documentacao/RELATORIO_VALIDACAO.md",
+      "sha256": "4852fbbe9014cddd30d2793c524b2b5430a4016c46f7f7a80fab4f60ff50be1f",
+      "bytes": 1752
+    },
+    {
+      "arquivo": "documentacao/apendices/dependencias_producao.csv",
+      "sha256": "efeadc37aacab234181929d9f1868891f146f88dd331b79b05fb3a3e8ca30a02",
+      "bytes": 180
+    },
+    {
+      "arquivo": "documentacao/apendices/inventario_campos.csv",
+      "sha256": "c91bd66c7dfb35113dd628a4700345be6022a58ced2e4fda78c3be14d0a3c28a",
+      "bytes": 18177
+    },
+    {
+      "arquivo": "documentacao/apendices/inventario_tecnico.json",
+      "sha256": "8212d4793226cf109cdfbfa2a6ed3d2ea25541101f42255a10ede6fcd95c72c8",
+      "bytes": 835
+    },
+    {
+      "arquivo": "documentacao/apendices/rotas_declaradas.csv",
+      "sha256": "b1ed3534d92a5910d2bbc706186f6d0ad9949f85ecba2958bd2dc5615357a004",
+      "bytes": 9801
+    },
+    {
+      "arquivo": "documentacao/assets/documentacao.css",
+      "sha256": "b45579308295b991f94a4e36cc4caf10d9d43bb342af0dd8151e621a2384ecbc",
+      "bytes": 6238
+    },
+    {
+      "arquivo": "documentacao/assets/documentacao.js",
+      "sha256": "26a6d30997571ae21505e5f3715c830929fbaa974fb5c443c892aec690198558",
+      "bytes": 772
+    },
+    {
+      "arquivo": "documentacao/assets/identidade/README.md",
+      "sha256": "b8496e334c6a0d1b807d3adae3a7ec45d05cd50cf5f715b9fcb91bc9d2a71cc5",
+      "bytes": 647
+    },
+    {
+      "arquivo": "documentacao/assets/identidade/favicon_original.svg",
+      "sha256": "453b160b0a498a5213386358990e7dfc50d8b644e098256868d3978da1b7c0b4",
+      "bytes": 253
+    },
+    {
+      "arquivo": "documentacao/assets/identidade/interface_alece_referencia.webp",
+      "sha256": "552c6e8283e358de76a5ce8dd4329c77dcf6e3bd9e676d05d4023a9edbe029ed",
+      "bytes": 46398
+    },
+    {
+      "arquivo": "documentacao/assets/identidade/logo_horizontal_derivado.svg",
+      "sha256": "4ed2e5a55c301f3fa980906b8f78d24ce1ed2bf92e3d0c1920f8daf3c64153d3",
+      "bytes": 712
+    },
+    {
+      "arquivo": "documentacao/assets/identidade/mapa_financeiro_original.jpg",
+      "sha256": "f7ba5d5e039ffa19acc30ae3a75b00a33bade6805aa6ac987a473c3579d77d96",
+      "bytes": 92897
+    },
+    {
+      "arquivo": "documentacao/codigo-referencia/ARCHITECTURE.md",
+      "sha256": "588a13844177b9b5a8956de7ea0a5bfda826a62e54f672b708f0322509209936",
+      "bytes": 3679
+    },
+    {
+      "arquivo": "documentacao/codigo-referencia/ARCHITECTURE_MVC.md",
+      "sha256": "a126b60d91a60ed6639b87c3e60481a1a0fac2d8c7225352d62fbc2298f7c8d8",
+      "bytes": 2520
+    },
+    {
+      "arquivo": "documentacao/codigo-referencia/CI_CD.md",
+      "sha256": "626263d9042c078890328ff57c3bc76628a3e0dc04bcf4919749a3fa2173d659",
+      "bytes": 2468
+    },
+    {
+      "arquivo": "documentacao/codigo-referencia/CONTRIBUTING.md",
+      "sha256": "26040b047e470abc2172554e1ccb38d38e114481e03e447321795e4c732b8b26",
+      "bytes": 1733
+    },
+    {
+      "arquivo": "documentacao/codigo-referencia/DEVELOPMENT.md",
+      "sha256": "aea2da1bbde9c6005e827b546773f5abbbaea165e142fbc45ae9db44a00ab176",
+      "bytes": 2109
+    },
+    {
+      "arquivo": "documentacao/codigo-referencia/DOMAIN.md",
+      "sha256": "75c0f2633178b5a0434ce4319f53fca0b7f851864a653356669db96ec6b0d218",
+      "bytes": 4153
+    },
+    {
+      "arquivo": "documentacao/codigo-referencia/IA_PRESETS_SELECAO_EXCLUSIVA_2026-10-24.md",
+      "sha256": "392860547dcdf388a58e4c3abfb795e3938f25b7a1b0befbe01dadbb6a93e4d4",
+      "bytes": 1867
+    },
+    {
+      "arquivo": "documentacao/codigo-referencia/IMPORT_PIPELINE.md",
+      "sha256": "d7fd9a4be080d7ba9117488f4f594acd55a8d85b1280e3d413a8b70ead206ac1",
+      "bytes": 1240
+    },
+    {
+      "arquivo": "documentacao/codigo-referencia/LEIA_PRIMEIRO.md",
+      "sha256": "a7b556d0f45238f0f7bd42cb5880d8afae48bec58f2f4b19d2b0187e6f894898",
+      "bytes": 559
+    },
+    {
+      "arquivo": "documentacao/codigo-referencia/LOGS_ROTA_ERROS_DIAGNOSTICO_2026-10-24.md",
+      "sha256": "4b542f024e07b5b6bc926065cc61c5d8afea1bc7b99e54013e16f69390beec95",
+      "bytes": 2656
+    },
+    {
+      "arquivo": "documentacao/codigo-referencia/PRODUCT.md",
+      "sha256": "29a6d72d96cebcba42fd42e97998039db6292cf84dc4bc0cbd5b689623ec6e83",
+      "bytes": 4220
+    },
+    {
+      "arquivo": "documentacao/codigo-referencia/QUALIDADE_RECUPERACAO_E_NOME_2026-10-25.md",
+      "sha256": "ffe465c25fa497c7b83faed8992010ddca41d1facfad77083847e5d5452717ae",
+      "bytes": 5994
+    },
+    {
+      "arquivo": "documentacao/codigo-referencia/RECUPERACAO_USUARIOS_2026-10-23.md",
+      "sha256": "a3b5bc0b02484ac47b1183579e556b419b2f057de4923c4f05845bbc5bedb471",
+      "bytes": 5457
+    },
+    {
+      "arquivo": "documentacao/codigo-referencia/RESULTADOS_VALIDACAO_LOCAL_2026-10-25.md",
+      "sha256": "b031d108b07cbdccf32409956942bc4aa1a998baa1e7ed9ac604d17af4528d23",
+      "bytes": 2518
+    },
+    {
+      "arquivo": "documentacao/codigo-referencia/ROADMAP.md",
+      "sha256": "866de32896f7c5b451dca8ce89380addacb57f023a6440c9629446803f4c33d3",
+      "bytes": 1668
+    },
+    {
+      "arquivo": "documentacao/codigo-referencia/SECURITY.md",
+      "sha256": "0720d81bc23b689398b069f3a536ccc23e3958a1fbfd35032b8a256e237c8f45",
+      "bytes": 732
+    },
+    {
+      "arquivo": "documentacao/codigo-referencia/TESTES_E_INICIALIZACAO_2026-10-24.md",
+      "sha256": "0733a4681f49618a4ed02779e6741c59b96e57b00627626a69b2d4c083718af5",
+      "bytes": 3468
+    },
+    {
+      "arquivo": "documentacao/codigo-referencia/TRANSFERENCIA_FINANCEIRA_COMPLETA_2026-10-24.md",
+      "sha256": "1185c4083c03dbe4bc3c65552ee3a578955ed577e69174f6881f9168404c7842",
+      "bytes": 5144
+    },
+    {
+      "arquivo": "documentacao/codigo-referencia/UX_DESIGN_SYSTEM.md",
+      "sha256": "f3568231926ef8f10e424c8efdfda93f75ed6f72a581799ad3a0d85fe91eac20",
+      "bytes": 2164
+    },
+    {
+      "arquivo": "documentacao/diagramas/01_contexto_sistema.dot",
+      "sha256": "eb94ae1254dd678fe53775b5f9d1bef9608d304b9aea1cc9eff3c048c9e9c5fd",
+      "bytes": 1003
+    },
+    {
+      "arquivo": "documentacao/diagramas/01_contexto_sistema.mmd",
+      "sha256": "5df6aaee6f31bf363af1ca58d86cc03fa9572d3c2a1cbfe50d2fab7e4112c27e",
+      "bytes": 216
+    },
+    {
+      "arquivo": "documentacao/diagramas/01_contexto_sistema.svg",
+      "sha256": "7e681e058c933c9174ade06f6eab7c3a593f3eef270d7b339e52cc0016d01fd6",
+      "bytes": 6882
+    },
+    {
+      "arquivo": "documentacao/diagramas/02_deploy_containers.dot",
+      "sha256": "007caac016212cb6dd463cba5a31f069d72360ce6fadc6a8846e3a1adea908b3",
+      "bytes": 1156
+    },
+    {
+      "arquivo": "documentacao/diagramas/02_deploy_containers.mmd",
+      "sha256": "b91e213c7ea1c2436d9d22524789c6e3b67957d2e462a4973d27698b3dc49bd4",
+      "bytes": 324
+    },
+    {
+      "arquivo": "documentacao/diagramas/02_deploy_containers.svg",
+      "sha256": "6b711cc30a30ddc3b1dc136b62d3ee6c5b564b4da45145d6d536b3e507ce643d",
+      "bytes": 9412
+    },
+    {
+      "arquivo": "documentacao/diagramas/03_camadas_mvt.dot",
+      "sha256": "bd805ad248fc81708a0db65e6d02b7ebc90d50b771ec8b1a3ae1a13f097db87d",
+      "bytes": 968
+    },
+    {
+      "arquivo": "documentacao/diagramas/03_camadas_mvt.mmd",
+      "sha256": "3da836a1e1859040b870aad6f814b4a605e26d71dea153f288d8e1c79fc04abd",
+      "bytes": 272
+    },
+    {
+      "arquivo": "documentacao/diagramas/03_camadas_mvt.svg",
+      "sha256": "a33fc20a8550eeae9f11d62762b4d49584fc75872dfb707726ac1794866bd686",
+      "bytes": 10200
+    },
+    {
+      "arquivo": "documentacao/diagramas/04_modelo_entidades.dot",
+      "sha256": "0b51832d6bbd352b59c88bd6b765112f6543bc085d976eb4d8bd2447d605c11f",
+      "bytes": 1222
+    },
+    {
+      "arquivo": "documentacao/diagramas/04_modelo_entidades.mmd",
+      "sha256": "7d2a7bcb6d25a7a4855b9e016825b34de8bf823f6e2a87de1c0d315a531cb65a",
+      "bytes": 590
+    },
+    {
+      "arquivo": "documentacao/diagramas/04_modelo_entidades.svg",
+      "sha256": "b6667feeaccc2b20bba1a1ea1f2865c47e60d64d2fbd7db54d57a48973ac9742",
+      "bytes": 10917
+    },
+    {
+      "arquivo": "documentacao/diagramas/05_permissoes_acesso.dot",
+      "sha256": "e3111156016a9a3c7e9041ad8a4bf6affb4d6e138f90d5134946ce80cc66c7e8",
+      "bytes": 1225
+    },
+    {
+      "arquivo": "documentacao/diagramas/05_permissoes_acesso.mmd",
+      "sha256": "98c26c8b95dff8c64230b7b9cce24f4bf560a01ec34f020a2afd93c71a3735b8",
+      "bytes": 365
+    },
+    {
+      "arquivo": "documentacao/diagramas/05_permissoes_acesso.svg",
+      "sha256": "6d83bc5c8ecc06102df0ceb84353ac22a08d8c238da3ebb90ef804b4111a52f0",
+      "bytes": 9738
+    },
+    {
+      "arquivo": "documentacao/diagramas/06_importacao_conciliacao.dot",
+      "sha256": "e726db8872b15138e8e20cc502d3f299f35307502db215ee304a02f43a27b4a2",
+      "bytes": 1062
+    },
+    {
+      "arquivo": "documentacao/diagramas/06_importacao_conciliacao.mmd",
+      "sha256": "9c82126582e4d78d02310df6b4989f7423db7fcd55d39ed6945bd3ece7fcecc5",
+      "bytes": 255
+    },
+    {
+      "arquivo": "documentacao/diagramas/06_importacao_conciliacao.svg",
+      "sha256": "3533f1e97128411aa005eca06b2a45f0df9799092d410364e956b480cd6fb402",
+      "bytes": 8469
+    },
+    {
+      "arquivo": "documentacao/diagramas/07_pagamento_estorno.dot",
+      "sha256": "3d364abf9b3a473c0b664d9714c40820f527c315555f3789e76920f02a2f1a5b",
+      "bytes": 933
+    },
+    {
+      "arquivo": "documentacao/diagramas/07_pagamento_estorno.mmd",
+      "sha256": "ec46d84c6b44854684c27f838dfc8c3a798fff8237abd035bdada6af39e3ce8a",
+      "bytes": 490
+    },
+    {
+      "arquivo": "documentacao/diagramas/07_pagamento_estorno.svg",
+      "sha256": "652392bc03b2e9d19b40d3e20d2ce8f43facdd5600717e4084ce511bdb719560",
+      "bytes": 8535
+    },
+    {
+      "arquivo": "documentacao/diagramas/08_startup_saude.dot",
+      "sha256": "91c2de0b60a8540d2be787eb40357d5f6931c2c84f05d2f33b5984ee04f42368",
+      "bytes": 1062
+    },
+    {
+      "arquivo": "documentacao/diagramas/08_startup_saude.mmd",
+      "sha256": "3614918cca2d5006acd12edd9b619e76d94f883d77f5254b49b9a2396ba27667",
+      "bytes": 241
+    },
+    {
+      "arquivo": "documentacao/diagramas/08_startup_saude.svg",
+      "sha256": "660ec2801aa0b408826a287361052ab4edb71ef4b3c2cc5967c3553ae86c3335",
+      "bytes": 9537
+    },
+    {
+      "arquivo": "documentacao/diagramas/09_backup_portavel.dot",
+      "sha256": "997cfb81845a6684fcd58f452e519a512b8d551dab6d16190e6cf9326f57ab62",
+      "bytes": 1094
+    },
+    {
+      "arquivo": "documentacao/diagramas/09_backup_portavel.mmd",
+      "sha256": "a037656a6d96b2e1cb1b4ff63a44b276542a4413e713a72158e945b01adb79d1",
+      "bytes": 344
+    },
+    {
+      "arquivo": "documentacao/diagramas/09_backup_portavel.svg",
+      "sha256": "98a72eb0493af3237a08a157f3fdc454f2f062446febc45d353326d1a727f812",
+      "bytes": 9313
+    },
+    {
+      "arquivo": "documentacao/diagramas/10_ia_exclusiva.dot",
+      "sha256": "6a34daf6bdbe3df53c25adeb4617f301752c494ed1cd3e98dea91b3e14d730b4",
+      "bytes": 885
+    },
+    {
+      "arquivo": "documentacao/diagramas/10_ia_exclusiva.mmd",
+      "sha256": "6acf3afd136f1ddc071d9a559dc8880ea0e8b20d4e4f879cfb026542e5231494",
+      "bytes": 242
+    },
+    {
+      "arquivo": "documentacao/diagramas/10_ia_exclusiva.svg",
+      "sha256": "511db401d3e4e0f087f1bd34fbaf1247a8752e0357653c5134f2b45272b7df71",
+      "bytes": 6983
+    },
+    {
+      "arquivo": "documentacao/diagramas/11_testes_cicd.dot",
+      "sha256": "618270d86fe54308a0034d11d683b5d3e22534151d4f1bbf16866ca9924e56b8",
+      "bytes": 811
+    },
+    {
+      "arquivo": "documentacao/diagramas/11_testes_cicd.mmd",
+      "sha256": "68dc7eb7f6237b5acdb1294951af607511142afa7eed43af71771a79ae043d35",
+      "bytes": 208
+    },
+    {
+      "arquivo": "documentacao/diagramas/11_testes_cicd.svg",
+      "sha256": "d1918138991068111f2d7c92789a2a09f100bf5a7fa8cf0993eb1d6ecb554e55",
+      "bytes": 6279
+    },
+    {
+      "arquivo": "documentacao/diagramas/12_navegacao_telas.dot",
+      "sha256": "7306030e62bc5611da1c6af4567c096ab159640bd9551feaf4d1c53dcfb4382e",
+      "bytes": 802
+    },
+    {
+      "arquivo": "documentacao/diagramas/12_navegacao_telas.mmd",
+      "sha256": "6ddac7f08c376f21c1fcb02e4c5b2429b87210e89cd9159d3754f64abe31329f",
+      "bytes": 197
+    },
+    {
+      "arquivo": "documentacao/diagramas/12_navegacao_telas.svg",
+      "sha256": "873394999ad2d8d11d5796574dbdb9da28e585e69bdc0ece1cdf6d4f5d909fe1",
+      "bytes": 6636
+    },
+    {
+      "arquivo": "documentacao/diagramas/README.md",
+      "sha256": "d60b3ef967e022c16e2eed387df9616c62852cacb8ceab0e9c2694cf96a4361d",
+      "bytes": 1074
+    },
+    {
+      "arquivo": "documentacao/diagramas/historicos/arquitetura.svg",
+      "sha256": "16bc87e291317588ff97ea6a96f15956bc1d064a53d9e83295bc3f295e47378d",
+      "bytes": 9314
+    },
+    {
+      "arquivo": "documentacao/diagramas/historicos/fluxo-confirmacao-mobile.svg",
+      "sha256": "f843fcc02c0f3fcbc3ea22ca9caaf5866180eb6d665bc174d6b2e3928e82cfef",
+      "bytes": 6548
+    },
+    {
+      "arquivo": "documentacao/diagramas/historicos/fluxo-confirmacao.svg",
+      "sha256": "d06a6d38b2b8277cd1e42b525dacefb668b3c22aba633c90a2ff0b3b0d02eb13",
+      "bytes": 6312
+    },
+    {
+      "arquivo": "documentacao/diagramas/historicos/fontes/MODELO_E_ARQUITETURA.md",
+      "sha256": "eaba864f59ef9049d7ea7f2ac41b5cd11253a6bbb87d1caa1ab6a50333a8b530",
+      "bytes": 3102
+    },
+    {
+      "arquivo": "documentacao/diagramas/historicos/fontes/arquitetura.dot",
+      "sha256": "c89c52e090e3b300ccc2c74624ad350e6aeb68b4b3c304784b51d75ce7e45c44",
+      "bytes": 1526
+    },
+    {
+      "arquivo": "documentacao/diagramas/historicos/fontes/fluxo-confirmacao-mobile.dot",
+      "sha256": "07a16392dfd9302618ac3958106fda3ea26b31806c87f8c48abfe087a1f62195",
+      "bytes": 773
+    },
+    {
+      "arquivo": "documentacao/diagramas/historicos/fontes/fluxo-confirmacao.dot",
+      "sha256": "bf3770a446f9fd600355d22aa1a585cbb6b1d1f02fa9ea89c132e5d8a2f66d98",
+      "bytes": 911
+    },
+    {
+      "arquivo": "documentacao/diagramas/historicos/fontes/fluxo-confirmacao.puml",
+      "sha256": "e2bbd639b880dd6942ef1bca926044ae59111a759e514458b2599a9d22318b93",
+      "bytes": 776
+    },
+    {
+      "arquivo": "documentacao/diagramas/historicos/fontes/modelo-classes.dot",
+      "sha256": "07f5a3620df27e9ab1ea8c0ee3df7ca32932f9c5d6d346d8917fed7a36fc14b0",
+      "bytes": 4203
+    },
+    {
+      "arquivo": "documentacao/diagramas/historicos/fontes/modelo-classes.puml",
+      "sha256": "24141e7e05aebf3ea53a6ba84f9687f9605b950de4cb98b997d4f3c218e241c6",
+      "bytes": 1441
+    },
+    {
+      "arquivo": "documentacao/diagramas/historicos/modelo-classes.svg",
+      "sha256": "999588f14bd3bb7d4700a8aca4c08a2228d8c77d84b7f141915565c8e2775453",
+      "bytes": 18960
+    },
+    {
+      "arquivo": "documentacao/docs/01_PRODUTO/01_IDENTIDADE_ESCOPO.md",
+      "sha256": "18f10b2e4159fc0de53dbc407b2dfa1a8f41c4f3ca2c371c464c1fb95448208c",
+      "bytes": 3107
+    },
+    {
+      "arquivo": "documentacao/docs/01_PRODUTO/02_MATRIZ_FUNCIONAL.md",
+      "sha256": "991ca229a251c5c3f2c15c332b78548bb1d6f0448a65781ab4e313d76db649a5",
+      "bytes": 2804
+    },
+    {
+      "arquivo": "documentacao/docs/02_ARQUITETURA/01_ESTILO_CAMADAS.md",
+      "sha256": "a359c5d7cc690bbad78f9436eccdb48fc623194cce682bf7c1be1d7869b60595",
+      "bytes": 3676
+    },
+    {
+      "arquivo": "documentacao/docs/02_ARQUITETURA/02_STACK_EXECUCAO.md",
+      "sha256": "bcc88698afb8482a71ae6908f7e6ddf90b1a0b679beca6444a697bfd78c762ae",
+      "bytes": 2932
+    },
+    {
+      "arquivo": "documentacao/docs/02_ARQUITETURA/03_ESTRUTURA_REPOSITORIO.md",
+      "sha256": "2492fbecc55088dceea942a052788e6771aaa7bb28b92766e15c26943e89e4b0",
+      "bytes": 2780
+    },
+    {
+      "arquivo": "documentacao/docs/03_DOMINIO/01_GLOSSARIO_INVARIANTES.md",
+      "sha256": "4a5c20c6fd6dfd0443dbf743f67cbb0e0b7535c22df5c5be1ed4d70ee6918922",
+      "bytes": 3627
+    },
+    {
+      "arquivo": "documentacao/docs/03_DOMINIO/02_USUARIOS_PERFIS_PERMISSOES.md",
+      "sha256": "7ba9b7c56583737642c4a747b2ee0c6d6bf8feb3fbe15c954fb2ef5bde31488d",
+      "bytes": 2954
+    },
+    {
+      "arquivo": "documentacao/docs/03_DOMINIO/03_LEDGER_CONTAS_ESTORNOS.md",
+      "sha256": "38248f27866a1b08e301506da8fd24ee845bc0420c18c9810e32c3cc37499981",
+      "bytes": 2470
+    },
+    {
+      "arquivo": "documentacao/docs/03_DOMINIO/04_IMPORTACAO_BANCARIA.md",
+      "sha256": "3c6da55ad3db9f9dd3a8ba09de0476876143bb865101fac68107125275ccdcc9",
+      "bytes": 2713
+    },
+    {
+      "arquivo": "documentacao/docs/03_DOMINIO/05_INVESTIMENTOS_RESERVA.md",
+      "sha256": "a0d3c52f110433b6c042083483624ee48f983aed4c4b557d1cfce6572cb64f56",
+      "bytes": 1905
+    },
+    {
+      "arquivo": "documentacao/docs/03_DOMINIO/06_IA_PRIVACIDADE.md",
+      "sha256": "de8203b8ac1a68c26095f1797b6254fe27b892d60d969f1a126e8ff3f2fdb570",
+      "bytes": 2340
+    },
+    {
+      "arquivo": "documentacao/docs/03_DOMINIO/07_TRANSFERENCIA_FINANCEIRA.md",
+      "sha256": "507860d6259c183a216166f4c6275f5d2738152f15a48511e7b52361401749ae",
+      "bytes": 2686
+    },
+    {
+      "arquivo": "documentacao/docs/04_DADOS/01_MODELO_RELACIONAL.md",
+      "sha256": "452cbd03acaa2526c32f01f857a09921a6b13121e87442c2ddd3cb369dea3a59",
+      "bytes": 2657
+    },
+    {
+      "arquivo": "documentacao/docs/04_DADOS/02_DICIONARIO_ORM_GERADO.md",
+      "sha256": "61711e8779868bfeb992de63fd19fc370b724177766b9f1b845acb502495b632",
+      "bytes": 22451
+    },
+    {
+      "arquivo": "documentacao/docs/04_DADOS/03_MIGRACOES_EVOLUCAO.md",
+      "sha256": "2367138534624350bfc962651fdaafc00a2d6ee06dca2abb66539a62025193c1",
+      "bytes": 1958
+    },
+    {
+      "arquivo": "documentacao/docs/05_INTERFACE/01_DESIGN_SYSTEM.md",
+      "sha256": "154d0fcaf841e8e2697d7a1f67e3ed7f9c553e097b1638ba55b4d1786b87a53f",
+      "bytes": 2339
+    },
+    {
+      "arquivo": "documentacao/docs/05_INTERFACE/02_ROTAS_TELAS_FORMULARIOS.md",
+      "sha256": "cff0efd226fe9cd2bc764d49f2655978173a8f48fd99d78933b3ea0a64cd7bda",
+      "bytes": 2046
+    },
+    {
+      "arquivo": "documentacao/docs/05_INTERFACE/03_CATALOGO_ROTAS_GERADO.md",
+      "sha256": "32d502439a4b54322f4abca1565db8acecec5927e83b4c469cfd25e032900dee",
+      "bytes": 12355
+    },
+    {
+      "arquivo": "documentacao/docs/06_SEGURANCA/01_MODELO_AMEACAS.md",
+      "sha256": "d67f4346f190fe31dad9089418c3c82767df8779dfacae01b0add08908242974",
+      "bytes": 2537
+    },
+    {
+      "arquivo": "documentacao/docs/06_SEGURANCA/02_PRIVACIDADE_DADOS.md",
+      "sha256": "b0e4499d630c8256acbdc615e3252203bbfc27a77dd1a1eacdbd7e4a98fded83",
+      "bytes": 1892
+    },
+    {
+      "arquivo": "documentacao/docs/07_OPERACOES/01_IMPLANTACAO_SELF_HOST.md",
+      "sha256": "21b9987ae6a2fe61026fd51e2bb642542cdfef32bf595fec34d0328477925d48",
+      "bytes": 2360
+    },
+    {
+      "arquivo": "documentacao/docs/07_OPERACOES/02_VARIAVEIS_AMBIENTE.md",
+      "sha256": "37d468204a7ef411c0145d8bf6101f67544504a99e7d43141767218bfb83800d",
+      "bytes": 2428
+    },
+    {
+      "arquivo": "documentacao/docs/07_OPERACOES/03_STARTUP_HEALTH.md",
+      "sha256": "25f787d4175efd8738ab7cc17f4758466de479683529a17b66a9c129e185aed0",
+      "bytes": 2027
+    },
+    {
+      "arquivo": "documentacao/docs/07_OPERACOES/04_LOGS_OBSERVABILIDADE.md",
+      "sha256": "2c2c3e5a10385a4202f1d148e4ebf47ac167b9f3c754940136783e4ac03fda44",
+      "bytes": 1912
+    },
+    {
+      "arquivo": "documentacao/docs/07_OPERACOES/05_BACKUP_ROLLBACK.md",
+      "sha256": "d2fae0e40c7216d55c2d5bab11db0d9ffb1ce7c3548a759250b6c8bd713424ae",
+      "bytes": 2025
+    },
+    {
+      "arquivo": "documentacao/docs/08_QUALIDADE/01_ESTRATEGIA_TESTES.md",
+      "sha256": "896d553438046dc4baa1a45e4f0d9797908186420102c63c349fa74170e89190",
+      "bytes": 2201
+    },
+    {
+      "arquivo": "documentacao/docs/08_QUALIDADE/02_MATRIZ_CRUD_ACEITE.md",
+      "sha256": "004a2f5c8dd8dc1c7816b22f4ec7bf5b4b4b399b4988f38192af2bdeb13ec2dc",
+      "bytes": 2705
+    },
+    {
+      "arquivo": "documentacao/docs/08_QUALIDADE/03_CICD_PROCESSO_EQUIPE.md",
+      "sha256": "b6952b1cd5aa140565d6374a2175759967acee96ee4e1a060fe1d14cab5b7337",
+      "bytes": 1999
+    },
+    {
+      "arquivo": "documentacao/docs/09_DECISOES/01_ADRS_E_STATUS.md",
+      "sha256": "26a2edbb0bf666898d60ef54b9dfb31b58fddc63c92353e7292501295605a2ed",
+      "bytes": 2474
+    },
+    {
+      "arquivo": "documentacao/docs/09_DECISOES/02_RISCOS_LIMITACOES_ROADMAP.md",
+      "sha256": "a23748f31a2fd4cd7fac9807e1b0a0153ffddfe7c3aea68208d87668bd321e2d",
+      "bytes": 2205
+    },
+    {
+      "arquivo": "documentacao/index.html",
+      "sha256": "c495ce36b84be2c0a760aec9ee779f42fdebefc615ffca7aa8215fb95ffae9cc",
+      "bytes": 7852
+    },
+    {
+      "arquivo": "documentacao/manual.html",
+      "sha256": "44c88281ec4223e9a5cbde4cf156fb6b3ac9daad230d007a29f3c9967535cc93",
+      "bytes": 166226
+    },
+    {
+      "arquivo": "favicon.svg",
+      "sha256": "453b160b0a498a5213386358990e7dfc50d8b644e098256868d3978da1b7c0b4",
+      "bytes": 253
+    },
+    {
+      "arquivo": "index.html",
+      "sha256": "20e04ff5cc840c011cbf93a069ae97a91d24970eb98c408251dd19192fa9797f",
+      "bytes": 39315
+    },
+    {
+      "arquivo": "script.js",
+      "sha256": "4c5ab0eced430d760b5742caaca500c5c6af26d314d6524947eb89920613e349",
+      "bytes": 2863
+    },
+    {
+      "arquivo": "styles.css",
+      "sha256": "165d5461be227e08f6181dc8aec7af6f6f5614003219ecce0da5b92842abd5e4",
+      "bytes": 41865
+    },
+    {
+      "arquivo": "teste/index.html",
+      "sha256": "656e331aef60a073854bd756fe37f6c9fb66ee58d6f0c0bfd65b4a31d6aa053b",
+      "bytes": 464568
+    }
+  ]
+}

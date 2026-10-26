@@ -1,0 +1,21 @@
+@startuml ALECE_Confirmacao_Saida
+' Resumo conceitual do serviço confirm_outflow da base v0.2.0
+actor Usuario
+participant "View Django" as View
+participant "FinanceService" as Service
+database "PostgreSQL" as DB
+Usuario -> View: Solicitar baixa autorizada
+View -> Service: confirm_outflow(perfil, contas, chave)
+Service -> DB: Verificar permissão, perfil e idempotência
+Service -> DB: Iniciar transação + select_for_update
+DB --> Service: Contas bloqueadas e saldos
+alt fundos, escopo e idempotência válidos
+Service -> DB: Atualizar saldos + TransactionBatch + LedgerLeg
+DB --> Service: Commit
+Service --> View: Operação confirmada
+else inválido ou falha
+Service -> DB: Rollback
+Service --> View: Erro sem alteração parcial
+end
+View --> Usuario: Resultado
+@enduml

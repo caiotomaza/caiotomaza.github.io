@@ -1,0 +1,9 @@
+flowchart LR
+  DB[(Financeiro origem)] --> EX[Exportacao]
+  EX --> ZIP[ZIP financeiro]
+  ZIP --> JSON[financeiro.json]
+  ZIP --> XLSX[leitura_financeira.xlsx]
+  ZIP --> M[manifesto.json SHA256]
+  ZIP --> VAL[Validar + backup destino]
+  VAL --> DEST[(Financeiro destino - novos IDs)]
+  NEG[Usuarios / grants / logs / secrets] -.->|excluidos| EX

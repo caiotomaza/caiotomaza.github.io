@@ -1,0 +1,14 @@
+sequenceDiagram
+  actor User as Usuario
+  participant View as View Django
+  participant Service as FinanceService
+  participant DB as PostgreSQL
+  User->>View: POST confirmar pagamento
+  View->>Service: dados validados + permissao
+  Service->>DB: BEGIN / lock / idempotencia
+  Service->>DB: TransactionBatch + pernas
+  DB-->>Service: COMMIT
+  Service-->>User: sucesso e novo saldo
+  User->>View: POST estornar
+  View->>Service: solicitar reversao
+  Service->>DB: novo batch com reversal_of

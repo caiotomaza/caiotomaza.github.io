@@ -1,0 +1,21 @@
+digraph G {
+graph [bgcolor="#FFFFFF",pad="0.35",nodesep="0.43",ranksep="0.75",fontname="Arial",fontsize="20",fontcolor="#0E6846",label="Portabilidade financeira e limites de dados",labelloc=t];
+node [shape=box,style="rounded,filled",fillcolor="#F0F5F1",color="#93B6A1",fontname="Arial",fontsize=12,fontcolor="#17261D",margin="0.2,0.14"];
+edge [color="#29875C",fontname="Arial",fontsize=10,arrowsize=.72];
+
+srcdb [label="Workspace origem\nFinanceiro"];
+export [label="Exportar portavel"];
+json [label="financeiro.json",shape=note];
+xlsx [label="leitura_financeira.xlsx",shape=note];
+manifest [label="manifesto.json\nSHA-256",shape=note];
+zip [label="ZIP financeiro",fillcolor="#C6EAD8"];
+restore [label="Validar / backup destino\nimport atomico"];
+dest [label="Workspace destino\nIDs novos",shape=cylinder];
+exclude [label="EXCLUIDOS\nUsuarios, grants, secrets, logs",fillcolor="#FCE4E4"];
+srcdb -> export;
+export -> json;export -> xlsx;export -> manifest;
+json -> zip;xlsx -> zip;manifest -> zip;
+zip -> restore -> dest;
+exclude -> export [style=dashed,arrowhead=none,label="nao exportar"];
+
+}

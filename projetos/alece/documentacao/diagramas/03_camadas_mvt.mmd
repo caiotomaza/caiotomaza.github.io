@@ -1,0 +1,10 @@
+flowchart TD
+  B[Browser] --> R[src/web.py - rotas]
+  R --> MW[Middleware]
+  MW --> V[Django View - controller HTTP]
+  V --> S[Services - casos de uso]
+  S --> M[ORM Models]
+  M --> DB[(PostgreSQL)]
+  S <--> D[Dominio puro / Decimal]
+  V --> T[Django Templates]
+  T --> B

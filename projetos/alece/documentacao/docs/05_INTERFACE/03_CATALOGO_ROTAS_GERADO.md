@@ -1,0 +1,111 @@
+# Catálogo de rotas identificadas por inspeção de código
+
+> **Base factual.** Conferência documental do `docs-alece.zip` (especificações históricas de 18/10/2026) e inspeção estática de uma distribuição do projeto de 24/10/2026 fornecida nesta conversa. As afirmações sobre implementação apontam arquivos de código; nada aqui comprova implantação real, execução dos testes de integração ou ausência de defeitos.
+
+
+> **Método:** leitura estática de chamadas `path()` e `re_path()` em `src/web.py` e `apps/**/urls.py`. Includes possuem prefixos próprios; rotas montadas em laços Python podem não aparecer aqui. Este não é um dump de URLconf Django executado.
+
+**100 declarações `path()`/`re_path()` de padrão literal encontradas.**
+
+| Origem | Caminho declarado | Nome | Handler ou include |
+|---|---|---|---|
+| `src/controller/apps/core/urls.py` | `configuracao-inicial/` | `setup` | `setup_view` |
+| `src/controller/apps/core/urls.py` | `logs-sistema/` | `system-logs-list` | `views.system_logs_legacy_redirect` |
+| `src/controller/apps/core/urls.py` | `logs-sistema/<int:log_id>/` | `system-log-detail` | `views.system_log_detail` |
+| `src/controller/apps/core/urls.py` | `permissoes/<int:workspace_id>/<int:membership_id>/` | `grant-management` | `grant_management` |
+| `src/controller/apps/core/urls.py` | `usuarios/<int:workspace_id>/` | `user-management` | `user_management` |
+| `src/controller/apps/core/urls.py` | `usuarios/<int:workspace_id>/<int:user_id>/editar/` | `user-edit` | `user_edit` |
+| `src/controller/apps/core/urls.py` | `usuarios/<int:workspace_id>/<int:user_id>/excluir/` | `user-delete-account` | `user_delete_account` |
+| `src/controller/apps/core/urls.py` | `usuarios/<int:workspace_id>/<int:user_id>/remover/` | `user-remove-access` | `user_remove_access` |
+| `src/controller/apps/core/urls.py` | `usuarios/<int:workspace_id>/<int:user_id>/revogar-sessoes/` | `user-revoke-sessions` | `user_revoke_sessions` |
+| `src/controller/apps/core/urls.py` | `usuarios/<int:workspace_id>/<int:user_id>/senha/` | `user-password-reset` | `user_password_reset` |
+| `src/controller/apps/finance/urls.py` | `nucleos/<int:workspace_id>/` | `overview` | `views.workspace_page` |
+| `src/controller/apps/finance/urls.py` | `nucleos/<int:workspace_id>/categorizacao/` | `categorization-list` | `categorization_views.categorization_list` |
+| `src/controller/apps/finance/urls.py` | `nucleos/<int:workspace_id>/categorizacao/<int:rule_id>/editar/` | `categorization-edit` | `categorization_views.categorization_edit` |
+| `src/controller/apps/finance/urls.py` | `nucleos/<int:workspace_id>/categorizacao/<int:rule_id>/excluir/` | `categorization-delete` | `categorization_views.categorization_delete` |
+| `src/controller/apps/finance/urls.py` | `nucleos/<int:workspace_id>/categorizacao/novo/` | `categorization-create` | `categorization_views.categorization_create` |
+| `src/controller/apps/finance/urls.py` | `nucleos/<int:workspace_id>/categorizacao/testar/` | `categorization-test` | `categorization_views.categorization_test` |
+| `src/controller/apps/finance/urls.py` | `nucleos/<int:workspace_id>/despesas/` | `expenses` | `views.workspace_page` |
+| `src/controller/apps/finance/urls.py` | `nucleos/<int:workspace_id>/importacoes/` | `import-list` | `import_views.import_list` |
+| `src/controller/apps/finance/urls.py` | `nucleos/<int:workspace_id>/investimentos/` | `investments` | `views.workspace_page` |
+| `src/controller/apps/finance/urls.py` | `nucleos/<int:workspace_id>/movimentacoes/` | `movements` | `views.workspace_page` |
+| `src/controller/apps/finance/urls.py` | `nucleos/<int:workspace_id>/perfis/` | `profile-list` | `views.profile_list` |
+| `src/controller/apps/finance/urls.py` | `nucleos/<int:workspace_id>/perfis/<int:profile_id>/relatorios/dre/` | `dre-report` | `reports_views.dre_report` |
+| `src/controller/apps/finance/urls.py` | `nucleos/<int:workspace_id>/perfis/<int:profile_id>/relatorios/exportar/<relatorio:report_type>/` | `export-report` | `reports_views.export_report` |
+| `src/controller/apps/finance/urls.py` | `nucleos/<int:workspace_id>/perfis/<int:profile_id>/relatorios/investimentos/` | `investment-report` | `reports_views.investment_report` |
+| `src/controller/apps/finance/urls.py` | `nucleos/<int:workspace_id>/perfis/<int:profile_id>/relatorios/metas/` | `goals-report` | `reports_views.goals_report` |
+| `src/controller/apps/finance/urls.py` | `nucleos/<int:workspace_id>/perfis/<int:profile_id>/relatorios/patrimonio/` | `equity-report` | `reports_views.equity_evolution_report` |
+| `src/controller/apps/finance/urls.py` | `nucleos/<int:workspace_id>/perfis/novo/` | `profile-create` | `views.profile_create` |
+| `src/controller/apps/finance/urls.py` | `nucleos/<int:workspace_id>/relatorios/` | `reports-dashboard` | `reports_views.reports_dashboard` |
+| `src/controller/apps/finance/urls.py` | `nucleos/<int:workspace_id>/relatorios/tecnico/` | `technical-reports` | `financial_transfer_views.technical_reports` |
+| `src/controller/apps/finance/urls.py` | `nucleos/<int:workspace_id>/relatorios/tecnico/exportar/` | `financial-export` | `financial_transfer_views.export_financial` |
+| `src/controller/apps/finance/urls.py` | `nucleos/<int:workspace_id>/relatorios/tecnico/importar/` | `financial-import` | `financial_transfer_views.import_financial` |
+| `src/controller/apps/finance/urls.py` | `perfis/<int:profile_id>/` | `profile-detail` | `views.profile_detail` |
+| `src/controller/apps/finance/urls.py` | `perfis/<int:profile_id>/contas/novo/` | `account-create` | `views.account_create` |
+| `src/controller/apps/finance/urls.py` | `perfis/<int:profile_id>/desmarcar/<tipo:kind>/<int:object_id>/` | `reverse-item` | `transaction_views.reverse_item` |
+| `src/controller/apps/finance/urls.py` | `perfis/<int:profile_id>/editar/` | `profile-edit` | `views.profile_edit` |
+| `src/controller/apps/finance/urls.py` | `perfis/<int:profile_id>/gerenciar/` | `profile-manage` | `views.profile_manage` |
+| `src/controller/apps/finance/urls.py` | `perfis/<int:profile_id>/importacoes/<int:batch_id>/` | `import-preview` | `import_views.import_preview` |
+| `src/controller/apps/finance/urls.py` | `perfis/<int:profile_id>/importacoes/<int:batch_id>/confirmar/` | `import-commit` | `import_views.import_commit` |
+| `src/controller/apps/finance/urls.py` | `perfis/<int:profile_id>/importacoes/<int:batch_id>/linhas/<int:row_id>/` | `import-row-detail` | `import_views.import_row_detail` |
+| `src/controller/apps/finance/urls.py` | `perfis/<int:profile_id>/importacoes/<int:batch_id>/linhas/<int:row_id>/editar/` | `import-row-edit` | `import_views.import_row_edit` |
+| `src/controller/apps/finance/urls.py` | `perfis/<int:profile_id>/importacoes/<int:batch_id>/relatorio/` | `import-report` | `import_views.import_report` |
+| `src/controller/apps/finance/urls.py` | `perfis/<int:profile_id>/importacoes/<int:batch_id>/simulacao/` | `import-dry-run` | `import_views.import_dry_run` |
+| `src/controller/apps/finance/urls.py` | `perfis/<int:profile_id>/importacoes/novo/` | `import-upload` | `import_views.import_upload` |
+| `src/controller/apps/finance/urls.py` | `perfis/<int:profile_id>/investimentos/<int:investment_id>/resgatar/` | `withdrawal` | `transaction_views.withdrawal` |
+| `src/controller/apps/finance/urls.py` | `perfis/<int:profile_id>/movimentacoes/<int:batch_id>/` | `movement-detail` | `transaction_views.movement_detail` |
+| `src/controller/apps/finance/urls.py` | `perfis/<int:profile_id>/movimentacoes/<int:batch_id>/estornar/` | `reverse-movement` | `transaction_views.reverse_movement` |
+| `src/controller/apps/finance/urls.py` | `perfis/<int:profile_id>/pagar/<tipo:kind>/<int:object_id>/` | `payment` | `transaction_views.payment` |
+| `src/controller/apps/finance/urls.py` | `perfis/<int:profile_id>/permissoes/` | `grant-list` | `grant_views.grant_list` |
+| `src/controller/apps/finance/urls.py` | `perfis/<int:profile_id>/permissoes/<int:membership_id>/` | `grant-edit` | `grant_views.grant_edit` |
+| `src/controller/apps/finance/urls.py` | `perfis/<int:profile_id>/renda/` | `income-edit` | `views.income_edit` |
+| `src/controller/apps/finance/urls.py` | `perfis/<int:profile_id>/reserva/` | `reserve-edit` | `views.record_edit` |
+| `src/controller/apps/finance/urls.py` | `perfis/<int:profile_id>/transferir/` | `transfer` | `transaction_views.transfer_view` |
+| `src/web.py` | `` | `home` | `views.index` |
+| `src/web.py` | `about/` | `—` | `views.about_page` |
+| `src/web.py` | `admin/` | `—` | `admin.site.urls` |
+| `src/web.py` | `administracao/` | `—` | `admin.site.urls` |
+| `src/web.py` | `configuracao-inicial/` | `setup` | `user_views.setup_view` |
+| `src/web.py` | `configuracoes/` | `configuracoes` | `public_routes.public_page` |
+| `src/web.py` | `configuracoes/api/<int:provider_id>/analisar/` | `configuracoes-api-analisar` | `settings_views.analyze_imports` |
+| `src/web.py` | `configuracoes/api/<int:provider_id>/editar/` | `configuracoes-api-editar` | `settings_views.provider_form` |
+| `src/web.py` | `configuracoes/api/<int:provider_id>/excluir/` | `configuracoes-api-excluir` | `settings_views.provider_delete` |
+| `src/web.py` | `configuracoes/api/<int:provider_id>/selecionar/` | `configuracoes-api-selecionar` | `settings_views.provider_select` |
+| `src/web.py` | `configuracoes/api/nova/` | `configuracoes-api-nova` | `settings_views.provider_form` |
+| `src/web.py` | `configuracoes/codigos/` | `configuracoes-codigos` | `settings_views.recovery_status` |
+| `src/web.py` | `configuracoes/minha-conta/` | `configuracoes-minha-conta` | `settings_views.my_information` |
+| `src/web.py` | `core/` | `—` | `include('apps.core.legacy_urls')` |
+| `src/web.py` | `despesas/` | `despesas` | `public_routes.public_page` |
+| `src/web.py` | `entrar/` | `login` | `auth_views.login_view` |
+| `src/web.py` | `financas/` | `—` | `include('apps.finance.urls')` |
+| `src/web.py` | `finance/` | `—` | `include('apps.finance.legacy_urls')` |
+| `src/web.py` | `health/live/` | `—` | `views.live` |
+| `src/web.py` | `health/ready/` | `—` | `views.ready` |
+| `src/web.py` | `healthz/` | `—` | `views.healthz` |
+| `src/web.py` | `investimentos/` | `investimentos` | `public_routes.public_page` |
+| `src/web.py` | `login/` | `—` | `auth_views.login_view` |
+| `src/web.py` | `logout/` | `—` | `auth_views.logout_view` |
+| `src/web.py` | `logs/` | `logs` | `views.system_logs_list` |
+| `src/web.py` | `logs/diagnostico/` | `logs-diagnostico` | `views.system_logs_diagnostic` |
+| `src/web.py` | `movimentacoes/` | `movimentacoes` | `public_routes.public_page` |
+| `src/web.py` | `password/change/` | `—` | `auth_views.password_change_view` |
+| `src/web.py` | `preferencias/tema/` | `preferencia-tema` | `set_theme_preference` |
+| `src/web.py` | `recovery/` | `—` | `auth_views.recovery_code_request_view` |
+| `src/web.py` | `recovery/generate/` | `—` | `auth_views.recovery_code_generate_view` |
+| `src/web.py` | `recovery/use/` | `—` | `auth_views.recovery_code_use_view` |
+| `src/web.py` | `recuperacao/` | `recovery_request` | `auth_views.recovery_code_request_view` |
+| `src/web.py` | `recuperacao/gerar/` | `recovery_generate` | `auth_views.recovery_code_generate_view` |
+| `src/web.py` | `recuperacao/usar/` | `recovery_use` | `auth_views.recovery_code_use_view` |
+| `src/web.py` | `relatorios/` | `relatorios` | `public_routes.public_technical_reports` |
+| `src/web.py` | `relatorios/exportar/` | `relatorios-exportar` | `public_routes.public_financial_export` |
+| `src/web.py` | `relatorios/importar/` | `relatorios-importar` | `public_routes.public_financial_import` |
+| `src/web.py` | `sair/` | `logout` | `auth_views.logout_view` |
+| `src/web.py` | `saude/` | `healthz` | `views.healthz` |
+| `src/web.py` | `saude/ativo/` | `health-live` | `views.live` |
+| `src/web.py` | `saude/pronto/` | `health-ready` | `views.ready` |
+| `src/web.py` | `selecionar-nucleo/<int:workspace_id>/` | `selecionar-nucleo` | `public_routes.select_workspace` |
+| `src/web.py` | `senha/alterar/` | `password_change` | `auth_views.password_change_view` |
+| `src/web.py` | `setup/` | `—` | `user_views.setup_view` |
+| `src/web.py` | `sistema/` | `—` | `include('apps.core.urls')` |
+| `src/web.py` | `sobre/` | `about-page` | `views.about_page` |
+| `src/web.py` | `visao-geral/` | `visao-geral` | `public_routes.public_page` |

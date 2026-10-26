@@ -1,0 +1,18 @@
+digraph G {
+graph [bgcolor="#FFFFFF",pad="0.35",nodesep="0.43",ranksep="0.75",fontname="Arial",fontsize="20",fontcolor="#0E6846",label="Contexto do sistema",labelloc=t];
+node [shape=box,style="rounded,filled",fillcolor="#F0F5F1",color="#93B6A1",fontname="Arial",fontsize=12,fontcolor="#17261D",margin="0.2,0.14"];
+edge [color="#29875C",fontname="Arial",fontsize=10,arrowsize=.72];
+
+usuario [label="Pessoa usuaria\nBrowser",fillcolor="#E0F3E9"];
+admin [label="Administrador\nBrowser",fillcolor="#E0F3E9"];
+alece [label="ALECE\nApp web Django",fillcolor="#C6EAD8",penwidth=2];
+postgres [label="PostgreSQL\nDados persistentes",shape=cylinder];
+ia [label="Provedor externo de IA\npor consentimento",style="rounded,dashed,filled"];
+arquivo [label="Extrato CSV / OFX / PDF"];
+usuario -> alece [label="HTTPS / sessão"];
+admin -> alece [label="gerencia"];
+alece -> postgres [label="ORM / transações"];
+arquivo -> alece [label="upload + revisão"];
+alece -> ia [label="JSON + consentimento",style=dashed];
+
+}

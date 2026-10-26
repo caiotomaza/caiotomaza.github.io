@@ -1,0 +1,18 @@
+digraph G {
+graph [bgcolor="#FFFFFF",pad="0.35",nodesep="0.43",ranksep="0.75",fontname="Arial",fontsize="20",fontcolor="#0E6846",label="Pagamento e estorno auditaveis",labelloc=t];
+node [shape=box,style="rounded,filled",fillcolor="#F0F5F1",color="#93B6A1",fontname="Arial",fontsize=12,fontcolor="#17261D",margin="0.2,0.14"];
+edge [color="#29875C",fontname="Arial",fontsize=10,arrowsize=.72];
+
+ob [label="Obrigacao prevista"];
+confirm [label="Confirmar pagamento\nConta(s) e valor"];
+service [label="Validar permissao\nsaldo, competencia, idempotencia"];
+trans [label="transaction.atomic",fillcolor="#C6EAD8"];
+batch [label="TransactionBatch"];
+legs [label="LedgerLeg / JournalEntry"];
+status [label="Competencia: parcial/pago"];
+reverse [label="Pedido de estorno"];
+revBatch [label="Novo Batch\nreversal_of"];
+ob -> confirm -> service -> trans -> batch -> legs -> status;
+batch -> reverse -> revBatch -> legs [label="compensar"];
+
+}

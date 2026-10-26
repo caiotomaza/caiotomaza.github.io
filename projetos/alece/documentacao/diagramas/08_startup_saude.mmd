@@ -1,0 +1,8 @@
+flowchart LR
+  S[secrets-init] --> C[Segredos validos]
+  C --> CHECK[manage.py check]
+  CHECK --> MIG[migrate - altera schema]
+  MIG --> MC[migrate --check]
+  MC --> PRE[alece_startup_check]
+  PRE --> G[Gunicorn]
+  G --> H[health/ready SQL]

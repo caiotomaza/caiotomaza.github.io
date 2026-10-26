@@ -1,0 +1,13 @@
+erDiagram
+  User ||--o{ WorkspaceMembership : pertence
+  Workspace ||--o{ WorkspaceMembership : contem
+  Workspace ||--o{ FinancialProfile : contem
+  WorkspaceMembership ||--o{ ProfileGrant : concede
+  FinancialProfile ||--o{ ProfileGrant : autoriza
+  FinancialProfile ||--o{ BankAccount : possui
+  FinancialProfile ||--o{ RecurringExpense : planeja
+  FinancialProfile ||--o{ InvestmentPosition : investe
+  FinancialProfile ||--o{ TransactionBatch : registra
+  TransactionBatch ||--o{ LedgerLeg : gera
+  FinancialProfile ||--o{ ImportBatch : importa
+  ImportBatch ||--o{ ImportRow : contem

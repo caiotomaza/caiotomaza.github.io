@@ -1,0 +1,29 @@
+digraph G {
+graph [bgcolor="#FFFFFF",pad="0.35",nodesep="0.43",ranksep="0.75",fontname="Arial",fontsize="20",fontcolor="#0E6846",label="Entidades centrais: ER simplificado",labelloc=t];
+node [shape=box,style="rounded,filled",fillcolor="#F0F5F1",color="#93B6A1",fontname="Arial",fontsize=12,fontcolor="#17261D",margin="0.2,0.14"];
+edge [color="#29875C",fontname="Arial",fontsize=10,arrowsize=.72];
+
+Workspace [label="Workspace"];
+Membership [label="WorkspaceMembership"];
+Grant [label="ProfileGrant"];
+Profile [label="FinancialProfile",fillcolor="#C6EAD8"];
+User [label="auth.User"];
+Account [label="BankAccount"];
+Expense [label="RecurringExpense\nUnexpectedExpense"];
+Investment [label="InvestmentPosition\nReservePolicy"];
+Batch [label="TransactionBatch"];
+Ledger [label="LedgerLeg\nJournalEntry"];
+Import [label="ImportBatch\nImportRow"];
+Workspace -> Membership [label="1:N"];
+User -> Membership [label="1:N"];
+Workspace -> Profile [label="1:N"];
+Membership -> Grant [label="1:N"];
+Profile -> Grant [label="1:N"];
+Profile -> Account [label="1:N"];
+Profile -> Expense [label="1:N"];
+Profile -> Investment [label="1:N"];
+Profile -> Batch [label="1:N"];
+Batch -> Ledger [label="1:N"];
+Profile -> Import [label="1:N"];
+
+}
